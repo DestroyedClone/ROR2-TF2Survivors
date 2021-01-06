@@ -31,8 +31,8 @@ namespace ROR2_TF2Survivors
             CreatePrefab();
             //CreateDisplayPrefab();
             RegisterCharacter();
-            NemItemDisplays.RegisterDisplays();
-            NemforcerSkins.RegisterSkins();
+            //NemItemDisplays.RegisterDisplays();
+            //NemforcerSkins.RegisterSkins();
             RegisterProjectiles();
             CreateDoppelganger();
             CreateBossPrefab();
@@ -103,9 +103,9 @@ namespace ROR2_TF2Survivors
             LoadoutAPI.AddSkill(typeof(States.Emotes.Rest));
             */
 
-            var stateMachine = bodyComponent.GetComponent<EntityStateMachine>();
-            stateMachine.mainStateType = new SerializableEntityStateType(typeof(States.PaladinMain));
-            stateMachine.initialStateType = new SerializableEntityStateType(typeof(States.SpawnState));
+            //var stateMachine = bodyComponent.GetComponent<EntityStateMachine>();
+            //stateMachine.mainStateType = new SerializableEntityStateType(typeof(States.PaladinMain));
+            //stateMachine.initialStateType = new SerializableEntityStateType(typeof(States.SpawnState));
 
             CharacterMotor characterMotor = characterPrefab.GetComponent<CharacterMotor>();
             characterMotor.walkSpeedPenaltyCoefficient = 1f;
@@ -117,7 +117,7 @@ namespace ROR2_TF2Survivors
             characterMotor.generateParametersOnAwake = true;
 
             CameraTargetParams cameraTargetParams = characterPrefab.GetComponent<CameraTargetParams>();
-            cameraTargetParams.cameraParams = Resources.Load<GameObject>("Prefabs/CharacterBodies/MercBody").GetComponent<CameraTargetParams>().cameraParams;
+            cameraTargetParams.cameraParams = Resources.Load<GameObject>("Prefabs/CharacterBodies/LoaderBody").GetComponent<CameraTargetParams>().cameraParams;
             cameraTargetParams.cameraPivotTransform = null;
             cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
             cameraTargetParams.recoil = Vector2.zero;
@@ -203,9 +203,9 @@ namespace ROR2_TF2Survivors
             footstepHandler.footstepDustPrefab = Resources.Load<GameObject>("Prefabs/GenericFootstepDust");
             */
 
-            PhysicMaterial physicMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<RagdollController>().bones[1].GetComponent<Collider>().material;
+            //PhysicMaterial physicMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<RagdollController>().bones[1].GetComponent<Collider>().material;
 
-            characterPrefab.AddComponent<Misc.PaladinSwordController>();
+            characterPrefab.AddComponent<SaxtonHaleController>();
         }
 
         private void RegisterCharacter()
@@ -222,7 +222,7 @@ namespace ROR2_TF2Survivors
                 descriptionToken = "SAXTONHALE_DESCRIPTION",
                 primaryColor = characterColor,
                 bodyPrefab = characterPrefab,
-                displayPrefab = characterDisplay,
+                //displayPrefab = characterDisplay,
                 outroFlavorToken = "SAXTONHALE_OUTRO_FLAVOR"
             };
 
@@ -236,6 +236,91 @@ namespace ROR2_TF2Survivors
             };
 
             characterPrefab.tag = "Player";
+        }
+        private void CreateDoppelganger()
+        {
+            doppelganger = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterMasters/LoaderMonsterMaster"), "SaxtonHaleMonsterMaster");
+
+            MasterCatalog.getAdditionalEntries += delegate (List<GameObject> list)
+            {
+                list.Add(doppelganger);
+            };
+
+            CharacterMaster component = doppelganger.GetComponent<CharacterMaster>();
+            component.bodyPrefab = characterPrefab;
+        }
+        private void SkillSetup()
+        {
+            foreach (GenericSkill obj in characterPrefab.GetComponentsInChildren<GenericSkill>())
+            {
+                BaseUnityPlugin.DestroyImmediate(obj);
+            }
+
+            skillLocator = characterPrefab.GetComponent<SkillLocator>();
+
+            PassiveSetup();
+            PrimarySetup();
+            SecondarySetup();
+            UtilitySetup();
+            SpecialSetup();
+        }
+        private void PassiveSetup()
+        {
+            skillLocator.passiveSkill.enabled = true;
+            skillLocator.passiveSkill.skillNameToken = "SAXTONHALE_PASSIVE_CLASSIC_NAME";
+            skillLocator.passiveSkill.skillDescriptionToken = "SAXTONHALE_PASSIVE_CLASSIC_DESCRIPTION";
+            //skillLocator.passiveSkill.icon = Modules.Assets.iconP;
+        }
+
+        private void PrimarySetup()
+        {
+            LoadoutAPI.AddSkill(typeof(States.Slash));
+
+            SkillDef mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
+            mySkillDef.activationState = new SerializableEntityStateType(typeof(States.Slash));
+            mySkillDef.activationStateMachineName = "Weapon";
+            mySkillDef.baseMaxStock = 1;
+            mySkillDef.baseRechargeInterval = 0f;
+            mySkillDef.beginSkillCooldownOnSkillEnd = false;
+            mySkillDef.canceledFromSprinting = false;
+            mySkillDef.fullRestockOnAssign = true;
+            mySkillDef.interruptPriority = InterruptPriority.Any;
+            mySkillDef.isBullets = false;
+            mySkillDef.isCombatSkill = true;
+            mySkillDef.mustKeyPress = false;
+            mySkillDef.noSprint = true;
+            mySkillDef.rechargeStock = 1;
+            mySkillDef.requiredStock = 1;
+            mySkillDef.shootDelay = 0.5f;
+            mySkillDef.stockToConsume = 1;
+            mySkillDef.icon = Modules.Assets.icon1;
+            mySkillDef.skillDescriptionToken = "PALADIN_PRIMARY_SLASH_DESCRIPTION";
+            mySkillDef.skillName = "PALADIN_PRIMARY_SLASH_NAME";
+            mySkillDef.skillNameToken = "PALADIN_PRIMARY_SLASH_NAME";
+            mySkillDef.keywordTokens = new string[] {
+                "KEYWORD_SWORDBEAM"
+            };
+
+            LoadoutAPI.AddSkillDef(mySkillDef);
+
+            skillLocator.primary = characterPrefab.AddComponent<GenericSkill>();
+            SkillFamily newFamily = ScriptableObject.CreateInstance<SkillFamily>();
+            newFamily.variants = new SkillFamily.Variant[1];
+            LoadoutAPI.AddSkillFamily(newFamily);
+            skillLocator.primary.SetFieldValue("_skillFamily", newFamily);
+            SkillFamily skillFamily = skillLocator.primary.skillFamily;
+
+            skillFamily.variants[0] = new SkillFamily.Variant
+            {
+                skillDef = mySkillDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(mySkillDef.skillNameToken, false, null)
+            };
+        }
+
+        public class SaxtonHaleController : MonoBehaviour
+        {
+            float timeAirborne = 0f;
         }
     }
 }
