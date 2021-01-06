@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="SaxtonHale\**" />
+    <EmbeddedResource Remove="SaxtonHale\**" />
+    <None Remove="SaxtonHale\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>lib\0Harmony.dll</HintPath>
     </Reference>

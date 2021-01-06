@@ -12,7 +12,7 @@ using KinematicCharacterController;
 
 namespace ROR2_TF2Survivors
 {
-    public class SaxtonHale
+    public class Scout
     {
         public static TF2Survivors instance;
 
@@ -34,14 +34,19 @@ namespace ROR2_TF2Survivors
             //NemItemDisplays.RegisterDisplays();
             //NemforcerSkins.RegisterSkins();
             CreateDoppelganger();
-            CreateBossPrefab();
+            //CreateBossPrefab();
 
             Hooks();
         }
 
         private void Hooks()
         {
+            On.RoR2.Run.Start += GiveEquipment;
+        }
 
+        private void GiveEquipment(On.RoR2.Run.orig_Start orig, Run self)
+        {
+            orig(self);
         }
 
         private static void CreatePrefab()
@@ -63,7 +68,7 @@ namespace ROR2_TF2Survivors
 
             CharacterBody bodyComponent = characterPrefab.GetComponent<CharacterBody>();
             bodyComponent.bodyIndex = -1;
-            bodyComponent.name = "TF2SaxtonHale";
+            bodyComponent.name = "ScoutSurvivor";
             bodyComponent.baseNameToken = "SAXTONHALE_NAME";
             bodyComponent.subtitleNameToken = "SAXTONHALE_SUBTITLE";
             bodyComponent.bodyFlags = CharacterBody.BodyFlags.IgnoreFallDamage | CharacterBody.BodyFlags.ImmuneToExecutes;
