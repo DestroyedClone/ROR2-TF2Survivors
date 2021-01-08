@@ -79,7 +79,7 @@ namespace ROR2_TF2Survivors
                 LanguageAPI.Add("SCOUTSURVIVOR_EQUIPMENT_BONK_NAME", "None");
                 LanguageAPI.Add("SCOUTSURVIVOR_EQUIPMENT_BONK_DESCRIPTION", desc);
 
-                desc = "Use to deal <style=cIsDamage>+50% more damage</style>, but <style=cDeath>take 50% more damage</style> for 8 seconds.";
+                desc = "Use to deal <style=cIsDamage>+35% more damage</style>, but <style=cDeath>take +50% more damage</style> for 8 seconds.";
                 LanguageAPI.Add("SCOUTSURVIVOR_EQUIPMENT_COLA_NAME", "None");
                 LanguageAPI.Add("SCOUTSURVIVOR_EQUIPMENT_COLA_DESCRIPTION", desc);
 
