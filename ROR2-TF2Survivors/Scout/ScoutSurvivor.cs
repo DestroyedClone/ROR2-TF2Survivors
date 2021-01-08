@@ -44,27 +44,37 @@ namespace ROR2_TF2Survivors.Scout
         private void Hooks()
         {
             //On.RoR2.Run.Start += GiveEquipment;
-            RoR2.CharacterBody.onBodyStartGlobal += GiveEquipment;
+            RoR2.CharacterBody.onBodyStartGlobal += GiveEquipmentOnBodyStart;
         }
 
-        private void GiveEquipment(CharacterBody obj)
+        private void GiveEquipmentOnBodyStart(CharacterBody obj)
         {
             if (obj.bodyIndex == SurvivorCatalog.GetBodyIndexFromSurvivorIndex(SurvivorIndex.Commando))
             {
-                switch (obj.GetComponentsInChildren<GenericSkill>().FirstOrDefault(x => x.skillFamily.variants[0].skillDef.skillName == "EXPANDEDSKILLS_COMMANDOPASSIVE_NONE").skillDef.skillName)
+                switch (obj.GetComponentsInChildren<GenericSkill>().FirstOrDefault(x => x.skillFamily.variants[0].skillDef.skillName == "SCOUTSURVIVOR_EQUIPMENT_NONE_NAME").skillDef.skillName)
                 {
-                    case "EXPANDEDSKILLS_COMMANDOPASSIVE_REGEN":
+                    case "SCOUTSURVIVOR_EQUIPMENT_BONK_NAME":
                         obj.baseRegen *= 2f;
                         break;
-                    case "EXPANDEDSKILLS_COMMANDOPASSIVE_SPEED":
+                    case "SCOUTSURVIVOR_EQUIPMENT_COLA_NAME":
                         obj.baseMoveSpeed *= 1.25f;
-                        break;
-                    case "EXPANDEDSKILLS_COMMANDOPASSIVE_DAMAGE":
-                        obj.baseDamage *= 1.2f;
                         break;
                 }
             }
         }
+
+        private void GiveEquipment(CharacterBody characterBody)
+        {
+            if (NetworkServer.active)
+            {
+                var inventory = characterBody.inventory;
+                if (inventory)
+                {
+                    inventory.SetEquipmentIndex(EquipmentIndex.AffixBlue);
+                }
+            }
+        }
+
 
         private void GiveEquipment2(On.RoR2.Run.orig_Start orig, Run self)
         {
