@@ -25,36 +25,18 @@ namespace ROR2_TF2Survivors
 
         public static TF2Survivors instance;
 
-        public static event Action awake;
-        public static event Action start;
+        public static event Action AwakeEvent;
+        public static event Action StartEvent;
 
         public TF2Survivors()
         {
-            awake += TF2Survivors_Load;
-            start += TF2Survivors_LoadStart;
+            AwakeEvent += TF2Survivors_Load;
+            StartEvent += TF2Survivors_LoadStart;
         }
 
         private void TF2Survivors_Load()
         {
             instance = this;
-
-            Modules.Assets.PopulateAssets();
-            Modules.Config.ReadConfig();
-
-            CreatePrefab();
-            CreateDisplayPrefab();
-            RegisterCharacter();
-            Modules.Skins.RegisterSkins();
-            Modules.Buffs.RegisterBuffs();
-            Modules.Projectiles.RegisterProjectiles();
-            Modules.ItemDisplays.RegisterDisplays();
-            Modules.Effects.RegisterEffects();
-            Modules.Unlockables.RegisterUnlockables();
-            Modules.Tokens.AddTokens();
-
-            CreateDoppelganger();
-
-            Hook();
         }
 
         private void TF2Survivors_LoadStart()
@@ -63,7 +45,7 @@ namespace ROR2_TF2Survivors
 
         public void Awake()
         {
-            Action awake = TF2Survivors.awake;
+            Action awake = TF2Survivors.AwakeEvent;
             if (awake == null)
             {
                 return;
@@ -72,7 +54,7 @@ namespace ROR2_TF2Survivors
         }
         public void Start()
         {
-            Action start = TF2Survivors.start;
+            Action start = TF2Survivors.StartEvent;
             if (start == null)
             {
                 return;

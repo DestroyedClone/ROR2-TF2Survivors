@@ -10,6 +10,8 @@ using RoR2.Skills;
 using UnityEngine;
 using UnityEngine.Networking;
 using KinematicCharacterController;
+using ROR2_TF2Survivors.Base_Classes;
+using static ROR2_TF2Survivors.Base_Classes.EquipmentBase;
 
 namespace ROR2_TF2Survivors.Scout
 {
@@ -45,7 +47,40 @@ namespace ROR2_TF2Survivors.Scout
         {
             //On.RoR2.Run.Start += GiveEquipment;
             RoR2.CharacterBody.onBodyStartGlobal += GiveEquipmentOnBodyStart;
+            On.RoR2.HealthComponent.TakeDamage += HC_TakeDamage;
+            On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
         }
+
+        private void HC_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
+        {
+            var victim = self.body;
+            if (victim)
+            {
+                if (victim.HasBuff(Buffs.bonkBuff))
+                {
+                    // We dont reject it so that the force component still applies
+                    damageInfo.damage = 0f;
+                    damageInfo.procCoefficient = 0f;
+                    damageInfo.damageColorIndex = DamageColorIndex.Item;
+                }
+            }
+            orig(self, damageInfo);
+        }
+
+        private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
+        {
+            orig(self);
+
+            if (self)
+            {
+                if (self.HasBuff(Buffs.bonkBuff))
+                {
+                    self.attackSpeed = 0;
+                }
+            }
+        }
+        EquipmentIndex BonkIndex = EquipmentCatalog.FindEquipmentIndex("Bonk");
+        EquipmentIndex ColaIndex = EquipmentCatalog.FindEquipmentIndex("Cola");
 
         private void GiveEquipmentOnBodyStart(CharacterBody obj)
         {
@@ -54,23 +89,23 @@ namespace ROR2_TF2Survivors.Scout
                 switch (obj.GetComponentsInChildren<GenericSkill>().FirstOrDefault(x => x.skillFamily.variants[0].skillDef.skillName == "SCOUTSURVIVOR_EQUIPMENT_NONE_NAME").skillDef.skillName)
                 {
                     case "SCOUTSURVIVOR_EQUIPMENT_BONK_NAME":
-                        obj.baseRegen *= 2f;
+                        SafeGiveEquipment(obj, BonkIndex);
                         break;
                     case "SCOUTSURVIVOR_EQUIPMENT_COLA_NAME":
-                        obj.baseMoveSpeed *= 1.25f;
+                        SafeGiveEquipment(obj, ColaIndex);
                         break;
                 }
             }
         }
 
-        private void GiveEquipment(CharacterBody characterBody)
+        private void SafeGiveEquipment(CharacterBody characterBody, EquipmentIndex equipmentIndex)
         {
             if (NetworkServer.active)
             {
                 var inventory = characterBody.inventory;
-                if (inventory)
+                if (inventory && inventory.GetEquipmentIndex() == EquipmentIndex.None)
                 {
-                    inventory.SetEquipmentIndex(EquipmentIndex.AffixBlue);
+                    inventory.SetEquipmentIndex(equipmentIndex);
                 }
             }
         }

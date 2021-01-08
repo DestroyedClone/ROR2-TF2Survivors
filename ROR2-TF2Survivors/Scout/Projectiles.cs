@@ -47,8 +47,10 @@ namespace ROR2_TF2Survivors.Scout
         {
             float stopWatch = 0f;
 
-
+            void FixedUpdate()
+            {
+                stopWatch += Time.fixedDeltaTime;
+            }
         }
-
     }
 }
