@@ -29,51 +29,63 @@ namespace ROR2_TF2Survivors
                 LanguageAPI.Add("SCOUTSURVIVORBODY_MALE_BONK_SKIN_NAME", "Bonk Boy");
                 LanguageAPI.Add("SCOUTSURVIVORBODY_FEMALE_BONK_SKIN_NAME", "Bonk Girl");
 
-                LanguageAPI.Add("SCOUTSURVIVOR_PASSIVE_CLASSIC_NAME", "Irradiated Biology");
-                LanguageAPI.Add("SCOUTSURVIVOR_PASSIVE_CLASSIC_DESCRIPTION", "Scout can double jump.");
+                LanguageAPI.Add("SCOUTSURVIVOR_PASSIVE_NAME", "Irradiated Biology");
+                LanguageAPI.Add("SCOUTSURVIVOR_PASSIVE_DESCRIPTION", "Scout can <style=cIsUtility>double jump</style>." +
+                    "\n[MVM+] Scout has an <style=cIsUtility>increased interaction</style> range."); //from 3 to 5
 
                 LanguageAPI.Add("SCOUTSURVIVOR_PRIMARY_SCATTERGUN_NAME", "Scattergun");
                 LanguageAPI.Add("SCOUTSURVIVOR_PRIMARY_SCATTERGUN_DESCRIPTION", "Fire a spread of bullets that deal <style=cIsDamage>6x80% damage</style>.");
 
                 LanguageAPI.Add("SCOUTSURVIVOR_PRIMARY_FORCENATURE_NAME", "Force 'a Nature");
-                LanguageAPI.Add("SCOUTSURVIVOR_PRIMARY_FORCENATURE_DESCRIPTION", "Fire a wide spread of bullets that deal <style=cIsDamage>8x60% damage</style>.\nDeals increased knockback");
+                LanguageAPI.Add("SCOUTSURVIVOR_PRIMARY_FORCENATURE_DESCRIPTION", "Fire a wide spread of bullets that deal <style=cIsDamage>8x60% damage</style>.\nDeals <style=cIsUtility>increased knockback<style>.");
 
                 desc = "Fire a stream of bullets that deal <style=cIsDamage>70% damage</style>.\n<style=cIsUtility>Holds 12. Adds 12 per mag.</style>";
                 LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_PISTOL_NAME", "Pistol");
                 LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_PISTOL_DESCRIPTION", desc);
 
-                desc = "Throw a cleaver for <style=cIsDamage>100% damage that bleeds the enemy</style> on hit. Deals a critical hit at maximum range and will recharge 25% quicker.";
+                desc = "<style=cIsUtility>Bleeding.</style> Throw a cleaver for <style=cIsDamage>100% damage that bleeds the enemy</style> on hit. Deals a <style=cIsDamage>critical hit</style> at maximum range and will <style=cIsUtility>recharge 25% quicker</style>.";
                 LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_CLEAVER_NAME", "The Flying Guiollotine");
                 LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_CLEAVER_DESCRIPTION", desc);
 
-                desc = "Milking. Throw a jar to douse enemies, inflicting <style=cIsUtility>Milked</style>. " +
+                desc = "<style=cIsUtility>Milking.</style> Throw a jar to douse enemies, inflicting <style=cIsUtility>Milked</style>. " +
                     "Allies that hit <style=cIsUtility>milked</style> enemies <style=cIsHealing> heal 5% of damage dealt.</style>" +
                     "Can extinguish 25% of burn stacks off an ally.";
                 LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_MILK_NAME", "Mad Milk");
                 LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_MILKL_DESCRIPTION", desc);
 
-                desc = "Swing your weapon for <style=cIsDamage>30% damage</style> and <style=cIsUtility>mark the enemy for death</style>." +
+                desc = "<style=cIsUtility>Death-Marking.</style> Swing your weapon for <style=cIsDamage>30% damage</style> and <style=cIsDamage>mark the enemy for death</style>." +
                     " <style=cDeath>Only one enemy may be marked at a time</style>.";
                 LanguageAPI.Add("SCOUTSURVIVOR_UTILITY_MARKDEATH_NAME", "Fan O' War");
                 LanguageAPI.Add("SCOUTSURVIVOR_UTILITY_MARKDEATH_DESCRIPTION", desc);
 
-                desc = "Stunning. Swing and launch a ball for <style=cIsDamage>70% damage + 40% damage</style>. If you hit an enemy at the maximum range, it stuns the enemy.";
+                desc = "<style=cIsUtility>Stunning.</style> Swing and launch a ball for <style=cIsDamage>70% damage + 40% damage</style>. If you hit an enemy at the maximum range, it stuns the enemy.";
                 LanguageAPI.Add("SCOUTSURVIVOR_UTILITY_SANDMAN_NAME", "Sandman");
                 LanguageAPI.Add("SCOUTSURVIVOR_UTILITY_SANDMAN_DESCRIPTION", desc);
 
-                desc = "Swing your club for <style=cIsDamage>70% damage</style> and <style=cIsUtility>bleed the enemy</style>.";
+                desc = "<style=cIsUtility>Bleeding.</style> Swing your club for <style=cIsDamage>70% damage</style> and <style=cIsUtility>bleed the enemy</style>.";
                 LanguageAPI.Add("SCOUTSURVIVOR_UTILITY_BLEEDBAT_NAME", "Boston Basher");
                 LanguageAPI.Add("SCOUTSURVIVOR_UTILITY_BLEEDBAT_DESCRIPTION", desc);
 
-                desc = "<style=cIsUtility>Stun</style> all enemies within 500m for 6 seconds.";
-                LanguageAPI.Add("SCOUTSURVIVOR_SPECIAL_CLASSIC_NAME", "Classic Rage");
-                LanguageAPI.Add("SCOUTSURVIVOR_SPECIAL_CLASSIC_DESCRIPTION", desc);
+                desc = "Gain +50% attack speed, +50% movement speed, and max utility charges for 8 seconds.";
+                LanguageAPI.Add("SCOUTSURVIVOR_SPECIAL_FF2_NAME", "Classic Rage");
+                LanguageAPI.Add("SCOUTSURVIVOR_SPECIAL_FF2_DESCRIPTION", desc);
 
-                desc = "<style=cIsUtility>Stun</style> all enemies within 500m for 6 seconds.";
-                LanguageAPI.Add("SCOUTSURVIVOR_EQUIPMENT_BONK_NAME", "Classic Rage");
+                desc = "Start with no equipment.";
+                LanguageAPI.Add("SCOUTSURVIVOR_EQUIPMENT_NONE_NAME", "None");
+                LanguageAPI.Add("SCOUTSURVIVOR_EQUIPMENT_NONE_DESCRIPTION", desc);
+
+                desc = "Use to gain <style=cIsUtility>immunity to damage</style> but not knockback for 8 seconds." +
+                    "\n<style=cDeath>Unable to attack while active.</style>";
+                LanguageAPI.Add("SCOUTSURVIVOR_EQUIPMENT_BONK_NAME", "None");
                 LanguageAPI.Add("SCOUTSURVIVOR_EQUIPMENT_BONK_DESCRIPTION", desc);
 
+                desc = "Use to deal <style=cIsDamage>+50% more damage</style>, but <style=cDeath>take 50% more damage</style> for 8 seconds.";
+                LanguageAPI.Add("SCOUTSURVIVOR_EQUIPMENT_COLA_NAME", "None");
+                LanguageAPI.Add("SCOUTSURVIVOR_EQUIPMENT_COLA_DESCRIPTION", desc);
+
                 LanguageAPI.Add("KEYWORD_MILKING", "When dealing damage to a milked enemy, recover 5% of health in damage.");
+                LanguageAPI.Add("KEYWORD_BLEEDING", "Deals damage over time.");
+                LanguageAPI.Add("KEYWORD_DEATHMARKING", "The afflicted enemy takes +50% more damage.");
 
             }
 

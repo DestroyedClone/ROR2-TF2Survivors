@@ -10,9 +10,9 @@ using UnityEngine;
 using UnityEngine.Networking;
 using KinematicCharacterController;
 
-namespace ROR2_TF2Survivors
+namespace ROR2_TF2Survivors.Scout
 {
-    public class Scout
+    public class ScoutSurvivor
     {
         public static TF2Survivors instance;
 
@@ -31,6 +31,7 @@ namespace ROR2_TF2Survivors
             CreatePrefab();
             //CreateDisplayPrefab();
             RegisterCharacter();
+            Buffs.RegisterBuffs();
             //NemItemDisplays.RegisterDisplays();
             //NemforcerSkins.RegisterSkins();
             CreateDoppelganger();
@@ -41,17 +42,53 @@ namespace ROR2_TF2Survivors
 
         private void Hooks()
         {
-            On.RoR2.Run.Start += GiveEquipment;
+            //On.RoR2.Run.Start += GiveEquipment;
+            RoR2.CharacterBody.onBodyStartGlobal += GiveEquipment;
         }
 
-        private void GiveEquipment(On.RoR2.Run.orig_Start orig, Run self)
+        private void GiveEquipment(CharacterBody obj)
+        {
+            if (obj.bodyIndex == SurvivorCatalog.GetBodyIndexFromSurvivorIndex(SurvivorIndex.Commando))
+            {
+                switch (obj.GetComponentsInChildren<GenericSkill>().FirstOrDefault(x => x.skillFamily.variants[0].skillDef.skillName == "EXPANDEDSKILLS_COMMANDOPASSIVE_NONE").skillDef.skillName)
+                {
+                    case "EXPANDEDSKILLS_COMMANDOPASSIVE_REGEN":
+                        obj.baseRegen *= 2f;
+                        break;
+                    case "EXPANDEDSKILLS_COMMANDOPASSIVE_SPEED":
+                        obj.baseMoveSpeed *= 1.25f;
+                        break;
+                    case "EXPANDEDSKILLS_COMMANDOPASSIVE_DAMAGE":
+                        obj.baseDamage *= 1.2f;
+                        break;
+                }
+            }
+        }
+
+        private void GiveEquipment2(On.RoR2.Run.orig_Start orig, Run self)
         {
             orig(self);
+            if (self.isServer)
+            {
+                var playerList = PlayerCharacterMasterController.instances;
+                foreach (var player in playerList)
+                {
+                    var body = player.master.GetBody();
+                    if (body)
+                    {
+                        var inventory = body.inventory;
+                        if (inventory)
+                        {
+                            inventory.SetEquipmentIndex(EquipmentIndex.AffixBlue);
+                        }
+                    }
+                }
+            }
         }
 
         private static void CreatePrefab()
         {
-            characterPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/LoaderBody"), "TF2SaxtonHale");
+            characterPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody"), "TF2Scout");
 
             characterPrefab.GetComponent<NetworkIdentity>().localPlayerAuthority = true;
 
@@ -74,26 +111,26 @@ namespace ROR2_TF2Survivors
             bodyComponent.bodyFlags = CharacterBody.BodyFlags.IgnoreFallDamage | CharacterBody.BodyFlags.ImmuneToExecutes;
             bodyComponent.rootMotionInMainState = false;
             bodyComponent.mainRootSpeed = 0;
-            bodyComponent.baseMaxHealth = 200;
-            bodyComponent.levelMaxHealth = 20;
-            bodyComponent.baseRegen = 1f;
-            bodyComponent.levelRegen = 0.5f;
+            bodyComponent.baseMaxHealth = 90;
+            bodyComponent.levelMaxHealth = 15;
+            bodyComponent.baseRegen = 0.5f;
+            bodyComponent.levelRegen = 0.25f;
             bodyComponent.baseMaxShield = 0;
             bodyComponent.levelMaxShield = 0;
-            bodyComponent.baseMoveSpeed = 7;
+            bodyComponent.baseMoveSpeed = 12;
             bodyComponent.levelMoveSpeed = 0;
             bodyComponent.baseAcceleration = 80;
             bodyComponent.baseJumpPower = 15;
             bodyComponent.levelJumpPower = 0;
-            bodyComponent.baseDamage = 12;
-            bodyComponent.levelDamage = 2.4f;
+            bodyComponent.baseDamage = 15;
+            bodyComponent.levelDamage = 1.5f;
             bodyComponent.baseAttackSpeed = 1;
             bodyComponent.levelAttackSpeed = 0;
             bodyComponent.baseCrit = 1;
             bodyComponent.levelCrit = 0;
             bodyComponent.baseArmor = 15;
             bodyComponent.levelArmor = 0f;
-            bodyComponent.baseJumpCount = 1;
+            bodyComponent.baseJumpCount = 2; //change
             bodyComponent.sprintingSpeedMultiplier = 1f; //1.45
             bodyComponent.wasLucky = false;
             bodyComponent.hideCrosshair = false;
@@ -128,7 +165,7 @@ namespace ROR2_TF2Survivors
             characterMotor.generateParametersOnAwake = true;
 
             CameraTargetParams cameraTargetParams = characterPrefab.GetComponent<CameraTargetParams>();
-            cameraTargetParams.cameraParams = Resources.Load<GameObject>("Prefabs/CharacterBodies/LoaderBody").GetComponent<CameraTargetParams>().cameraParams;
+            cameraTargetParams.cameraParams = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponent<CameraTargetParams>().cameraParams;
             cameraTargetParams.cameraPivotTransform = null;
             cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
             cameraTargetParams.recoil = Vector2.zero;
@@ -151,7 +188,7 @@ namespace ROR2_TF2Survivors
             healthComponent.dontShowHealthbar = false;
             healthComponent.globalDeathEventChanceCoefficient = 1f;
 
-            characterPrefab.GetComponent<Interactor>().maxInteractionDistance = 3f;
+            characterPrefab.GetComponent<Interactor>().maxInteractionDistance = 5f; //3 is default
             characterPrefab.GetComponent<InteractionDriver>().highlightInteractor = true;
 
             CharacterDeathBehavior characterDeathBehavior = characterPrefab.GetComponent<CharacterDeathBehavior>();
@@ -216,7 +253,7 @@ namespace ROR2_TF2Survivors
 
             //PhysicMaterial physicMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<RagdollController>().bones[1].GetComponent<Collider>().material;
 
-            characterPrefab.AddComponent<SaxtonHaleController>();
+            characterPrefab.AddComponent<ScoutController>();
         }
 
         private void RegisterCharacter()
@@ -228,13 +265,13 @@ namespace ROR2_TF2Survivors
 
             SurvivorDef survivorDef = new SurvivorDef
             {
-                name = "SAXTONHALE_NAME",
+                name = "SCOUTSURVIVOR_NAME",
                 //unlockableName = unlockString,
-                descriptionToken = "SAXTONHALE_DESCRIPTION",
+                descriptionToken = "SCOUTSURVIVOR_DESCRIPTION",
                 primaryColor = characterColor,
                 bodyPrefab = characterPrefab,
                 //displayPrefab = characterDisplay,
-                outroFlavorToken = "SAXTONHALE_OUTRO_FLAVOR"
+                outroFlavorToken = "SCOUTSURVIVOR_OUTRO_FLAVOR"
             };
 
             SurvivorAPI.AddSurvivor(survivorDef);
@@ -277,49 +314,10 @@ namespace ROR2_TF2Survivors
         }
         private void PassiveSetup()
         {
-            LoadoutAPI.AddSkill(typeof(ClassicPassive));
-            LoadoutAPI.AddSkill(typeof(AustraliumPassive));
-
-            SkillDef mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
-            mySkillDef.activationState = new SerializableEntityStateType(typeof(FistsAttack));
-            mySkillDef.activationStateMachineName = "Weapon";
-            mySkillDef.baseMaxStock = 1;
-            mySkillDef.baseRechargeInterval = 0f;
-            mySkillDef.beginSkillCooldownOnSkillEnd = false;
-            mySkillDef.canceledFromSprinting = false;
-            mySkillDef.fullRestockOnAssign = true;
-            mySkillDef.interruptPriority = InterruptPriority.Any;
-            mySkillDef.isBullets = false;
-            mySkillDef.isCombatSkill = false;
-            mySkillDef.mustKeyPress = false;
-            mySkillDef.noSprint = false;
-            mySkillDef.rechargeStock = 1;
-            mySkillDef.requiredStock = 1;
-            mySkillDef.shootDelay = 0f;
-            mySkillDef.stockToConsume = 1;
-            //mySkillDef.icon = Modules.Assets.icon1;
-            mySkillDef.skillDescriptionToken = "SAXTONHALE_PASSIVE_CLASSIC_DESCRIPTION";
-            mySkillDef.skillName = "SAXTONHALE_PASSIVE_CLASSIC_NAME";
-            mySkillDef.skillNameToken = "SAXTONHALE_PASSIVE_CLASSIC_NAME";
-
-            LoadoutAPI.AddSkillDef(mySkillDef);
-
-            var passiveSkill = characterPrefab.AddComponent<GenericSkill>();
-            SkillFamily passiveFamily = ScriptableObject.CreateInstance<SkillFamily>();
-            passiveFamily.variants = new SkillFamily.Variant[1];
-            LoadoutAPI.AddSkillFamily(passiveFamily);
-            skillLocator.primary.SetFieldValue("_skillFamily", passiveFamily);
-            SkillFamily skillFamily = passiveSkill.skillFamily;
-
-            skillFamily.variants[0] = new SkillFamily.Variant
-            {
-                skillDef = mySkillDef,
-                unlockableName = "",
-                viewableNode = new ViewablesCatalog.Node(mySkillDef.skillNameToken, false, null)
-            };
-
             skillLocator.passiveSkill.enabled = true;
-            //skillLocator.passiveSkill.icon = Modules.Assets.iconP;
+            skillLocator.passiveSkill.skillNameToken = "SCOUTSURVIVOR_PASSIVE_NAME";
+            skillLocator.passiveSkill.skillDescriptionToken = "SCOUTSURVIVOR_PASSIVE_DESC";
+            skillLocator.passiveSkill.icon = Resources.Load<Sprite>("textures/itemicons/texAffixGreenIcon.png");
         }
 
         private void PrimarySetup()
@@ -366,7 +364,7 @@ namespace ROR2_TF2Survivors
         }
 
 
-        public class SaxtonHaleController : MonoBehaviour
+        public class ScoutController : MonoBehaviour
         {
             float timeAirborne = 0f;
             uint killsInDuration = 0;
