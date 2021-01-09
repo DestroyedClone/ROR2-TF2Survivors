@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>ROR2_TF2Survivors</RootNamespace>
+    <RootNamespace>ROR2_Scout</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

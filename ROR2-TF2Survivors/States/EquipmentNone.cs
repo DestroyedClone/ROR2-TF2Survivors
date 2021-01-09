@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using EntityStates;
 
 namespace ROR2_Scout.States
 {
-    class EquipmentNone
+    public class EquipmentNone : BaseSkillState
     {
     }
 }
