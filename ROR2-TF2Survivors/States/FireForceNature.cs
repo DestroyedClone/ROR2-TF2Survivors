@@ -22,7 +22,7 @@ namespace ROR2_Scout.States
         public override void OnEnter()
         {
             base.OnEnter();
-            if (base.isAuthority)
+            if (base.isAuthority && base.characterMotor && !base.characterMotor.isGrounded)
             {
                 Vector3 newVector = -GetAimRay().direction * pushForce;
                 base.characterMotor.ApplyForce(newVector, true, false);
