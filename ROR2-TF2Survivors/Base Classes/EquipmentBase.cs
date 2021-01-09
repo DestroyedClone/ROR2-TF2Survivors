@@ -26,7 +26,7 @@ namespace ROR2_TF2Survivors.Base_Classes
         public virtual bool IsBoss { get; } = false;
         public virtual bool IsLunar { get; } = false;
 
-        public EquipmentIndex Index;
+        public static EquipmentIndex Index;
 
         public abstract void Init(ConfigFile config);
 

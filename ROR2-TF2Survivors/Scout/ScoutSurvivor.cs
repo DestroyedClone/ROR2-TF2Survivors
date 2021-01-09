@@ -79,8 +79,6 @@ namespace ROR2_TF2Survivors.Scout
                 }
             }
         }
-        EquipmentIndex BonkIndex = EquipmentCatalog.FindEquipmentIndex("Bonk");
-        EquipmentIndex ColaIndex = EquipmentCatalog.FindEquipmentIndex("Cola");
 
         private void GiveEquipmentOnBodyStart(CharacterBody obj)
         {
@@ -89,10 +87,10 @@ namespace ROR2_TF2Survivors.Scout
                 switch (obj.GetComponentsInChildren<GenericSkill>().FirstOrDefault(x => x.skillFamily.variants[0].skillDef.skillName == "SCOUTSURVIVOR_EQUIPMENT_NONE_NAME").skillDef.skillName)
                 {
                     case "SCOUTSURVIVOR_EQUIPMENT_BONK_NAME":
-                        SafeGiveEquipment(obj, Equipments.BonkEquipment.);
+                        SafeGiveEquipment(obj, Equipments.BonkEquipment.Index);
                         break;
                     case "SCOUTSURVIVOR_EQUIPMENT_COLA_NAME":
-                        SafeGiveEquipment(obj, ColaIndex);
+                        SafeGiveEquipment(obj, Equipments.ColaEquipment.Index);
                         break;
                 }
             }

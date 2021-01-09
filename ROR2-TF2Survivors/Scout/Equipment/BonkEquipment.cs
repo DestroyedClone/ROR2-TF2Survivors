@@ -37,7 +37,7 @@ namespace ROR2_TF2Survivors.Scout.Equipments
 
         private void CreateConfig(ConfigFile config)
         {
-            cooldown = config.Bind<float>("Equipment: " + EquipmentName, "Cooldown duration", 60f, "How long should the cooldown be? (seconds)").Value;
+            cooldown = config.Bind<float>("Equipment: " + EquipmentName, "Cooldown duration", 60f, "How long should the cooldown be? (seconds)");
         }
 
         public override ItemDisplayRuleDict CreateItemDisplayRules()
