@@ -89,7 +89,7 @@ namespace ROR2_TF2Survivors.Scout
                 switch (obj.GetComponentsInChildren<GenericSkill>().FirstOrDefault(x => x.skillFamily.variants[0].skillDef.skillName == "SCOUTSURVIVOR_EQUIPMENT_NONE_NAME").skillDef.skillName)
                 {
                     case "SCOUTSURVIVOR_EQUIPMENT_BONK_NAME":
-                        SafeGiveEquipment(obj, BonkIndex);
+                        SafeGiveEquipment(obj, Equipments.BonkEquipment.);
                         break;
                     case "SCOUTSURVIVOR_EQUIPMENT_COLA_NAME":
                         SafeGiveEquipment(obj, ColaIndex);

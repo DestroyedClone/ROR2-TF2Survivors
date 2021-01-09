@@ -27,6 +27,7 @@ namespace ROR2_TF2Survivors.Scout
             cleaverProjectile.GetComponent<ProjectileImpactExplosion>().timerAfterImpact = false;
             //cleaverProjectile.GetComponent<ProjectileSimple>().velocity = 10; //doesnt work?
 
+
             ProjectileCatalog.getAdditionalEntries += list =>
             {
                 list.Add(cleaverProjectile);
@@ -43,13 +44,54 @@ namespace ROR2_TF2Survivors.Scout
         private static void RegProj(GameObject g)
         { if (g) PrefabAPI.RegisterNetworkPrefab(g); }
 
-        public class CleaverController : MonoBehaviour
+        public class CleaverController : MonoBehaviour, IProjectileImpactBehavior
         {
             float stopWatch = 0f;
+
+
+            void Awake()
+            {
+
+            }
 
             void FixedUpdate()
             {
                 stopWatch += Time.fixedDeltaTime;
+            }
+
+            void IProjectileImpactBehavior.OnProjectileImpact(ProjectileImpactInfo impactInfo)
+            {
+                var hitEnemy = impactInfo.collider.gameObject.GetComponent<CharacterBody>();
+                if (hitEnemy)
+                {
+
+                }
+            }
+        }
+
+        public class BaseballController : MonoBehaviour
+        {
+            float stopWatch = 0f;
+            readonly float maxDuration = 10f;
+            ProjectileDamage projectileDamage = null;
+            ProjectileSingleTargetImpact projectileSingleTargetImpact = null;
+
+            void Awake()
+            {
+                if (!projectileDamage || !projectileSingleTargetImpact)
+                    enabled = false;
+            } //nullcheck
+
+            void FixedUpdate()
+            {
+                stopWatch += Time.fixedDeltaTime;
+                if (stopWatch >= maxDuration)
+                {
+                    projectileDamage.damageType |= DamageType.Stun1s;
+                    // change later for mapwide sound
+                    projectileSingleTargetImpact.enemyHitSoundString = "";
+                    enabled = false;
+                }
             }
         }
     }
