@@ -16,6 +16,7 @@ namespace ROR2_Scout.States
             bulletCount = 8;
             recoilAmplitude = 3f;
             baseMaxDuration = 1.8f; //0.2 lower
+            force = 300f;
         }
 
         public override void OnEnter()
@@ -23,8 +24,8 @@ namespace ROR2_Scout.States
             base.OnEnter();
             if (base.isAuthority)
             {
-                Vector3 newVector = GetAimRay().direction * pushForce;
-                base.characterMotor.velocity += newVector;
+                Vector3 newVector = -GetAimRay().direction * pushForce;
+                base.characterMotor.ApplyForce(newVector, true, false);
             }
         }
     }
