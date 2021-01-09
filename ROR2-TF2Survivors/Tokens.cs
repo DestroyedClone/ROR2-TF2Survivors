@@ -47,7 +47,7 @@ namespace ROR2_Scout
 
             desc = "<style=cIsUtility>Milking.</style> Throw a jar to douse enemies, inflicting <style=cIsUtility>Milked</style>. " +
                 "Allies that hit <style=cIsUtility>milked</style> enemies <style=cIsHealing> heal 5% of damage dealt.</style>" +
-                "Can extinguish 25% of burn stacks off an ally.";
+                "Can <style=cIsUtility>extinguish</style> allies.";
             LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_MILK_NAME", "Mad Milk");
             LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_MILKL_DESCRIPTION", desc);
 

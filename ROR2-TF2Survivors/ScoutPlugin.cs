@@ -9,7 +9,10 @@ using RoR2;
 using RoR2.Skills;
 using UnityEngine;
 using UnityEngine.Networking;
+using RoR2.Networking;
 using KinematicCharacterController;
+
+using static RoR2.SkillLocator;
 
 namespace ROR2_Scout
 {
@@ -95,11 +98,15 @@ namespace ROR2_Scout
         private void HC_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
             var victim = self.body;
+            var teamComponent = victim.teamComponent;
+            var attacker = damageInfo.attacker.gameObject?.GetComponent<CharacterBody>();
+            var attackerTeamComponent = attacker.teamComponent;
             if (victim)
             {
                 if (victim.HasBuff(Buffs.bonkBuff))
                 {
                     // We dont reject it so that the force component still applies
+                    damageInfo.damageType |= (DamageType.NonLethal | DamageType.Silent);
                     damageInfo.damage = 0f;
                     damageInfo.procCoefficient = 0f;
                     damageInfo.damageColorIndex = DamageColorIndex.Item;
@@ -109,15 +116,23 @@ namespace ROR2_Scout
                     damageInfo.damage *= 1.5f;
                 }
             }
-            if (damageInfo.attacker)
+            if (attacker)
             {
-                var attacker = damageInfo.attacker.gameObject?.GetComponent<CharacterBody>();
                 if (attacker.HasBuff(Buffs.critColaBuff))
                 {
                     damageInfo.damage *= 1.35f;
                 }
             }
+
             orig(self, damageInfo);
+
+            if (attacker)
+            {
+                if (victim && teamComponent && victim.HasBuff(Buffs.milkedDebuff) && attackerTeamComponent && attackerTeamComponent.teamIndex != teamComponent.teamIndex)
+                {
+                    attacker.healthComponent?.Heal(damageInfo.damage*0.05f, default);
+                }
+            }
         }
 
         private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
@@ -129,6 +144,51 @@ namespace ROR2_Scout
                 if (self.HasBuff(Buffs.bonkBuff))
                 {
                     self.attackSpeed = 0;
+
+                    SkillLocator skillLocator = self.skillLocator;
+                    if (skillLocator)
+                    {
+                        skillLocator.DeductCooldownFromAllSkillsServer(-1);
+                    }
+                }
+            }
+        }
+
+        public void BonkCooldownMethod(SkillLocator skillLocator)
+        {
+            if (NetworkServer.active && !skillLocator.networkIdentity.hasAuthority)
+            {
+                NetworkWriter networkWriter = new NetworkWriter();
+                networkWriter.StartMessage(63);
+                networkWriter.Write(base.gameObject);
+                networkWriter.FinishMessage();
+                NetworkConnection clientAuthorityOwner = skillLocator.networkIdentity.clientAuthorityOwner;
+                if (clientAuthorityOwner != null)
+                {
+                    clientAuthorityOwner.SendWriter(networkWriter, QosChannelIndex.defaultReliable.intVal);
+                    return;
+                }
+            }
+            else
+            {
+                GenericSkill[] array = new GenericSkill[]
+                {
+                    skillLocator.primary,
+                    skillLocator.secondary,
+                    skillLocator.utility,
+                    skillLocator.special
+                };
+                Util.ShuffleArray<GenericSkill>(array);
+                foreach (GenericSkill genericSkill in array)
+                {
+                    if (genericSkill && genericSkill.CanApplyAmmoPack())
+                    {
+                        Debug.LogFormat("Resetting skill {0}", new object[]
+                        {
+                            genericSkill.skillName
+                        });
+                        genericSkill.AddOneStock();
+                    }
                 }
             }
         }
@@ -157,28 +217,6 @@ namespace ROR2_Scout
                 if (inventory && inventory.GetEquipmentIndex() == EquipmentIndex.None)
                 {
                     inventory.SetEquipmentIndex(equipmentIndex);
-                }
-            }
-        }
-
-
-        private void GiveEquipment2(On.RoR2.Run.orig_Start orig, Run self)
-        {
-            orig(self);
-            if (self.isServer)
-            {
-                var playerList = PlayerCharacterMasterController.instances;
-                foreach (var player in playerList)
-                {
-                    var body = player.master.GetBody();
-                    if (body)
-                    {
-                        var inventory = body.inventory;
-                        if (inventory)
-                        {
-                            inventory.SetEquipmentIndex(EquipmentIndex.AffixBlue);
-                        }
-                    }
                 }
             }
         }
@@ -408,6 +446,7 @@ namespace ROR2_Scout
             SecondarySetup();
             UtilitySetup();
             SpecialSetup();
+            EquipmentSetup();
         }
         private void PassiveSetup()
         {
@@ -459,13 +498,105 @@ namespace ROR2_Scout
                 viewableNode = new ViewablesCatalog.Node(mySkillDef.skillNameToken, false, null)
             };
         }
+        private void EquipmentSetup()
+        {
+            LoadoutAPI.AddSkill(typeof(States.EquipmentNone));
+
+            SkillDef mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
+            mySkillDef.activationState = new SerializableEntityStateType(typeof(States.EquipmentNone));
+            mySkillDef.activationStateMachineName = "Weapon";
+            mySkillDef.baseMaxStock = 0;
+            mySkillDef.baseRechargeInterval = 0f;
+            mySkillDef.beginSkillCooldownOnSkillEnd = false;
+            mySkillDef.canceledFromSprinting = false;
+            mySkillDef.fullRestockOnAssign = true;
+            mySkillDef.interruptPriority = InterruptPriority.Any;
+            mySkillDef.isBullets = false;
+            mySkillDef.isCombatSkill = false;
+            mySkillDef.mustKeyPress = false;
+            mySkillDef.noSprint = true;
+            mySkillDef.rechargeStock = 0;
+            mySkillDef.requiredStock = 0;
+            mySkillDef.shootDelay = 0f;
+            mySkillDef.stockToConsume = 0;
+            //mySkillDef.icon = Modules.Assets.icon1;
+            //mySkillDef.skillDescriptionToken = "EQP DESC";
+            //mySkillDef.skillName = "EQP NAME";
+            //mySkillDef.skillNameToken = "EQP NAME TOKEN";
+
+            LoadoutAPI.AddSkillDef(mySkillDef);
+
+            var passive = characterPrefab.AddComponent<GenericSkill>();
+
+            SkillFamily newFamily = ScriptableObject.CreateInstance<SkillFamily>();
+            newFamily.variants = new SkillFamily.Variant[1];
+
+            LoadoutAPI.AddSkillFamily(newFamily);
+
+            SkillFamily skillFamilyPassive = passive.skillFamily;
+            skillFamilyPassive.variants[0] = new SkillFamily.Variant
+            {
+                skillDef = mySkillDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(mySkillDef.skillNameToken, false, null)
+            };
+        }
 
 
         public class ScoutController : MonoBehaviour
         {
             float timeAirborne = 0f;
             uint killsInDuration = 0;
+            CharacterBody scoutBody;
+            SkillLocator scoutSkillLocator;
+            bool currentlyBuffed = false;
+            float[] rechargeStopwatches =
+            {
+                0f,0f,0f,0f
+            };
+            int[] stocks =
+{
+                0,0,0,0
+            };
 
+            void FixedUpdate()
+            {
+                if (scoutBody)
+                {
+                    if (scoutBody.HasBuff(Buffs.bonkBuff))
+                    {
+                        if (!currentlyBuffed) // so it happens once
+                        {
+                            // TODO: Network this
+                            // Referenced from SkillLocator's DeductCooldownFromAllSkillsAuthority
+                            for (int i = 0; i < scoutSkillLocator.allSkills.Length; i++)
+                            {
+                                GenericSkill genericSkill = scoutSkillLocator.allSkills[i];
+
+                                rechargeStopwatches[i] = genericSkill.rechargeStopwatch;
+                                stocks[i] = genericSkill.stock;
+
+                                genericSkill.rechargeStopwatch = -1000f;
+                                genericSkill.stock = -1000;
+                                currentlyBuffed = true;
+                            }
+                        }
+                    } else
+                    {
+                        if (currentlyBuffed)
+                        { //reset the stocks back to normal
+                            for (int i = 0; i < scoutSkillLocator.allSkills.Length; i++)
+                            {
+                                GenericSkill genericSkill = scoutSkillLocator.allSkills[i];
+
+                                genericSkill.rechargeStopwatch = rechargeStopwatches[i];
+                                genericSkill.stock = stocks[i];
+                                currentlyBuffed = false;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

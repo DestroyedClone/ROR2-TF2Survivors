@@ -12,12 +12,16 @@ namespace ROR2_Scout
         public static GameObject baseballProjectile;
         public static GameObject ornamentProjectile;
 
+        public static GameObject milkSplashWard;
+
         public static void RegisterProjectiles()
         {
             cleaverProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/EngiGrenadeProjectile"), "Prefabs/Projectiles/CleaverProjectile");
             milkjarProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/EngiGrenadeProjectile"), "Prefabs/Projectiles/MilkjarProjectile");
             baseballProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/EngiGrenadeProjectile"), "Prefabs/Projectiles/BaseballProjectile");
             ornamentProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/EngiGrenadeProjectile"), "Prefabs/Projectiles/OrnamentProjectile");
+
+            milkSplashWard = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/SporeGrenadeProjectileDotZone"), "MilkSplashZone", true);
 
             cleaverProjectile.GetComponent<ProjectileController>().procCoefficient = 1f;
             cleaverProjectile.GetComponent<ProjectileDamage>().damage = 1f;
@@ -27,6 +31,13 @@ namespace ROR2_Scout
             cleaverProjectile.GetComponent<ProjectileImpactExplosion>().timerAfterImpact = false;
             //cleaverProjectile.GetComponent<ProjectileSimple>().velocity = 10; //doesnt work?
 
+            Object.Destroy(milkSplashWard.GetComponent<BuffWard>());
+
+            var newWard = milkSplashWard.AddComponent<ExtinguishZone>();
+            newWard.animateRadius = false;
+            newWard.buffDuration = 0.5f;
+            newWard.buffType = Buffs.milkedDebuff;
+
 
             ProjectileCatalog.getAdditionalEntries += list =>
             {
@@ -34,15 +45,22 @@ namespace ROR2_Scout
                 list.Add(milkjarProjectile);
                 list.Add(baseballProjectile);
                 list.Add(ornamentProjectile);
+                list.Add(milkSplashWard);
             };
 
             RegProj(cleaverProjectile);
             RegProj(milkjarProjectile);
             RegProj(baseballProjectile);
             RegProj(ornamentProjectile);
+            RegProj(milkSplashWard);
         }
         private static void RegProj(GameObject g)
         { if (g) PrefabAPI.RegisterNetworkPrefab(g); }
+
+        public class MilkSplashController : MonoBehaviour
+        {
+
+        }
 
         public class CleaverController : MonoBehaviour, IProjectileImpactBehavior
         {
