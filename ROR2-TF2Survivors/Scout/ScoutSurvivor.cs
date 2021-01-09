@@ -63,6 +63,18 @@ namespace ROR2_TF2Survivors.Scout
                     damageInfo.procCoefficient = 0f;
                     damageInfo.damageColorIndex = DamageColorIndex.Item;
                 }
+                if (victim.HasBuff(Buffs.critColaBuff))
+                {
+                    damageInfo.damage *= 1.5f;
+                }
+            }
+            if (damageInfo.attacker)
+            {
+                var attacker = damageInfo.attacker.gameObject?.GetComponent<CharacterBody>();
+                if (attacker.HasBuff(Buffs.critColaBuff))
+                {
+                    damageInfo.damage *= 1.35f;
+                }
             }
             orig(self, damageInfo);
         }
