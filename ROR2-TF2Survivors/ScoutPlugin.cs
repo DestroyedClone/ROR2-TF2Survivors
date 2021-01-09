@@ -154,44 +154,6 @@ namespace ROR2_Scout
             }
         }
 
-        public void BonkCooldownMethod(SkillLocator skillLocator)
-        {
-            if (NetworkServer.active && !skillLocator.networkIdentity.hasAuthority)
-            {
-                NetworkWriter networkWriter = new NetworkWriter();
-                networkWriter.StartMessage(63);
-                networkWriter.Write(base.gameObject);
-                networkWriter.FinishMessage();
-                NetworkConnection clientAuthorityOwner = skillLocator.networkIdentity.clientAuthorityOwner;
-                if (clientAuthorityOwner != null)
-                {
-                    clientAuthorityOwner.SendWriter(networkWriter, QosChannelIndex.defaultReliable.intVal);
-                    return;
-                }
-            }
-            else
-            {
-                GenericSkill[] array = new GenericSkill[]
-                {
-                    skillLocator.primary,
-                    skillLocator.secondary,
-                    skillLocator.utility,
-                    skillLocator.special
-                };
-                Util.ShuffleArray<GenericSkill>(array);
-                foreach (GenericSkill genericSkill in array)
-                {
-                    if (genericSkill && genericSkill.CanApplyAmmoPack())
-                    {
-                        Debug.LogFormat("Resetting skill {0}", new object[]
-                        {
-                            genericSkill.skillName
-                        });
-                        genericSkill.AddOneStock();
-                    }
-                }
-            }
-        }
 
         private void GiveEquipmentOnBodyStart(CharacterBody obj)
         {

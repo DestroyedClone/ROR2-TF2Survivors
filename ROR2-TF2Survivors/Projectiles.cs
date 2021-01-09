@@ -95,7 +95,7 @@ namespace ROR2_Scout
         {
             float stopWatch = 0f;
             readonly float maxDuration = 10f;
-            ProjectileDamage projectileDamage = null;
+            ProjectileDamage projectileDamage;
             ProjectileSingleTargetImpact projectileSingleTargetImpact = null;
 
             void Awake()
