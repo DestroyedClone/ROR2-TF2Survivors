@@ -17,100 +17,100 @@
 
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>lib\0Harmony.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>lib\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp.R2API.mm">
-      <HintPath>lib\Assembly-CSharp.R2API.mm.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\Assembly-CSharp.R2API.mm.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
-      <HintPath>lib\BepInEx.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx.Harmony">
-      <HintPath>lib\BepInEx.Harmony.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\BepInEx.Harmony.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx.MonoMod.Loader">
-      <HintPath>lib\BepInEx.MonoMod.Loader.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\BepInEx.MonoMod.Loader.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx.Preloader">
-      <HintPath>lib\BepInEx.Preloader.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\BepInEx.Preloader.dll</HintPath>
     </Reference>
     <Reference Include="BetterUI">
-      <HintPath>lib\BetterUI.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\BetterUI.dll</HintPath>
     </Reference>
     <Reference Include="ClassicItems">
-      <HintPath>lib\ClassicItems.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\ClassicItems.dll</HintPath>
     </Reference>
     <Reference Include="EnemyItemDisplays">
-      <HintPath>lib\EnemyItemDisplays.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\EnemyItemDisplays.dll</HintPath>
     </Reference>
     <Reference Include="ExtraSkillSlots">
-      <HintPath>lib\ExtraSkillSlots.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\ExtraSkillSlots.dll</HintPath>
     </Reference>
     <Reference Include="HGCSharpUtils">
-      <HintPath>lib\HGCSharpUtils.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\HGCSharpUtils.dll</HintPath>
     </Reference>
     <Reference Include="ItemStats">
-      <HintPath>lib\ItemStats.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\ItemStats.dll</HintPath>
     </Reference>
     <Reference Include="MMHOOK_Assembly-CSharp">
-      <HintPath>lib\MMHOOK_Assembly-CSharp.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\MMHOOK_Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
-      <HintPath>lib\Mono.Cecil.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Mdb">
-      <HintPath>lib\Mono.Cecil.Mdb.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\Mono.Cecil.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Pdb">
-      <HintPath>lib\Mono.Cecil.Pdb.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\Mono.Cecil.Pdb.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Rocks">
-      <HintPath>lib\Mono.Cecil.Rocks.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="MonoMod.RuntimeDetour">
-      <HintPath>lib\MonoMod.RuntimeDetour.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\MonoMod.RuntimeDetour.dll</HintPath>
     </Reference>
     <Reference Include="MonoMod.Utils">
-      <HintPath>lib\MonoMod.Utils.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\MonoMod.Utils.dll</HintPath>
     </Reference>
     <Reference Include="R2API">
-      <HintPath>lib\R2API.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\R2API.dll</HintPath>
     </Reference>
     <Reference Include="Rewired_Core">
-      <HintPath>lib\Rewired_Core.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\Rewired_Core.dll</HintPath>
     </Reference>
     <Reference Include="Rewired_CSharp">
-      <HintPath>lib\Rewired_CSharp.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\Rewired_CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Rewired_Windows_Lib">
-      <HintPath>lib\Rewired_Windows_Lib.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\Rewired_Windows_Lib.dll</HintPath>
     </Reference>
     <Reference Include="TILER2">
-      <HintPath>lib\TILER2.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\TILER2.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>lib\Unity.TextMeshPro.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>lib\UnityEngine.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>lib\UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>lib\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
-      <HintPath>lib\UnityEngine.Networking.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\UnityEngine.Networking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>lib\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>lib\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\SharedLibrary\lib\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
 

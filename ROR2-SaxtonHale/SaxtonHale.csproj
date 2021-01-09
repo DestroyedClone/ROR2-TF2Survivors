@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>ROR2_SaxtonHale</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="States\**" />
+    <EmbeddedResource Remove="States\**" />
+    <None Remove="States\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Class1.cs" />
+    <Compile Remove="SaxtonHale.cs" />
+  </ItemGroup>
+
+</Project>
