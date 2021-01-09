@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Scout\Equipment\equipmentboilerplate.cs" />
+    <Compile Remove="Equipment\equipmentboilerplate.cs" />
   </ItemGroup>
 
   <ItemGroup>

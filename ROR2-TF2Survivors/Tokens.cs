@@ -37,14 +37,14 @@ namespace ROR2_TF2Survivors
                 LanguageAPI.Add("SCOUTSURVIVOR_PRIMARY_SCATTERGUN_DESCRIPTION", "Fire a spread of bullets that deal <style=cIsDamage>6x80% damage</style>.");
 
                 LanguageAPI.Add("SCOUTSURVIVOR_PRIMARY_FORCENATURE_NAME", "Force 'a Nature");
-                LanguageAPI.Add("SCOUTSURVIVOR_PRIMARY_FORCENATURE_DESCRIPTION", "Fire a wide spread of bullets that deal <style=cIsDamage>8x60% damage</style>.\nDeals <style=cIsUtility>increased knockback<style>.");
+                LanguageAPI.Add("SCOUTSURVIVOR_PRIMARY_FORCENATURE_DESCRIPTION", "Fire a wide spread of bullets that deal <style=cIsDamage>8x60% damage</style>.\nDeals knockback to <style=cIsUtility>target and shooter<style>.");
 
                 desc = "Fire a stream of bullets that deal <style=cIsDamage>70% damage</style>.\n<style=cIsUtility>Holds 12. Adds 12 per mag.</style>";
                 LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_PISTOL_NAME", "Pistol");
                 LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_PISTOL_DESCRIPTION", desc);
 
-                desc = "<style=cIsUtility>Bleeding.</style> Throw a cleaver for <style=cIsDamage>100% damage that bleeds the enemy</style> on hit. Deals a <style=cIsDamage>critical hit</style> at maximum range and will <style=cIsUtility>recharge 25% quicker</style>.";
-                LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_CLEAVER_NAME", "The Flying Guiollotine");
+                desc = "<style=cIsUtility>Bleeding.</style> Throw a cleaver for <style=cIsDamage>100% damage that bleeds the enemy</style> on hit. Deals a <style=cIsDamage>critical hit</style> at maximum range</style>.";
+                LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_CLEAVER_NAME", "The Flying Guillotine");
                 LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_CLEAVER_DESCRIPTION", desc);
 
                 desc = "<style=cIsUtility>Milking.</style> Throw a jar to douse enemies, inflicting <style=cIsUtility>Milked</style>. " +
@@ -58,7 +58,7 @@ namespace ROR2_TF2Survivors
                 LanguageAPI.Add("SCOUTSURVIVOR_UTILITY_MARKDEATH_NAME", "Fan O' War");
                 LanguageAPI.Add("SCOUTSURVIVOR_UTILITY_MARKDEATH_DESCRIPTION", desc);
 
-                desc = "<style=cIsUtility>Stunning.</style> Swing and launch a ball for <style=cIsDamage>70% damage + 40% damage</style>. If you hit an enemy at the maximum range, it stuns the enemy.";
+                desc = "<style=cIsUtility>Stunning.</style> Swing for <style=cIsDamage>70% damage</style> and launch a ball for <style=cIsDamage>40% damage</style>. If you hit an enemy at the maximum range, it stuns the enemy.";
                 LanguageAPI.Add("SCOUTSURVIVOR_UTILITY_SANDMAN_NAME", "Sandman");
                 LanguageAPI.Add("SCOUTSURVIVOR_UTILITY_SANDMAN_DESCRIPTION", desc);
 
@@ -67,7 +67,7 @@ namespace ROR2_TF2Survivors
                 LanguageAPI.Add("SCOUTSURVIVOR_UTILITY_BLEEDBAT_DESCRIPTION", desc);
 
                 desc = "Gain +50% attack speed, +50% movement speed, and max utility charges for 8 seconds.";
-                LanguageAPI.Add("SCOUTSURVIVOR_SPECIAL_FF2_NAME", "Classic Rage");
+                LanguageAPI.Add("SCOUTSURVIVOR_SPECIAL_FF2_NAME", "Empowered");
                 LanguageAPI.Add("SCOUTSURVIVOR_SPECIAL_FF2_DESCRIPTION", desc);
 
                 desc = "Start with no equipment.";

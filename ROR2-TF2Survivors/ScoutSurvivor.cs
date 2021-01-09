@@ -10,8 +10,6 @@ using RoR2.Skills;
 using UnityEngine;
 using UnityEngine.Networking;
 using KinematicCharacterController;
-using ROR2_TF2Survivors.Base_Classes;
-using static ROR2_TF2Survivors.Base_Classes.EquipmentBase;
 
 namespace ROR2_TF2Survivors.Scout
 {
