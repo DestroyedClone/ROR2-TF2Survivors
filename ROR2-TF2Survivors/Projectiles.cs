@@ -3,7 +3,7 @@ using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
 
-namespace ROR2_TF2Survivors.Scout
+namespace ROR2_Scout
 {
     public static class Projectiles
     {

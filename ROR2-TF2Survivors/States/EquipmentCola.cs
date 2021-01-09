@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ROR2_TF2Survivors.Scout.States
+namespace ROR2_Scout.States
 {
     class EquipmentCola
     {

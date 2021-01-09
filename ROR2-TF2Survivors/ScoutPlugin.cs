@@ -11,18 +11,61 @@ using UnityEngine;
 using UnityEngine.Networking;
 using KinematicCharacterController;
 
-namespace ROR2_TF2Survivors.Scout
+namespace ROR2_Scout
 {
-    public class ScoutSurvivor
+    [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
+    [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
+    [BepInPlugin(ModGuid, ModName, ModVer)]
+    [R2APISubmoduleDependency(nameof(PrefabAPI), nameof(SurvivorAPI), nameof(LoadoutAPI), nameof(ItemAPI), nameof(DifficultyAPI), nameof(BuffAPI))]
+
+    public class ScoutPlugin : BaseUnityPlugin
     {
-        public static TF2Survivors instance;
+        public const string ModVer = "1.0.0";
+        public const string ModName = "Team Fortress 2 Scout";
+        public const string ModGuid = "com.DestroyedClone.ROR2TF2SCOUT";
+
+        public static ScoutPlugin instance;
+
+        public static event Action AwakeEvent;
+        public static event Action StartEvent;
+
+        public ScoutPlugin()
+        {
+            AwakeEvent += ScoutPlugin_Load;
+            StartEvent += ScoutPlugin_LoadStart;
+        }
+
+        private void ScoutPlugin_Load()
+        {
+            instance = this;
+        }
+
+        private void ScoutPlugin_LoadStart()
+        {
+        }
+
+        public void Awake()
+        {
+            Action awake = ScoutPlugin.AwakeEvent;
+            if (awake == null)
+            {
+                return;
+            }
+            awake();
+        }
+        public void Start()
+        {
+            Action start = ScoutPlugin.StartEvent;
+            if (start == null)
+            {
+                return;
+            }
+            start();
+        }
 
         public static GameObject characterPrefab;
 
         public GameObject doppelganger;
-
-        public static event Action Awake;
-        public static event Action Start;
 
         public static readonly Color characterColor = Color.yellow;
 

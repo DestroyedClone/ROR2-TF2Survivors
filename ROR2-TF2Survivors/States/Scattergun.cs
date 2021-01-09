@@ -15,7 +15,7 @@ using KinematicCharacterController;
 using EntityStates.Commando;
 using EntityStates.Commando.CommandoWeapon;
 
-namespace ROR2_TF2Survivors.Scout.States
+namespace ROR2_Scout.States
 {
 	public class FireShotgun : BaseState
 	{

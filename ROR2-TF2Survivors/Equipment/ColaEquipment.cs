@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ROR2_TF2Survivors.Scout.Equipments
+namespace ROR2_Scout.Equipments
 {
     public class ColaEquipment : EquipmentBase
     {

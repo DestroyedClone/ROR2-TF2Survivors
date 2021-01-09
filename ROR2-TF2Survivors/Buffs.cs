@@ -2,7 +2,7 @@
 using RoR2;
 using UnityEngine;
 
-namespace ROR2_TF2Survivors.Scout
+namespace ROR2_Scout
 {
     public static class Buffs
     {
