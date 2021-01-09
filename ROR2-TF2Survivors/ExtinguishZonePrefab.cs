@@ -231,12 +231,6 @@ namespace RoR2
 		[Tooltip("The child range indicator object. Will be scaled to the radius.")]
 		public Transform rangeIndicator;
 
-		[Tooltip("The buff type to grant")]
-		public BuffIndex buffType;
-
-		[Tooltip("The buff duration")]
-		public float buffDuration;
-
 		[Tooltip("Should the ward be floored on start")]
 		public bool floorWard;
 

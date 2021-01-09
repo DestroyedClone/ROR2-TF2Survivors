@@ -9,7 +9,7 @@ namespace ROR2_Scout.States
 {
     public class FireForceNature : FireShotgunBase
     {
-        float pushForce = 100f;
+        readonly float pushForce = 100f;
 
         public FireForceNature()
         {

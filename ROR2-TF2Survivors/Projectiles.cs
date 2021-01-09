@@ -31,13 +31,22 @@ namespace ROR2_Scout
             cleaverProjectile.GetComponent<ProjectileImpactExplosion>().timerAfterImpact = false;
             //cleaverProjectile.GetComponent<ProjectileSimple>().velocity = 10; //doesnt work?
 
-            Object.Destroy(milkSplashWard.GetComponent<BuffWard>());
+            var projectileImpactExplosion = milkjarProjectile.GetComponent<ProjectileImpactExplosion>();
+            projectileImpactExplosion.fireChildren = true;
+            projectileImpactExplosion.childrenProjectilePrefab = milkSplashWard;
+            projectileImpactExplosion.childrenCount = 1;
+
+            BuffWard buffWard = milkSplashWard.GetComponent<BuffWard>();
+            buffWard.animateRadius = false;
+            buffWard.buffDuration = 0.5f;
+            buffWard.buffType = Buffs.milkedDebuff;
+            buffWard.expireDuration = 0.6f;
+            buffWard.invertTeamFilter = true;
+            buffWard.radius = 5f;
 
             var newWard = milkSplashWard.AddComponent<ExtinguishZone>();
             newWard.animateRadius = false;
-            newWard.buffDuration = 0.5f;
-            newWard.buffType = Buffs.milkedDebuff;
-
+            newWard.radius = 5f;
 
             ProjectileCatalog.getAdditionalEntries += list =>
             {
@@ -56,11 +65,6 @@ namespace ROR2_Scout
         }
         private static void RegProj(GameObject g)
         { if (g) PrefabAPI.RegisterNetworkPrefab(g); }
-
-        public class MilkSplashController : MonoBehaviour
-        {
-
-        }
 
         public class CleaverController : MonoBehaviour, IProjectileImpactBehavior
         {
