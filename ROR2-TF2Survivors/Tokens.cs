@@ -37,7 +37,7 @@ namespace ROR2_Scout
             LanguageAPI.Add("SCOUTSURVIVOR_PRIMARY_FORCENATURE_NAME", "Force 'a Nature");
             LanguageAPI.Add("SCOUTSURVIVOR_PRIMARY_FORCENATURE_DESCRIPTION", "Fire a wide spread of bullets that deal <style=cIsDamage>8x60% damage</style>.\nDeals knockback to <style=cIsUtility>target and shooter<style>.");
 
-            desc = "Fire a stream of bullets that deal <style=cIsDamage>70% damage</style>.\n<style=cIsUtility>Holds 12. Adds 12 per mag.</style>";
+            desc = "Fire a stream of bullets that deal <style=cIsDamage>70% damage</style>.\n<style=cIsUtility>Holds 12.</style>";
             LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_PISTOL_NAME", "Pistol");
             LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_PISTOL_DESCRIPTION", desc);
 
@@ -49,7 +49,7 @@ namespace ROR2_Scout
                 "Allies that hit <style=cIsUtility>milked</style> enemies <style=cIsHealing> heal 5% of damage dealt.</style>" +
                 "Can <style=cIsUtility>extinguish</style> allies.";
             LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_MILK_NAME", "Mad Milk");
-            LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_MILKL_DESCRIPTION", desc);
+            LanguageAPI.Add("SCOUTSURVIVOR_SECONDARY_MILK_DESCRIPTION", desc);
 
             desc = "<style=cIsUtility>Death-Marking.</style> Swing your weapon for <style=cIsDamage>30% damage</style> and <style=cIsDamage>mark the enemy for death</style>." +
                 " <style=cDeath>Only one enemy may be marked at a time</style>.";

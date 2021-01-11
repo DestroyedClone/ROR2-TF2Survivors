@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scout", "ROR2-TF2Survivors\Scout.csproj", "{26B59B1F-265F-48AA-8A4F-9C3FD09CE3FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaxtonHale", "ROR2-SaxtonHale\SaxtonHale.csproj", "{22371721-7E13-4499-9133-FF56F3241538}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaxtonHale", "ROR2-SaxtonHale\SaxtonHale.csproj", "{22371721-7E13-4499-9133-FF56F3241538}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary", "SharedLibrary\SharedLibrary.csproj", "{2C67E436-53D7-452F-930A-9298BB46E2D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary", "SharedLibrary\SharedLibrary.csproj", "{2C67E436-53D7-452F-930A-9298BB46E2D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

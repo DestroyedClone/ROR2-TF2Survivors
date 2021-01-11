@@ -420,6 +420,319 @@ namespace ROR2_Scout
 
         private void PrimarySetup()
         {
+            LoadoutAPI.AddSkill(typeof(States.FireScattergun));
+
+            SkillDef mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
+            mySkillDef.activationState = new SerializableEntityStateType(typeof(States.FireScattergun));
+            mySkillDef.activationStateMachineName = "Weapon";
+            mySkillDef.baseMaxStock = 1;
+            mySkillDef.baseRechargeInterval = 0f;
+            mySkillDef.beginSkillCooldownOnSkillEnd = true;
+            mySkillDef.canceledFromSprinting = false;
+            mySkillDef.fullRestockOnAssign = true;
+            mySkillDef.interruptPriority = InterruptPriority.Any;
+            mySkillDef.isBullets = true;
+            mySkillDef.isCombatSkill = true;
+            mySkillDef.mustKeyPress = false;
+            mySkillDef.noSprint = false;
+            mySkillDef.rechargeStock = 1;
+            mySkillDef.requiredStock = 1;
+            mySkillDef.shootDelay = 0.5f;
+            mySkillDef.stockToConsume = 1;
+            //mySkillDef.icon = Modules.Assets.icon2;
+            mySkillDef.skillDescriptionToken = "SCOUTSURVIVOR_PRIMARY_SCATTERGUN_DESCRIPTION";
+            mySkillDef.skillName = "SCOUTSURVIVOR_PRIMARY_SCATTERGUN_NAME";
+            mySkillDef.skillNameToken = "SCOUTSURVIVOR_PRIMARY_SCATTERGUN_NAME";
+
+            LoadoutAPI.AddSkillDef(mySkillDef);
+
+            skillLocator.primary = characterPrefab.AddComponent<GenericSkill>();
+            SkillFamily newFamily = ScriptableObject.CreateInstance<SkillFamily>();
+            newFamily.variants = new SkillFamily.Variant[1];
+            LoadoutAPI.AddSkillFamily(newFamily);
+            skillLocator.primary.SetFieldValue("_skillFamily", newFamily);
+            SkillFamily skillFamily = skillLocator.primary.skillFamily;
+
+            skillFamily.variants[0] = new SkillFamily.Variant
+            {
+                skillDef = mySkillDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(mySkillDef.skillNameToken, false, null)
+            };
+
+            LoadoutAPI.AddSkill(typeof(States.FireForceNature));
+
+            mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
+            mySkillDef.activationState = new SerializableEntityStateType(typeof(States.FireForceNature));
+            mySkillDef.activationStateMachineName = "Weapon";
+            mySkillDef.baseMaxStock = 1;
+            mySkillDef.baseRechargeInterval = 6f;
+            mySkillDef.beginSkillCooldownOnSkillEnd = true;
+            mySkillDef.canceledFromSprinting = false;
+            mySkillDef.fullRestockOnAssign = true;
+            mySkillDef.interruptPriority = InterruptPriority.Skill;
+            mySkillDef.isBullets = false;
+            mySkillDef.isCombatSkill = true;
+            mySkillDef.mustKeyPress = false;
+            mySkillDef.noSprint = false;
+            mySkillDef.rechargeStock = 1;
+            mySkillDef.requiredStock = 1;
+            mySkillDef.shootDelay = 0.5f;
+            mySkillDef.stockToConsume = 1;
+            //mySkillDef.icon = Modules.Assets.icon2b;
+            mySkillDef.skillDescriptionToken = "SCOUTSURVIVOR_PRIMARY_FORCENATURE_DESCRIPTION";
+            mySkillDef.skillName = "SCOUTSURVIVOR_PRIMARY_FORCENATURE_NAME";
+            mySkillDef.skillNameToken = "SCOUTSURVIVOR_PRIMARY_FORCENATURE_NAME";
+
+            LoadoutAPI.AddSkillDef(mySkillDef);
+
+            Array.Resize(ref skillFamily.variants, skillFamily.variants.Length + 1);
+            skillFamily.variants[skillFamily.variants.Length - 1] = new SkillFamily.Variant
+            {
+                skillDef = mySkillDef,
+                unlockableName = "",//PALADIN_LIGHTNINGSPEARUNLOCKABLE_REWARD_ID
+                viewableNode = new ViewablesCatalog.Node(mySkillDef.skillNameToken, false, null)
+            };
+        }
+        private void SecondarySetup()
+        {
+            LoadoutAPI.AddSkill(typeof(States.FireScoutPistol));
+
+            SkillDef mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
+            mySkillDef.activationState = new SerializableEntityStateType(typeof(States.FireScoutPistol));
+            mySkillDef.activationStateMachineName = "Weapon";
+            mySkillDef.baseMaxStock = 12;
+            mySkillDef.baseRechargeInterval = 3f;
+            mySkillDef.beginSkillCooldownOnSkillEnd = true;
+            mySkillDef.canceledFromSprinting = false;
+            mySkillDef.fullRestockOnAssign = true;
+            mySkillDef.interruptPriority = InterruptPriority.Any;
+            mySkillDef.isBullets = true;
+            mySkillDef.isCombatSkill = true;
+            mySkillDef.mustKeyPress = false;
+            mySkillDef.noSprint = false;
+            mySkillDef.rechargeStock = 12;
+            mySkillDef.requiredStock = 1;
+            mySkillDef.shootDelay = 0.5f;
+            mySkillDef.stockToConsume = 1;
+            //mySkillDef.icon = Modules.Assets.icon2;
+            mySkillDef.skillDescriptionToken = "SCOUTSURVIVOR_SECONDARY_PISTOL_DESCRIPTION";
+            mySkillDef.skillName = "SCOUTSURVIVOR_SECONDARY_PISTOL_NAME";
+            mySkillDef.skillNameToken = "SCOUTSURVIVOR_SECONDARY_PISTOL_NAME";
+
+            LoadoutAPI.AddSkillDef(mySkillDef);
+
+            skillLocator.secondary = characterPrefab.AddComponent<GenericSkill>();
+            SkillFamily newFamily = ScriptableObject.CreateInstance<SkillFamily>();
+            newFamily.variants = new SkillFamily.Variant[1];
+            LoadoutAPI.AddSkillFamily(newFamily);
+            skillLocator.secondary.SetFieldValue("_skillFamily", newFamily);
+            SkillFamily skillFamily = skillLocator.secondary.skillFamily;
+
+            skillFamily.variants[0] = new SkillFamily.Variant
+            {
+                skillDef = mySkillDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(mySkillDef.skillNameToken, false, null)
+            };
+
+            LoadoutAPI.AddSkill(typeof(States.FireCleaver));
+
+            mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
+            mySkillDef.activationState = new SerializableEntityStateType(typeof(States.FireCleaver));
+            mySkillDef.activationStateMachineName = "Weapon";
+            mySkillDef.baseMaxStock = 1;
+            mySkillDef.baseRechargeInterval = 6f;
+            mySkillDef.beginSkillCooldownOnSkillEnd = true;
+            mySkillDef.canceledFromSprinting = false;
+            mySkillDef.fullRestockOnAssign = true;
+            mySkillDef.interruptPriority = InterruptPriority.Skill;
+            mySkillDef.isBullets = false;
+            mySkillDef.isCombatSkill = true;
+            mySkillDef.mustKeyPress = false;
+            mySkillDef.noSprint = false;
+            mySkillDef.rechargeStock = 1;
+            mySkillDef.requiredStock = 1;
+            mySkillDef.shootDelay = 0.5f;
+            mySkillDef.stockToConsume = 1;
+            mySkillDef.icon = Resources.Load<Sprite>("textures/itemicons/texSawmerangIcon");
+            mySkillDef.skillDescriptionToken = "SCOUTSURVIVOR_SECONDARY_CLEAVER_DESCRIPTION";
+            mySkillDef.skillName = "SCOUTSURVIVOR_SECONDARY_CLEAVER_NAME";
+            mySkillDef.skillNameToken = "SCOUTSURVIVOR_SECONDARY_CLEAVER_NAME";
+            mySkillDef.keywordTokens = new string[] {
+                "KEYWORD_BLEEDING"
+            };
+
+            LoadoutAPI.AddSkillDef(mySkillDef);
+
+            Array.Resize(ref skillFamily.variants, skillFamily.variants.Length + 1);
+            skillFamily.variants[skillFamily.variants.Length - 1] = new SkillFamily.Variant
+            {
+                skillDef = mySkillDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(mySkillDef.skillNameToken, false, null)
+            };
+
+            LoadoutAPI.AddSkill(typeof(States.FireMilk));
+
+            mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
+            mySkillDef.activationState = new SerializableEntityStateType(typeof(States.FireMilk));
+            mySkillDef.activationStateMachineName = "Weapon";
+            mySkillDef.baseMaxStock = 1;
+            mySkillDef.baseRechargeInterval = 12f;
+            mySkillDef.beginSkillCooldownOnSkillEnd = true;
+            mySkillDef.canceledFromSprinting = false;
+            mySkillDef.fullRestockOnAssign = true;
+            mySkillDef.interruptPriority = InterruptPriority.Skill;
+            mySkillDef.isBullets = false;
+            mySkillDef.isCombatSkill = true;
+            mySkillDef.mustKeyPress = false;
+            mySkillDef.noSprint = false;
+            mySkillDef.rechargeStock = 1;
+            mySkillDef.requiredStock = 1;
+            mySkillDef.shootDelay = 0.5f;
+            mySkillDef.stockToConsume = 1;
+            mySkillDef.icon = Resources.Load<Sprite>("textures/itemicons/texLifestealOnHitIcon");
+            mySkillDef.skillDescriptionToken = "SCOUTSURVIVOR_SECONDARY_MILK_DESCRIPTION";
+            mySkillDef.skillName = "SCOUTSURVIVOR_SECONDARY_MILK_NAME";
+            mySkillDef.skillNameToken = "SCOUTSURVIVOR_SECONDARY_MILK_NAME";
+            mySkillDef.keywordTokens = new string[] {
+                "KEYWORD_MILKING"
+            };
+
+            LoadoutAPI.AddSkillDef(mySkillDef);
+
+            Array.Resize(ref skillFamily.variants, skillFamily.variants.Length + 1);
+            skillFamily.variants[skillFamily.variants.Length - 1] = new SkillFamily.Variant
+            {
+                skillDef = mySkillDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(mySkillDef.skillNameToken, false, null)
+            };
+        }
+        private void UtilitySetup()
+        {
+            LoadoutAPI.AddSkill(typeof(States.FireMarkFan));
+
+            SkillDef mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
+            mySkillDef.activationState = new SerializableEntityStateType(typeof(States.FireMarkFan));
+            mySkillDef.activationStateMachineName = "Weapon";
+            mySkillDef.baseMaxStock = 1;
+            mySkillDef.baseRechargeInterval = 0f;
+            mySkillDef.beginSkillCooldownOnSkillEnd = true;
+            mySkillDef.canceledFromSprinting = false;
+            mySkillDef.fullRestockOnAssign = true;
+            mySkillDef.interruptPriority = InterruptPriority.Skill;
+            mySkillDef.isBullets = false;
+            mySkillDef.isCombatSkill = true;
+            mySkillDef.mustKeyPress = false;
+            mySkillDef.noSprint = false;
+            mySkillDef.rechargeStock = 1;
+            mySkillDef.requiredStock = 1;
+            mySkillDef.shootDelay = 0.5f;
+            mySkillDef.stockToConsume = 1;
+            mySkillDef.icon = Resources.Load<Sprite>("textures/itemicons/texDeathMarkIcon");
+            mySkillDef.skillDescriptionToken = "SCOUTSURVIVOR_UTILITY_MARKDEATH_DESCRIPTION";
+            mySkillDef.skillName = "SCOUTSURVIVOR_UTILITY_MARKDEATH_NAME";
+            mySkillDef.skillNameToken = "SCOUTSURVIVOR_UTILITY_MARKDEATH_NAME";
+            mySkillDef.keywordTokens = new string[] {
+                "KEYWORD_DEATHMARKING",
+            };
+
+            LoadoutAPI.AddSkillDef(mySkillDef);
+
+            skillLocator.utility = characterPrefab.AddComponent<GenericSkill>();
+            SkillFamily newFamily = ScriptableObject.CreateInstance<SkillFamily>();
+            newFamily.variants = new SkillFamily.Variant[1];
+            LoadoutAPI.AddSkillFamily(newFamily);
+            skillLocator.utility.SetFieldValue("_skillFamily", newFamily);
+            SkillFamily skillFamily = skillLocator.utility.skillFamily;
+
+            skillFamily.variants[0] = new SkillFamily.Variant
+            {
+                skillDef = mySkillDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(mySkillDef.skillNameToken, false, null)
+            };
+
+            LoadoutAPI.AddSkill(typeof(States.ChargeLightningSpear));
+            LoadoutAPI.AddSkill(typeof(States.ThrowLightningSpear));
+
+            mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
+            mySkillDef.activationState = new SerializableEntityStateType(typeof(States.ChargeLightningSpear));
+            mySkillDef.activationStateMachineName = "Weapon";
+            mySkillDef.baseMaxStock = 1;
+            mySkillDef.baseRechargeInterval = 6f;
+            mySkillDef.beginSkillCooldownOnSkillEnd = true;
+            mySkillDef.canceledFromSprinting = false;
+            mySkillDef.fullRestockOnAssign = true;
+            mySkillDef.interruptPriority = InterruptPriority.Skill;
+            mySkillDef.isBullets = false;
+            mySkillDef.isCombatSkill = true;
+            mySkillDef.mustKeyPress = false;
+            mySkillDef.noSprint = false;
+            mySkillDef.rechargeStock = 1;
+            mySkillDef.requiredStock = 1;
+            mySkillDef.shootDelay = 0.5f;
+            mySkillDef.stockToConsume = 1;
+            mySkillDef.icon = Modules.Assets.icon2b;
+            mySkillDef.skillDescriptionToken = "PALADIN_SECONDARY_LIGHTNING_DESCRIPTION";
+            mySkillDef.skillName = "PALADIN_SECONDARY_LIGHTNING_NAME";
+            mySkillDef.skillNameToken = "PALADIN_SECONDARY_LIGHTNING_NAME";
+            mySkillDef.keywordTokens = new string[] {
+                "KEYWORD_SHOCKING",
+                "KEYWORD_AGILE"
+            };
+
+            LoadoutAPI.AddSkillDef(mySkillDef);
+
+            Array.Resize(ref skillFamily.variants, skillFamily.variants.Length + 1);
+            skillFamily.variants[skillFamily.variants.Length - 1] = new SkillFamily.Variant
+            {
+                skillDef = mySkillDef,
+                unlockableName = "",//PALADIN_LIGHTNINGSPEARUNLOCKABLE_REWARD_ID
+                viewableNode = new ViewablesCatalog.Node(mySkillDef.skillNameToken, false, null)
+            };
+
+            LoadoutAPI.AddSkill(typeof(States.LunarShards));
+
+            mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
+            mySkillDef.activationState = new SerializableEntityStateType(typeof(States.LunarShards));
+            mySkillDef.activationStateMachineName = "Weapon";
+            mySkillDef.baseMaxStock = StaticValues.lunarShardMaxStock;
+            mySkillDef.baseRechargeInterval = 0.75f;
+            mySkillDef.beginSkillCooldownOnSkillEnd = true;
+            mySkillDef.canceledFromSprinting = false;
+            mySkillDef.fullRestockOnAssign = true;
+            mySkillDef.interruptPriority = InterruptPriority.Any;
+            mySkillDef.isBullets = false;
+            mySkillDef.isCombatSkill = true;
+            mySkillDef.mustKeyPress = false;
+            mySkillDef.noSprint = false;
+            mySkillDef.rechargeStock = 1;
+            mySkillDef.requiredStock = 1;
+            mySkillDef.shootDelay = 0.5f;
+            mySkillDef.stockToConsume = 1;
+            mySkillDef.icon = Modules.Assets.icon2c;
+            mySkillDef.skillDescriptionToken = "PALADIN_SECONDARY_LUNARSHARD_DESCRIPTION";
+            mySkillDef.skillName = "PALADIN_SECONDARY_LUNARSHARD_NAME";
+            mySkillDef.skillNameToken = "PALADIN_SECONDARY_LUNARSHARD_NAME";
+            mySkillDef.keywordTokens = new string[] {
+                "KEYWORD_AGILE"
+            };
+
+            LoadoutAPI.AddSkillDef(mySkillDef);
+
+            Array.Resize(ref skillFamily.variants, skillFamily.variants.Length + 1);
+            skillFamily.variants[skillFamily.variants.Length - 1] = new SkillFamily.Variant
+            {
+                skillDef = mySkillDef,
+                unlockableName = "PALADIN_LUNARSHARDUNLOCKABLE_REWARD_ID",
+                viewableNode = new ViewablesCatalog.Node(mySkillDef.skillNameToken, false, null)
+            };
+        }
+        private void SpecialSetup()
+        {
             LoadoutAPI.AddSkill(typeof(FistsAttack));
 
             SkillDef mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
