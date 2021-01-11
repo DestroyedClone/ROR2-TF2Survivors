@@ -44,9 +44,11 @@ namespace ROR2_Scout
             buffWard.invertTeamFilter = true;
             buffWard.radius = 5f;
 
-            var newWard = milkSplashWard.AddComponent<ExtinguishZone>();
+            var newWard = milkSplashWard.AddComponent<ExtinguishZonePrefabAlt>();
             newWard.animateRadius = false;
             newWard.radius = 5f;
+
+            baseballProjectile.AddComponent<BaseballController>();
 
             ProjectileCatalog.getAdditionalEntries += list =>
             {
@@ -69,13 +71,18 @@ namespace ROR2_Scout
         public class CleaverController : MonoBehaviour, IProjectileImpactBehavior
         {
             float stopWatch = 0f;
+            readonly float maxTime = 10f;
+            bool hasHit = false;
+            ProjectileController projectileController = null;
 
-
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "UnityEngine")]
             void Awake()
             {
-
+                projectileController = gameObject.GetComponent<ProjectileController>();
+                if (!projectileController) enabled = false;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "UnityEngine")]
             void FixedUpdate()
             {
                 stopWatch += Time.fixedDeltaTime;
@@ -86,7 +93,19 @@ namespace ROR2_Scout
                 var hitEnemy = impactInfo.collider.gameObject.GetComponent<CharacterBody>();
                 if (hitEnemy)
                 {
-
+                    if (!hasHit)
+                    {
+                        Chat.AddMessage("Cleaver hit!");
+                        hasHit = true;
+                        if (stopWatch >= maxTime)
+                        {
+                            var skillLocator = projectileController.owner.GetComponent<CharacterBody>()?.masterObject.GetComponent<SkillLocator>();
+                            if (skillLocator)
+                            {
+                                skillLocator.utility.rechargeStopwatch += 1f;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -96,14 +115,21 @@ namespace ROR2_Scout
             float stopWatch = 0f;
             readonly float maxDuration = 10f;
             ProjectileDamage projectileDamage;
-            ProjectileSingleTargetImpact projectileSingleTargetImpact = null;
+            ProjectileSingleTargetImpact projectileSingleTargetImpact;
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "UnityEngine")]
             void Awake()
             {
+                projectileDamage = gameObject.GetComponent<ProjectileDamage>();
+                projectileSingleTargetImpact = gameObject.GetComponent<ProjectileSingleTargetImpact>();
                 if (!projectileDamage || !projectileSingleTargetImpact)
+                {
                     enabled = false;
+                    return;
+                }
             } //nullcheck
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "UnityEngine")]
             void FixedUpdate()
             {
                 stopWatch += Time.fixedDeltaTime;

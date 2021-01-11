@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Compile Remove="Equipment\equipmentboilerplate.cs" />
+    <Compile Remove="ExtinguishZonePrefab.cs" />
   </ItemGroup>
 
   <ItemGroup>
