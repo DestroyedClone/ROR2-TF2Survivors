@@ -28,7 +28,7 @@ namespace ROR2_Scout.States
 			if (base.fixedAge >= preShieldAnimDuration && !this.readyToActivate)
 			{
 				this.readyToActivate = true;
-				base.characterBody.AddTimedBuff(Buffs.bonkBoyBuff, buffDuration);
+				base.characterBody.AddTimedBuff(Modules.Buffs.bonkBoyBuff, buffDuration);
 			}
 			if (base.fixedAge >= this.duration && base.isAuthority)
 			{

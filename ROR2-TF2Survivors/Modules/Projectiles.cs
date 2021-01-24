@@ -3,7 +3,7 @@ using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
 
-namespace ROR2_Scout
+namespace ROR2_Scout.Modules
 {
     public static class Projectiles
     {
@@ -136,7 +136,7 @@ namespace ROR2_Scout
                 if (stopWatch >= maxDuration)
                 {
                     projectileDamage.damageType |= DamageType.Stun1s;
-                    // change later for mapwide sound
+                    // TODO: change later for mapwide sound
                     projectileSingleTargetImpact.enemyHitSoundString = "";
                     enabled = false;
                 }

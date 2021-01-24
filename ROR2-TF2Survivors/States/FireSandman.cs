@@ -16,7 +16,7 @@ namespace ROR2_Scout.States
         public bool skillUsed = false;
         public DamageType DamageTypeValue = DamageType.CrippleOnHit;
         public GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/impacteffects/critspark");
-        public static GameObject projectilePrefab = ROR2_Scout.Projectiles.baseballProjectile;
+        public static GameObject projectilePrefab = Modules.Projectiles.baseballProjectile;
         public override void OnEnter()
         {
             base.OnEnter();

@@ -29,7 +29,7 @@ namespace ROR2_Scout.States
         }
 
 		public static GameObject effectPrefab;
-        public static GameObject projectilePrefab = ROR2_Scout.Projectiles.cleaverProjectile;
+        public static GameObject projectilePrefab = Modules.Projectiles.cleaverProjectile;
 		public static float damageCoefficient;
 		public static float force;
 		public static float selfForce;

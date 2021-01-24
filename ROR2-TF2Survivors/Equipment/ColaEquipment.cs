@@ -50,7 +50,7 @@ namespace ROR2_Scout.Equipments
             var characterBody = slot.characterBody;
             if (characterBody)
             {
-                characterBody.AddTimedBuffAuthority(Buffs.critColaBuff, 8f);
+                characterBody.AddTimedBuffAuthority(Modules.Buffs.critColaBuff, 8f);
                 return true;
             }
             return false;

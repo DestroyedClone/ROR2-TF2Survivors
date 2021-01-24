@@ -1,7 +1,7 @@
 ﻿using R2API;
 using System;
 
-namespace ROR2_Scout
+namespace ROR2_Scout.Modules
 {
     public static class Tokens
     {

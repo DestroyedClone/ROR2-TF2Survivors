@@ -2,7 +2,7 @@
 using RoR2;
 using UnityEngine;
 
-namespace ROR2_Scout
+namespace ROR2_Scout.Modules
 {
     public static class Buffs
     {

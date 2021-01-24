@@ -13,7 +13,7 @@ namespace ROR2_Scout.States
 		public FireMilk()
         {
 			damageCoefficient = 0f;
-			projectilePrefab = ROR2_Scout.Projectiles.milkjarProjectile;
+			projectilePrefab = Modules.Projectiles.milkjarProjectile;
 		}
 	}
 }
