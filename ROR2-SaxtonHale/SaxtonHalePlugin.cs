@@ -64,6 +64,7 @@ namespace ROR2_SaxtonHale
             Modules.Effects.RegisterEffects(); // add and register custom effects
             Modules.Unlockables.RegisterUnlockables(); // add unlockables
             Modules.Tokens.AddTokens(); // register name tokens
+            Modules.Artifacts.RegisterArtifacts();
 
             CreateDoppelganger(); // artifact of vengeance
 

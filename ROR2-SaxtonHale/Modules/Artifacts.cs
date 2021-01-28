@@ -1,31 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using RoR2;
 using R2API;
 using UnityEngine;
 using System.Linq;
-using System.Collections.ObjectModel;
 
 
 namespace ROR2_SaxtonHale.Modules
 {
-    public class Artifacts
+    public static class Artifacts
     {
-        public readonly ArtifactDef GoombaArtifactDef = ScriptableObject.CreateInstance<ArtifactDef>();
-        private readonly float maxDistance = 2f;
-        private readonly float minFallSpeed = 10f;
-        private readonly float bounceForce = 1000f;
+        public static readonly ArtifactDef GoombaArtifactDef = ScriptableObject.CreateInstance<ArtifactDef>();
+        private static readonly float maxDistance = 2f;
+        private static readonly float minFallSpeed = 10f;
+        private static readonly float bounceForce = 1000f;
         public static GameObject goombaGameObject;
         private static DamageInfo goombaDamageInfo = new DamageInfo()
         {
             damage = 500f,
             inflictor = goombaGameObject
         };
-        private readonly string goombaDeathToken = "You have been Goomba Stomped!";
-        private readonly string goombaDeathMultiplayerToken = "{0} has been Goomba Stomped!";
+        private static readonly string goombaDeathToken = "You have been Goomba Stomped!";
+        private static readonly string goombaDeathMultiplayerToken = "{0} has been Goomba Stomped!";
 
-        public void Awake()
+        public static void RegisterArtifacts()
         {
             GoombaArtifactDef.nameToken = "Artifact of Headstomping";
             GoombaArtifactDef.descriptionToken = "Deal substantial damage upon landing on an enemy's head.";
@@ -46,7 +43,7 @@ namespace ROR2_SaxtonHale.Modules
             On.RoR2.GlobalEventManager.OnPlayerCharacterDeath += GlobalEventManager_OnPlayerCharacterDeath; //full override until i can get IL
         }
 
-        private void GlobalEventManager_OnPlayerCharacterDeath(On.RoR2.GlobalEventManager.orig_OnPlayerCharacterDeath orig, GlobalEventManager self, DamageReport damageReport, NetworkUser victimNetworkUser)
+        private static void GlobalEventManager_OnPlayerCharacterDeath(On.RoR2.GlobalEventManager.orig_OnPlayerCharacterDeath orig, GlobalEventManager self, DamageReport damageReport, NetworkUser victimNetworkUser)
         {
             if (!victimNetworkUser)
             {
@@ -86,7 +83,7 @@ namespace ROR2_SaxtonHale.Modules
             });
         }
 
-        private void CharacterMotor_OnHitGround(On.RoR2.CharacterMotor.orig_OnHitGround orig, CharacterMotor self, CharacterMotor.HitGroundInfo hitGroundInfo)
+        private static void CharacterMotor_OnHitGround(On.RoR2.CharacterMotor.orig_OnHitGround orig, CharacterMotor self, CharacterMotor.HitGroundInfo hitGroundInfo)
         {
             bool hasGoombad = false;
             bool restoreFallDamage = false;
