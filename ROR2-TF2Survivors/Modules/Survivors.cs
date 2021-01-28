@@ -16,7 +16,7 @@ namespace ROR2_Scout.Modules
             SurvivorDef survivorDef = new SurvivorDef //TODO CrossRef with document
             {
                 name = "SCOUTSURVIVOR_NAME",
-                //unlockableName = unlockString,
+                unlockableName = unlockString,
                 descriptionToken = "SCOUTSURVIVOR_DESCRIPTION",
                 primaryColor = characterColor,
                 bodyPrefab = characterPrefab,
@@ -26,4 +26,5 @@ namespace ROR2_Scout.Modules
 
             SurvivorAPI.AddSurvivor(survivorDef);
         }
+    }
 }

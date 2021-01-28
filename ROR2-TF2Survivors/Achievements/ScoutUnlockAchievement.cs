@@ -5,47 +5,85 @@ using System;
 
 namespace ROR2_Scout.Achievements
 {
-    public class ScoutUnlockAchievement : ModdedUnlockableAndAchievement<CustomSpriteProvider>
+    public class ScoutUnlockAchievement : ModdedUnlockableAndAchievement<CustomSpriteProvider> //TODO: Taken from HuntressCollectCrowbarsAchievement
     {
-        public override String AchievementIdentifier { get; } = "PALADIN_UNLOCKABLE_ACHIEVEMENT_ID";
-        public override String UnlockableIdentifier { get; } = "PALADIN_UNLOCKABLE_REWARD_ID";
-        public override String PrerequisiteUnlockableIdentifier { get; } = "PALADIN_UNLOCKABLE_PREREQ_ID";
-        public override String AchievementNameToken { get; } = "PALADIN_UNLOCKABLE_ACHIEVEMENT_NAME";
-        public override String AchievementDescToken { get; } = "PALADIN_UNLOCKABLE_ACHIEVEMENT_DESC";
-        public override String UnlockableNameToken { get; } = "PALADIN_UNLOCKABLE_UNLOCKABLE_NAME";
+        public override String AchievementIdentifier { get; } = "SCOUTSURVIVOR_UNLOCKABLE_ACHIEVEMENT_ID";
+        public override String UnlockableIdentifier { get; } = "SCOUTSURVIVOR_UNLOCKABLE_REWARD_ID";
+        public override String PrerequisiteUnlockableIdentifier { get; } = "SCOUTSURVIVOR_UNLOCKABLE_PREREQ_ID";
+        public override String AchievementNameToken { get; } = "SCOUTSURVIVOR_UNLOCKABLE_ACHIEVEMENT_NAME";
+        public override String AchievementDescToken { get; } = "SCOUTSURVIVOR_UNLOCKABLE_ACHIEVEMENT_DESC";
+        public override String UnlockableNameToken { get; } = "SCOUTSURVIVOR_UNLOCKABLE_UNLOCKABLE_NAME";
         protected override CustomSpriteProvider SpriteProvider { get; } = new CustomSpriteProvider("@Paladin:Assets/Paladin/Icons/texPaladinAchievement.png");
 
         public override int LookUpRequiredBodyIndex()
         {
-            return BodyCatalog.FindBodyIndex("MinerBody");
+            return BodyCatalog.FindBodyIndex("TF2Scout");
         }
 
-        private void Check(On.RoR2.SceneDirector.orig_Start orig, SceneDirector self)
-        {
-            if (self)
-            {
-                if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "limbo")
-                {
-                    base.Grant();
-                }
-            }
+		// Token: 0x060032E9 RID: 13033 RVA: 0x000D06F5 File Offset: 0x000CE8F5
+		public override void OnInstall()
+		{
+			base.OnInstall();
+		}
 
-            orig(self);
-        }
+		public override void OnUninstall()
+		{
+			this.SetCurrentInventory(null);
+			base.OnUninstall();
+		}
 
-        public override void OnInstall()
-        {
-            base.OnInstall();
+		private void UpdateInventory()
+		{
+			Inventory inventory = null;
+			if (base.localUser.cachedMasterController)
+			{
+				inventory = base.localUser.cachedMasterController.master.inventory;
+			}
+			this.SetCurrentInventory(inventory);
+		}
 
-            On.RoR2.SceneDirector.Start += this.Check;
-        }
+		private void SetCurrentInventory(Inventory newInventory)
+		{
+			if (this.currentInventory == newInventory)
+			{
+				return;
+			}
+			if (this.currentInventory != null)
+			{
+				this.currentInventory.onInventoryChanged -= this.OnInventoryChanged;
+			}
+			this.currentInventory = newInventory;
+			if (this.currentInventory != null)
+			{
+				this.currentInventory.onInventoryChanged += this.OnInventoryChanged;
+				this.OnInventoryChanged();
+			}
+		}
 
-        public override void OnUninstall()
-        {
-            base.OnUninstall();
+		public override void OnBodyRequirementMet()
+		{
+			base.OnBodyRequirementMet();
+			base.localUser.onMasterChanged += this.UpdateInventory;
+			this.UpdateInventory();
+		}
 
-            On.RoR2.SceneDirector.Start -= this.Check;
-        }
-    }
-}
+		public override void OnBodyRequirementBroken()
+		{
+			base.localUser.onMasterChanged -= this.UpdateInventory;
+			this.SetCurrentInventory(null);
+			base.OnBodyRequirementBroken();
+		}
+
+		private void OnInventoryChanged()
+		{
+			if (ScoutUnlockAchievement.requirement <= this.currentInventory.GetItemCount(ItemIndex.SprintBonus))
+			{
+				base.Grant();
+			}
+		}
+
+		private Inventory currentInventory;
+
+		private static readonly int requirement = 30;
+	}
 }

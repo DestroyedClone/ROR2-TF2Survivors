@@ -18,7 +18,7 @@ namespace ROR2_Scout.Modules
             LanguageAPI.Add("SCOUTSURVIVOR_DESCRIPTION", desc);
             LanguageAPI.Add("SCOUTSURVIVOR_SUBTITLE", "Force of Nature");
             LanguageAPI.Add("SCOUTSURVIVOR_LORE", "Born and raised in Boston, Massachusetts, USA, the Scout is a fast-running scrapper with a baseball bat and a snarky \"in-your-face\" attitude.");
-            LanguageAPI.Add("SCOUTSURVIVOR_OUTRO_FLAVOR", "..and so he left, really freakin' cool.");
+            LanguageAPI.Add("SCOUTSURVIVOR_OUTRO_FLAVOR", "..and so he left, irradiated beyond life.");
 
             LanguageAPI.Add("SCOUTSURVIVORBODY_RED_SKIN_NAME", "Reliable Excavation Demolition");
             LanguageAPI.Add("SCOUTSURVIVORBODY_BLU_SKIN_NAME", "Builder's League United");
@@ -84,6 +84,10 @@ namespace ROR2_Scout.Modules
             LanguageAPI.Add("KEYWORD_MILKING", "When dealing damage to a milked enemy, recover 5% of health in damage.");
             LanguageAPI.Add("KEYWORD_BLEEDING", "Deals damage over time.");
             LanguageAPI.Add("KEYWORD_DEATHMARKING", "The afflicted enemy takes +50% more damage.");
+
+            LanguageAPI.Add("PALADIN_UNLOCKABLE_ACHIEVEMENT_NAME", "A Paladin's Vow");
+            LanguageAPI.Add("PALADIN_UNLOCKABLE_ACHIEVEMENT_DESC", "Use the Beads of Fealty and become whole once more.");
+            LanguageAPI.Add("PALADIN_UNLOCKABLE_UNLOCKABLE_NAME", "A Paladin's Vow");
         }
     }
 }

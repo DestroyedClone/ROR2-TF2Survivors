@@ -6,15 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="States\**" />
-    <EmbeddedResource Remove="States\**" />
-    <None Remove="States\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Class1.cs" />
     <Compile Remove="SaxtonHale.cs" />
-    <Compile Remove="Tokens.cs" />
   </ItemGroup>
 
   <ItemGroup>

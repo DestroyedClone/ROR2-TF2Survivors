@@ -79,8 +79,6 @@ namespace ROR2_Scout
             //CreateDisplayPrefab();
             RegisterCharacter();
             Modules.Buffs.RegisterBuffs();
-            //NemItemDisplays.RegisterDisplays();
-            //NemforcerSkins.RegisterSkins();
             CreateDoppelganger();
             //CreateBossPrefab();
 
@@ -203,9 +201,9 @@ namespace ROR2_Scout
 
             CharacterBody bodyComponent = characterPrefab.GetComponent<CharacterBody>();
             bodyComponent.bodyIndex = -1;
-            bodyComponent.name = "ScoutSurvivor";
-            bodyComponent.baseNameToken = "SAXTONHALE_NAME";
-            bodyComponent.subtitleNameToken = "SAXTONHALE_SUBTITLE";
+            bodyComponent.name = "Scout";
+            bodyComponent.baseNameToken = "SCOUT_NAME";
+            bodyComponent.subtitleNameToken = "SCOUT_SUBTITLE";
             bodyComponent.bodyFlags = CharacterBody.BodyFlags.IgnoreFallDamage | CharacterBody.BodyFlags.ImmuneToExecutes;
             bodyComponent.rootMotionInMainState = false;
             bodyComponent.mainRootSpeed = 0;
@@ -395,71 +393,5 @@ namespace ROR2_Scout
         }
 
 
-        public class ScoutController : MonoBehaviour
-        {
-            CharacterBody scoutBody;
-            SkillLocator scoutSkillLocator;
-            bool currentlyBuffed = false;
-            readonly float[] rechargeStopwatches = //rd
-            {
-                0f,0f,0f,0f
-            };
-            readonly int[] stocks = //rd
-{
-                0,0,0,0
-            };
-
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "UnityEngine")]
-            void Awake()
-            {
-                scoutBody = gameObject.GetComponent<CharacterBody>();
-                scoutSkillLocator = scoutBody?.masterObject.GetComponent<SkillLocator>();
-                if (!scoutBody || !scoutSkillLocator)
-                {
-                    Chat.AddMessage("ScoutController failed: missing objects");
-                    enabled = false;
-                }
-            }
-
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "UnityEngine")]
-            void FixedUpdate()
-            {
-                if (scoutBody)
-                {
-                    if (scoutBody.HasBuff(Modules.Buffs.bonkBuff))
-                    {
-                        if (!currentlyBuffed) // so it happens once
-                        {
-                            // TODO: Network this
-                            // Referenced from SkillLocator's DeductCooldownFromAllSkillsAuthority
-                            for (int i = 0; i < scoutSkillLocator.allSkills.Length; i++)
-                            {
-                                GenericSkill genericSkill = scoutSkillLocator.allSkills[i];
-
-                                rechargeStopwatches[i] = genericSkill.rechargeStopwatch;
-                                stocks[i] = genericSkill.stock;
-
-                                genericSkill.rechargeStopwatch = -1000f;
-                                genericSkill.stock = -1000;
-                                currentlyBuffed = true;
-                            }
-                        }
-                    } else
-                    {
-                        if (currentlyBuffed)
-                        { //reset the stocks back to normal
-                            for (int i = 0; i < scoutSkillLocator.allSkills.Length; i++)
-                            {
-                                GenericSkill genericSkill = scoutSkillLocator.allSkills[i];
-
-                                genericSkill.rechargeStopwatch = rechargeStopwatches[i];
-                                genericSkill.stock = stocks[i];
-                                currentlyBuffed = false;
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 }

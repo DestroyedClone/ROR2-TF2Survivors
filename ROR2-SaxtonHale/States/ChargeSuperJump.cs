@@ -73,10 +73,6 @@ namespace ROR2_TF2Survivors
 				base.PlayCrossfade("Gesture, Additive", "ChargePunchIntro", "ChargePunchIntro.playbackRate", this.chargeDuration, 0.1f);
 				base.PlayCrossfade("Gesture, Override", "ChargePunchIntro", "ChargePunchIntro.playbackRate", this.chargeDuration, 0.1f);
 			}
-			if (this.chargeVfxInstanceTransform)
-			{
-				base.characterMotor.walkSpeedPenaltyCoefficient = BaseChargeFist.walkSpeedCoefficient;
-			}
 			if (base.isAuthority)
 			{
 				this.AuthorityFixedUpdate();
