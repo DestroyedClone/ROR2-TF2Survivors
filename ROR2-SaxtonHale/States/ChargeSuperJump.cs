@@ -3,10 +3,10 @@ using RoR2;
 using UnityEngine;
 using EntityStates;
 
-namespace ROR2_TF2Survivors
+namespace ROR2_SaxtonHale.States
 {
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]
-	public class ChargeSuperJump : BaseSkillState
+	public class ChargeSuperjump : BaseSkillState
 	{
         private float chargeDuration { get; set; }
 		private float charge { get; set; }
@@ -53,23 +53,8 @@ namespace ROR2_TF2Survivors
 			base.FixedUpdate();
 			this.charge = Mathf.Clamp01(base.fixedAge / this.chargeDuration);
 			base.characterBody.SetAimTimer(3f);
-			if (this.charge >= BaseChargeFist.minChargeForChargedAttack && !this.chargeVfxInstanceTransform && BaseChargeFist.chargeVfxPrefab)
+			if (this.charge >= minChargeForChargedAttack)
 			{
-				this.defaultCrosshairPrefab = base.characterBody.crosshairPrefab;
-				if (BaseChargeFist.crosshairOverridePrefab)
-				{
-					base.characterBody.crosshairPrefab = BaseChargeFist.crosshairOverridePrefab;
-				}
-				Transform transform = base.FindModelChild(BaseChargeFist.chargeVfxChildLocatorName);
-				if (transform)
-				{
-					this.chargeVfxInstanceTransform = UnityEngine.Object.Instantiate<GameObject>(BaseChargeFist.chargeVfxPrefab, transform).transform;
-					ScaleParticleSystemDuration component = this.chargeVfxInstanceTransform.GetComponent<ScaleParticleSystemDuration>();
-					if (component)
-					{
-						component.newDuration = (1f - BaseChargeFist.minChargeForChargedAttack) * this.chargeDuration;
-					}
-				}
 				base.PlayCrossfade("Gesture, Additive", "ChargePunchIntro", "ChargePunchIntro.playbackRate", this.chargeDuration, 0.1f);
 				base.PlayCrossfade("Gesture, Override", "ChargePunchIntro", "ChargePunchIntro.playbackRate", this.chargeDuration, 0.1f);
 			}
@@ -99,7 +84,7 @@ namespace ROR2_TF2Survivors
 
 		protected virtual EntityState GetNextStateAuthority()
 		{
-			return new LaunchSuperJump
+			return new LaunchSuperjump
 			{
 				charge = this.charge
 			};

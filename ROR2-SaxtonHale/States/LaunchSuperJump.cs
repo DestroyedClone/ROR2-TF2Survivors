@@ -3,10 +3,10 @@ using RoR2;
 using UnityEngine;
 using EntityStates;
 
-namespace ROR2_TF2Survivors
+namespace ROR2_SaxtonHale.States
 {
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]
-	public class LaunchSuperJump : BaseSkillState
+	public class LaunchSuperjump : BaseSkillState
     {
         public float punchSpeed { get; private set; }
 		public float charge;
@@ -32,8 +32,8 @@ namespace ROR2_TF2Survivors
 			if (base.isAuthority)
 			{
 				base.characterMotor.Motor.ForceUnground();
-				base.characterMotor.disableAirControlUntilCollision |= LaunchSuperJump.disableAirControlUntilCollision;
-				var punchVelocity = LaunchSuperJump.CalculateLungeVelocity(base.characterMotor.velocity, base.GetAimRay().direction, this.charge, this.minLungeSpeed, this.maxLungeSpeed);
+				base.characterMotor.disableAirControlUntilCollision |= LaunchSuperjump.disableAirControlUntilCollision;
+				var punchVelocity = LaunchSuperjump.CalculateLungeVelocity(base.characterMotor.velocity, base.GetAimRay().direction, this.charge, this.minLungeSpeed, this.maxLungeSpeed);
 				base.characterMotor.velocity = punchVelocity;
 				base.characterDirection.forward = base.characterMotor.velocity.normalized;
 				this.punchSpeed = base.characterMotor.velocity.magnitude;
@@ -54,7 +54,7 @@ namespace ROR2_TF2Survivors
 		public override void OnExit()
 		{
 			base.OnExit();
-			base.characterMotor.velocity *= LaunchSuperJump.speedCoefficientOnExit;
+			base.characterMotor.velocity *= LaunchSuperjump.speedCoefficientOnExit;
 		}
 
 		// Token: 0x06003988 RID: 14728 RVA: 0x000EC9C6 File Offset: 0x000EABC6

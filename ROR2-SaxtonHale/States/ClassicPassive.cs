@@ -3,7 +3,7 @@ using RoR2;
 using UnityEngine;
 using EntityStates;
 
-namespace ROR2_TF2Survivors
+namespace ROR2_SaxtonHale.States
 {
     public class ClassicPassive : BaseSkillState
     {
