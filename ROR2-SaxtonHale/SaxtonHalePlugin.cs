@@ -8,6 +8,7 @@ using RoR2;
 using RoR2.Skills;
 using UnityEngine;
 using System.Runtime.CompilerServices;
+using UnityEngine.Networking;
 
 namespace ROR2_SaxtonHale
 {
@@ -96,7 +97,43 @@ namespace ROR2_SaxtonHale
         private void Hook()
         {
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
+            On.RoR2.HealthComponent.TakeDamageForce_DamageInfo_bool_bool += HealthComponent_TakeDamageForce_DamageInfo_bool_bool;
+            On.RoR2.HealthComponent.TakeDamageForce_Vector3_bool_bool += HealthComponent_TakeDamageForce_Vector3_bool_bool;
         }
+
+        private void HealthComponent_TakeDamageForce_Vector3_bool_bool(On.RoR2.HealthComponent.orig_TakeDamageForce_Vector3_bool_bool orig, HealthComponent self, Vector3 force, bool alwaysApply, bool disableAirControlUntilCollision)
+        {
+            if (!NetworkServer.active)
+            {
+                Debug.LogWarning("[Server] function 'System.Void RoR2.HealthComponent::TakeDamageForce(UnityEngine.Vector3,System.Boolean,System.Boolean)' called on client");
+                return;
+            }
+            if (HasBuff(self, Modules.Buffs.weighdownBuff))
+            {
+                return;
+            }
+            orig(self, force, alwaysApply, disableAirControlUntilCollision);
+        }
+
+        private void HealthComponent_TakeDamageForce_DamageInfo_bool_bool(On.RoR2.HealthComponent.orig_TakeDamageForce_DamageInfo_bool_bool orig, HealthComponent self, DamageInfo damageInfo, bool alwaysApply, bool disableAirControlUntilCollision)
+        {
+            if (!NetworkServer.active)
+            {
+                Debug.LogWarning("[Server] function 'System.Void RoR2.HealthComponent::TakeDamageForce(RoR2.DamageInfo,System.Boolean,System.Boolean)' called on client");
+                return;
+            }
+            if (HasBuff(self, Modules.Buffs.weighdownBuff))
+            {
+                return;
+            }
+            orig(self, damageInfo, alwaysApply, disableAirControlUntilCollision);
+        }
+
+        private bool HasBuff(HealthComponent healthComponent, BuffIndex buffIndex)
+        {
+            return (healthComponent && healthComponent.body && healthComponent.body.HasBuff(buffIndex);
+        }
+
 
         private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
         {
@@ -104,12 +141,18 @@ namespace ROR2_SaxtonHale
 
             if (self)
             {
+                if(self.HasBuff(Modules.Buffs.scaredDebuff))
+                {
+
+                }
             }
         }
 
+
+
         private void CreateDoppelganger()
         {
-            doppelganger = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterMasters/LoaderMonsterMaster"), "LHaleMonsterMaster");
+            doppelganger = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterMasters/LoaderMonsterMaster"), "HaleMonsterMaster");
             doppelganger.GetComponent<CharacterMaster>().bodyPrefab = Modules.Prefabs.halePrefab;
 
             MasterCatalog.getAdditionalEntries += delegate (List<GameObject> list)

@@ -24,20 +24,20 @@ namespace ROR2_SaxtonHale.Modules
 
         private static void CreateHale()
         {
-            halePrefab = CreatePrefab("RobPaladinBody", "mdlPaladin", new BodyInfo
+            halePrefab = CreatePrefab("SaxtonHaleBody", "mdlSaxtonHale", new BodyInfo
             {
-                armor = 10f,
+                armor = 15f,
                 armorGrowth = StaticValues.armorPerLevel,
-                bodyName = "RobPaladinBody",
-                bodyNameToken = "PALADIN_NAME",
+                bodyName = "SaxtonHaleBody",
+                bodyNameToken = "SAXTONHALE_NAME",
                 characterPortrait = Assets.charPortrait,
                 crosshair = Resources.Load<GameObject>("Prefabs/Crosshair/SimpleDotCrosshair"),
                 damage = StaticValues.baseDamage,
                 healthGrowth = 64,
-                healthRegen = 1.5f,
+                healthRegen = 1f,
                 jumpCount = 1,
-                maxHealth = 160f,
-                subtitleNameToken = "PALADIN_SUBTITLE"
+                maxHealth = 200f,
+                subtitleNameToken = "SAXTONHALE_SUBTITLE"
             });
 
             SetupCharacterModel(halePrefab, new CustomRendererInfo[]
@@ -46,21 +46,12 @@ namespace ROR2_SaxtonHale.Modules
                 {
                     childName = "SwordModel",
                     material = Modules.Skins.CreateMaterial("matPaladin", StaticValues.maxSwordGlow, Color.white)
-                },
-                new CustomRendererInfo
-                {
-                    childName = "Model",
-                    material = Modules.Skins.CreateMaterial("matPaladin", 10, Color.white)
                 }
             }, 1);
 
-            halePrefab.AddComponent<Misc.PaladinSwordController>();
-
             haleDisplayPrefab = CreateDisplayPrefab("PaladinDisplay", halePrefab);
-            haleDisplayPrefab.AddComponent<Misc.MenuSound>();
 
             // create hitboxes
-
             GameObject model = halePrefab.GetComponent<ModelLocator>().modelTransform.gameObject;
             ChildLocator childLocator = model.GetComponent<ChildLocator>();
 
@@ -75,7 +66,7 @@ namespace ROR2_SaxtonHale.Modules
             GameObject newPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody"), modelName + "Prefab");
 
             GameObject model = CreateModel(newPrefab, modelName);
-            Transform modelBaseTransform = SetupModel(newPrefab, model.transform);
+            //Transform modelBaseTransform = SetupModel(newPrefab, model.transform);
 
             model.AddComponent<CharacterModel>().baseRendererInfos = prefab.GetComponentInChildren<CharacterModel>().baseRendererInfos;
 

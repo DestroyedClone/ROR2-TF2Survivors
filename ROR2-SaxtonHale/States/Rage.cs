@@ -13,7 +13,11 @@ namespace ROR2_SaxtonHale.States
 		public static float buffDuration = 8f;
 		private float duration = 8f;
 		private bool hasCastBuff;
-		private readonly BuffIndex buffIndex = Modules.Buffs.scaredDebuff;
+		private readonly BuffIndex[] debuffList =
+		{
+			Modules.Buffs.scaredDebuff,
+			BuffIndex.Slow80
+		};
 
 
 		// Token: 0x0600401F RID: 16415 RVA: 0x0010D9D0 File Offset: 0x0010BBD0
@@ -34,7 +38,7 @@ namespace ROR2_SaxtonHale.States
 				{
 					if (teamComponent)
 					{
-						BuffTeam(GetEnemyTeam(teamComponent.teamIndex), buffIndex);
+						BuffTeam(Modules.Helpers.GetEnemyTeam(teamComponent.teamIndex), debuffList);
 					}
 				}
 			}
@@ -45,7 +49,7 @@ namespace ROR2_SaxtonHale.States
 			}
 		}
 
-		private void BuffTeam(TeamIndex teamIndex, BuffIndex buffIndex)
+		private void BuffTeam(TeamIndex teamIndex, BuffIndex[] buffIndices)
 		{
 			ReadOnlyCollection<TeamComponent> teamComponents = TeamComponent.GetTeamMembers(teamIndex);
 			foreach (var teamComponent in teamComponents)
@@ -53,17 +57,13 @@ namespace ROR2_SaxtonHale.States
 				CharacterBody body = teamComponent.body;
 				if (body)
 				{
-					body.AddTimedBuff(buffIndex, buffDuration);
+					foreach (BuffIndex buffIndex in buffIndices)
+					{
+						body.AddTimedBuff(buffIndex, buffDuration);
+					}
 				}
 			}
 		}
-
-		private TeamIndex GetEnemyTeam(TeamIndex teamIndex)
-        {
-			if (teamIndex == TeamIndex.Monster) return TeamIndex.Player;
-			else if (teamIndex == TeamIndex.Player) return TeamIndex.Monster;
-			else return TeamIndex.Neutral;
-        }
 
 		// Token: 0x06004021 RID: 16417 RVA: 0x0000D742 File Offset: 0x0000B942
 		public override InterruptPriority GetMinimumInterruptPriority()
