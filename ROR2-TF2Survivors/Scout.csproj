@@ -6,13 +6,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Achievements\**" />
+    <Compile Remove="Equipment\**" />
     <Compile Remove="SaxtonHale\**" />
+    <EmbeddedResource Remove="Achievements\**" />
+    <EmbeddedResource Remove="Equipment\**" />
     <EmbeddedResource Remove="SaxtonHale\**" />
+    <None Remove="Achievements\**" />
+    <None Remove="Equipment\**" />
     <None Remove="SaxtonHale\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Equipment\equipmentboilerplate.cs" />
     <Compile Remove="ExtinguishZonePrefab.cs" />
   </ItemGroup>
 
