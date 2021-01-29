@@ -27,12 +27,6 @@ namespace ROR2_SaxtonHale.States
 
 		public static GameObject crosshairOverridePrefab;
 
-		public static string startChargeLoopSFXString;
-
-		public static string endChargeLoopSFXString;
-
-		public static string enterSFXString;
-
 		private GameObject defaultCrosshairPrefab;
 
 		private Transform chargeVfxInstanceTransform;
@@ -102,14 +96,12 @@ namespace ROR2_SaxtonHale.States
         {
             base.OnEnter();
             this.chargeDuration = this.baseChargeDuration / this.attackSpeedStat;
-            Util.PlaySound(ChargeSuperJump.enterSFXString, base.gameObject);
         }
 
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
 			this.charge = Mathf.Clamp01(base.fixedAge / this.chargeDuration);
-			//AkSoundEngine.SetRTPCValueByPlayingID("loaderShift_chargeAmount", this.charge * 100f, this.soundID);
 			base.characterBody.SetSpreadBloom(this.charge, true);
 			base.characterBody.SetAimTimer(3f);
 			if (this.charge >= ChargeSuperJump.minChargeForChargedAttack && !this.chargeVfxInstanceTransform && ChargeSuperJump.chargeVfxPrefab)
