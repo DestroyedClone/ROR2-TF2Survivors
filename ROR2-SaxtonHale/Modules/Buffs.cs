@@ -11,6 +11,7 @@ namespace ROR2_SaxtonHale.Modules
 
         public static BuffIndex weighdownBuff;
         public static BuffIndex rageBuff;
+        public static BuffIndex crouchingBuff;
 
         public static void RegisterBuffs()
         {
@@ -49,6 +50,19 @@ namespace ROR2_SaxtonHale.Modules
             };
             CustomBuff weighdown = new CustomBuff(weighdownDef);
             weighdownBuff = BuffAPI.Add(weighdown);
+
+            BuffDef crouchingDef = new BuffDef
+            {
+                name = "Crouching!\nSlowed and shorter hitbox.",
+                iconPath = "Textures/BuffIcons/texBuffGenericShield",
+                buffColor = Color.blue,
+                canStack = false,
+                isDebuff = false,
+                eliteIndex = EliteIndex.None
+            };
+            CustomBuff crouching = new CustomBuff(crouchingDef);
+            crouchingBuff = BuffAPI.Add(crouching);
+
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ROR2_SaxtonHale.Modules
     public static class Artifacts
     {
         public static ArtifactDef GoombaArtifactDef = ScriptableObject.CreateInstance<ArtifactDef>();
-        private static readonly float maxDistance = 2f;
+        private static readonly float maxDistance = 10f;
         private static readonly float minFallSpeed = 30f;
         private static readonly float bounceForce = 2000f;
         public static GameObject goombaGameObject = new GameObject();
@@ -53,7 +53,7 @@ namespace ROR2_SaxtonHale.Modules
             CharacterBody victimBody = damageReport.victimBody;
             string text;
 
-            if (damageReport.damageInfo.inflictor == goombaGameObject && damageReport.damageInfo.inflictor.name == goombaGameObject.name && RunArtifactManager.instance.IsArtifactEnabled(GoombaArtifactDef.artifactIndex))
+            if (damageReport.damageInfo.inflictor && damageReport.damageInfo.inflictor == goombaGameObject && damageReport.damageInfo.inflictor.name == goombaGameObject.name && RunArtifactManager.instance.IsArtifactEnabled(GoombaArtifactDef.artifactIndex))
             {
                 text = "PLAYER_DEATH_QUOTE_GOOMBADEATH";
             }
@@ -102,15 +102,12 @@ namespace ROR2_SaxtonHale.Modules
                             teamMaskFilter = TeamMask.GetEnemyTeams(self.body.teamComponent.teamIndex),
                         };
                         bodySearch.RefreshCandidates();
-                        Debug.Log("aa1");
-                        Debug.Log(bodySearch.GetResults().ToArray());
-                        Debug.Log("aa2");
+                        Debug.Log(bodySearch.GetResults().ToList() );
 
-                        var nearestBody = bodySearch.GetResults().ToArray();
-                        Debug.Log("aa3");
+                        var nearestBody = bodySearch.GetResults().ToList();
 
                         // We very likely landed on an enemy.
-                        if (nearestBody.Length > 0)
+                        if (nearestBody.Count > 0)
                         {
                             var firstBody = nearestBody.FirstOrDefault();
                             var distance = Vector3.Distance(hitGroundInfo.position, Helpers.GetHeadPosition(firstBody.healthComponent.body));

@@ -9,6 +9,8 @@ namespace ROR2_SaxtonHale.Misc
         public SkillLocator skillLocator;
         public float airborneStopwatch = 0f;
         readonly float minTimeForWeighdown = 6f;
+        private bool addStock = false;
+
 
         public void Start()
         {
@@ -27,14 +29,24 @@ namespace ROR2_SaxtonHale.Misc
                 if (body.characterMotor.isGrounded)
                 {
                     airborneStopwatch = 0f;
-                    skillLocator.utility.SetSkillOverride(body, Modules.Skills.crouchSkillDef, GenericSkill.SkillOverridePriority.Replacement);
+                    if (addStock)
+                    {
+                        skillLocator.utility.SetSkillOverride(body, Modules.Skills.crouchSkillDef, GenericSkill.SkillOverridePriority.Replacement);
+                        skillLocator.utility.stock = 1;
+                        addStock = false;
+                    }
                 }
                 else
                 {
                     airborneStopwatch += Time.deltaTime;
                     if (airborneStopwatch >= minTimeForWeighdown)
                     {
-                        skillLocator.utility.SetSkillOverride(body, Modules.Skills.weighdownSkillDef, GenericSkill.SkillOverridePriority.Replacement);
+                        if (!addStock)
+                        {
+                            skillLocator.utility.SetSkillOverride(body, Modules.Skills.weighdownSkillDef, GenericSkill.SkillOverridePriority.Replacement);
+                            skillLocator.utility.stock = 1;
+                            addStock = true;
+                        }
                     }
                 }
             }

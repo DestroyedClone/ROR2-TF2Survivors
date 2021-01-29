@@ -160,7 +160,7 @@ namespace ROR2_SaxtonHale.Modules
             weighdownSkillDef.isCombatSkill = false;
             weighdownSkillDef.mustKeyPress = true;
             weighdownSkillDef.noSprint = true;
-            weighdownSkillDef.rechargeStock = 1;
+            weighdownSkillDef.rechargeStock = 0;
             weighdownSkillDef.requiredStock = 1;
             weighdownSkillDef.shootDelay = 0.5f;
             weighdownSkillDef.stockToConsume = 1;
@@ -211,6 +211,9 @@ namespace ROR2_SaxtonHale.Modules
             mySkillDef.skillDescriptionToken = "SAXTONHALE_SPECIAL_CLASSIC_DESCRIPTION";
             mySkillDef.skillName = "SAXTONHALE_SPECIAL_CLASSIC_NAME";
             mySkillDef.skillNameToken = "SAXTONHALE_SPECIAL_CLASSIC_NAME";
+            mySkillDef.keywordTokens = new string[] {
+                "KEYWORD_SCARED"
+            };
 
             LoadoutAPI.AddSkillDef(mySkillDef);
 
@@ -246,8 +249,8 @@ namespace ROR2_SaxtonHale.Modules
             NoAttackSkillDef.noSprint = true;
             NoAttackSkillDef.rechargeStock = 0;
             NoAttackSkillDef.requiredStock = 1;
-            NoAttackSkillDef.shootDelay = 0.5f;
-            NoAttackSkillDef.stockToConsume = 1;
+            NoAttackSkillDef.shootDelay = 0f;
+            NoAttackSkillDef.stockToConsume = 0;
             NoAttackSkillDef.icon = Resources.Load<SkillDef>("skilldefs/captainbody/CaptainSkillUsedUp").icon;
             NoAttackSkillDef.skillDescriptionToken = "SAXTONHALE_SCARED_DESCRIPTION";
             NoAttackSkillDef.skillName = "SAXTONHALE_SCARED_NAME";

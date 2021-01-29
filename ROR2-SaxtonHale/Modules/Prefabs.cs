@@ -101,14 +101,10 @@ namespace ROR2_SaxtonHale.Modules
 
         public static GameObject CreatePrefab(string bodyName, string modelName, BodyInfo bodyInfo)
         {
-            Debug.Log(1);
             GameObject newPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/LoaderBody"), bodyName);
-            Debug.Log(2);
 
             //GameObject model = CreateModel(newPrefab, modelName);
-            Debug.Log(3);
             //Transform modelBaseTransform = SetupModel(newPrefab, model.transform);
-            Debug.Log(4);
 
             #region CharacterBody
             CharacterBody bodyComponent = newPrefab.GetComponent<CharacterBody>();
@@ -163,6 +159,8 @@ namespace ROR2_SaxtonHale.Modules
             bodyComponent.preferredPodPrefab = bodyInfo.podPrefab;
 
             bodyComponent.isChampion = false;
+
+            bodyComponent.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
             #endregion
 
             //SetupCharacterDirection(newPrefab, modelBaseTransform, model.transform);

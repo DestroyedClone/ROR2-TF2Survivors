@@ -40,7 +40,7 @@ namespace ROR2_SaxtonHale.Modules
 
             desc = "<style=cIsUtility>Crouch</style> on the ground for knockback immunity.";
 
-            LanguageAPI.Add("SAXTONHALE_UTILITY_CROUCH_NAME", "Weighdown");
+            LanguageAPI.Add("SAXTONHALE_UTILITY_CROUCH_NAME", "Crouch");
             LanguageAPI.Add("SAXTONHALE_UTILITY_CROUCH_DESCRIPTION", desc);
 
             desc = "Activate to quickly <style=cIsUtility>plummet</style> towards the ground.";
@@ -53,7 +53,7 @@ namespace ROR2_SaxtonHale.Modules
             LanguageAPI.Add("SAXTONHALE_UTILITY_LUNGE_NAME", "Brave Lunge");
             LanguageAPI.Add("SAXTONHALE_UTILITY_LUNGE_DESCRIPTION", desc);
 
-            desc = "<style=cIsUtility>Stun</style> all enemies within 500m for 6 seconds.";
+            desc = "<style=cIsUtility>Stun</style> all enemies for 8 seconds.";
 
             LanguageAPI.Add("SAXTONHALE_SPECIAL_CLASSIC_NAME", "Classic Rage");
             LanguageAPI.Add("SAXTONHALE_SPECIAL_CLASSIC_DESCRIPTION", desc);
@@ -63,7 +63,7 @@ namespace ROR2_SaxtonHale.Modules
             LanguageAPI.Add("SAXTONHALE_SPECIAL_BRAWL_NAME", "Brawl Rage");
             LanguageAPI.Add("SAXTONHALE_SPECIAL_BRAWL_DESCRIPTION", desc);
 
-            LanguageAPI.Add("KEYWORD_SCARED", "Prevents movement and attacking for a duration.");
+            LanguageAPI.Add("KEYWORD_SCARED", "Slows movement speed and prevents attacking for a duration.");
 
             LanguageAPI.Add("SAXTONHALE_SCARED_NAME", "SCARED!");
             LanguageAPI.Add("SAXTONHALE_SCARED_DESCRIPTION", "You're too scared to attack!");

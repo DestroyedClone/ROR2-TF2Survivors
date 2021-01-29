@@ -4,12 +4,13 @@ using UnityEngine;
 using System;
 using UnityEngine.Networking;
 using RoR2.Projectile;
+using System.Collections.ObjectModel;
 
 namespace ROR2_SaxtonHale.States
 {
     public class Crouch : BaseSkillState
     {
-        private float crouchMuliplier = 0.5f;
+        private readonly float crouchMuliplier = 0.5f;
         private float cachedCapsuleHeight;
         private bool isCrouching = false;
 
