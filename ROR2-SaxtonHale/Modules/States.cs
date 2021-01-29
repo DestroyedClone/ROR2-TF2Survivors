@@ -11,8 +11,8 @@ namespace ROR2_SaxtonHale.Modules
         {
             LoadoutAPI.AddSkill(typeof(Punch));
 
-            LoadoutAPI.AddSkill(typeof(ChargeSuperjump));
-            LoadoutAPI.AddSkill(typeof(LaunchSuperjump));
+            LoadoutAPI.AddSkill(typeof(ChargeSuperJump));
+            LoadoutAPI.AddSkill(typeof(LaunchSuperJump));
 
             LoadoutAPI.AddSkill(typeof(Crouch));
             LoadoutAPI.AddSkill(typeof(Weighdown));

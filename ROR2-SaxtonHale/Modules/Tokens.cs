@@ -33,12 +33,17 @@ namespace ROR2_SaxtonHale.Modules
             LanguageAPI.Add("SAXTONHALE_PRIMARY_FISTS_NAME", "Hale's Own Fists");
             LanguageAPI.Add("SAXTONHALE_PRIMARY_FISTS_DESCRIPTION", desc);
 
-            desc = "Hold down to charge your jump, and let go to launch yourself. You are temporarily immune to knockback at the start.";
+            desc = "Hold down to charge your jump, and let go to <style=cIsUtility>launch yourself</style>. You are temporarily immune to knockback at the start.";
 
             LanguageAPI.Add("SAXTONHALE_SECONDARY_SUPERJUMP_NAME", "Brave Jump");
             LanguageAPI.Add("SAXTONHALE_SECONDARY_SUPERJUMP_DESCRIPTION", desc);
 
-            desc = "<style=cIsUtility>Crouch</style> on the ground for knockback immunity, or hold midair to quickly plummet towards the ground.";
+            desc = "<style=cIsUtility>Crouch</style> on the ground for knockback immunity.";
+
+            LanguageAPI.Add("SAXTONHALE_UTILITY_CROUCH_NAME", "Weighdown");
+            LanguageAPI.Add("SAXTONHALE_UTILITY_CROUCH_DESCRIPTION", desc);
+
+            desc = "Activate to quickly <style=cIsUtility>plummet</style> towards the ground.";
 
             LanguageAPI.Add("SAXTONHALE_UTILITY_WEIGHDOWN_NAME", "Weighdown");
             LanguageAPI.Add("SAXTONHALE_UTILITY_WEIGHDOWN_DESCRIPTION", desc);

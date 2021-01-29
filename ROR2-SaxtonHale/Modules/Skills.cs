@@ -13,6 +13,8 @@ namespace ROR2_SaxtonHale.Modules
     {
         private static SkillLocator skillLocator;
         public static SkillDef NoAttackSkillDef;
+        public static SkillDef crouchSkillDef;
+        public static SkillDef weighdownSkillDef;
 
         public static void SetupSkills(GameObject bodyPrefab)
         {
@@ -83,7 +85,7 @@ namespace ROR2_SaxtonHale.Modules
         private static void SecondarySetup(GameObject bodyPrefab)
         {
             SkillDef mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
-            mySkillDef.activationState = new SerializableEntityStateType(typeof(EntityStates.Loader.ChargeFist));
+            mySkillDef.activationState = new SerializableEntityStateType(typeof(ROR2_SaxtonHale.States.ChargeSuperJump));
             mySkillDef.activationStateMachineName = "Weapon";
             mySkillDef.baseMaxStock = 1;
             mySkillDef.baseRechargeInterval = 10f;
@@ -123,29 +125,53 @@ namespace ROR2_SaxtonHale.Modules
 
         private static void UtilitySetup(GameObject bodyPrefab)
         {
-            SkillDef mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
-            mySkillDef.activationState = new SerializableEntityStateType(typeof(ROR2_SaxtonHale.States.Weighdown));
-            mySkillDef.activationStateMachineName = "Weapon";
-            mySkillDef.baseMaxStock = 1;
-            mySkillDef.baseRechargeInterval = 0f;
-            mySkillDef.beginSkillCooldownOnSkillEnd = true;
-            mySkillDef.canceledFromSprinting = false;
-            mySkillDef.fullRestockOnAssign = true;
-            mySkillDef.interruptPriority = InterruptPriority.Death;
-            mySkillDef.isBullets = false;
-            mySkillDef.isCombatSkill = false;
-            mySkillDef.mustKeyPress = true;
-            mySkillDef.noSprint = true;
-            mySkillDef.rechargeStock = 1;
-            mySkillDef.requiredStock = 1;
-            mySkillDef.shootDelay = 0.5f;
-            mySkillDef.stockToConsume = 1;
-            mySkillDef.icon = Resources.Load<Sprite>("textures/bufficons/texBuffSlow50Icon");
-            mySkillDef.skillDescriptionToken = "SAXTONHALE_UTILITY_WEIGHDOWN_DESCRIPTION";
-            mySkillDef.skillName = "SAXTONHALE_UTILITY_WEIGHDOWN_NAME";
-            mySkillDef.skillNameToken = "SAXTONHALE_UTILITY_WEIGHDOWN_NAME";
+            crouchSkillDef = ScriptableObject.CreateInstance<SkillDef>();
+            crouchSkillDef.activationState = new SerializableEntityStateType(typeof(ROR2_SaxtonHale.States.Weighdown));
+            crouchSkillDef.activationStateMachineName = "Weapon";
+            crouchSkillDef.baseMaxStock = 1;
+            crouchSkillDef.baseRechargeInterval = 0f;
+            crouchSkillDef.beginSkillCooldownOnSkillEnd = true;
+            crouchSkillDef.canceledFromSprinting = false;
+            crouchSkillDef.fullRestockOnAssign = true;
+            crouchSkillDef.interruptPriority = InterruptPriority.Death;
+            crouchSkillDef.isBullets = false;
+            crouchSkillDef.isCombatSkill = false;
+            crouchSkillDef.mustKeyPress = true;
+            crouchSkillDef.noSprint = true;
+            crouchSkillDef.rechargeStock = 1;
+            crouchSkillDef.requiredStock = 1;
+            crouchSkillDef.shootDelay = 0.5f;
+            crouchSkillDef.stockToConsume = 1;
+            crouchSkillDef.icon = Resources.Load<Sprite>("textures/bufficons/texBuffSlow80Icon");
+            crouchSkillDef.skillDescriptionToken = "SAXTONHALE_UTILITY_CROUCH_DESCRIPTION";
+            crouchSkillDef.skillName = "SAXTONHALE_UTILITY_CROUCH_NAME";
+            crouchSkillDef.skillNameToken = "SAXTONHALE_UTILITY_CROUCH_DESCRIPTION";
 
-            LoadoutAPI.AddSkillDef(mySkillDef);
+            weighdownSkillDef = ScriptableObject.CreateInstance<SkillDef>();
+            weighdownSkillDef.activationState = new SerializableEntityStateType(typeof(ROR2_SaxtonHale.States.Weighdown));
+            weighdownSkillDef.activationStateMachineName = "Weapon";
+            weighdownSkillDef.baseMaxStock = 1;
+            weighdownSkillDef.baseRechargeInterval = 0f;
+            weighdownSkillDef.beginSkillCooldownOnSkillEnd = true;
+            weighdownSkillDef.canceledFromSprinting = false;
+            weighdownSkillDef.fullRestockOnAssign = true;
+            weighdownSkillDef.interruptPriority = InterruptPriority.Death;
+            weighdownSkillDef.isBullets = false;
+            weighdownSkillDef.isCombatSkill = false;
+            weighdownSkillDef.mustKeyPress = true;
+            weighdownSkillDef.noSprint = true;
+            weighdownSkillDef.rechargeStock = 1;
+            weighdownSkillDef.requiredStock = 1;
+            weighdownSkillDef.shootDelay = 0.5f;
+            weighdownSkillDef.stockToConsume = 1;
+            weighdownSkillDef.icon = Resources.Load<Sprite>("textures/bufficons/texBuffSlow50Icon");
+            weighdownSkillDef.skillDescriptionToken = "SAXTONHALE_UTILITY_WEIGHDOWN_DESCRIPTION";
+            weighdownSkillDef.skillName = "SAXTONHALE_UTILITY_WEIGHDOWN_NAME";
+            weighdownSkillDef.skillNameToken = "SAXTONHALE_UTILITY_WEIGHDOWN_NAME";
+
+
+            LoadoutAPI.AddSkillDef(crouchSkillDef);
+            LoadoutAPI.AddSkillDef(weighdownSkillDef);
 
             skillLocator.utility = bodyPrefab.AddComponent<GenericSkill>();
             SkillFamily newFamily = ScriptableObject.CreateInstance<SkillFamily>();
@@ -156,9 +182,9 @@ namespace ROR2_SaxtonHale.Modules
 
             skillFamily.variants[0] = new SkillFamily.Variant
             {
-                skillDef = mySkillDef,
+                skillDef = crouchSkillDef,
                 unlockableName = "",
-                viewableNode = new ViewablesCatalog.Node(mySkillDef.skillNameToken, false, null)
+                viewableNode = new ViewablesCatalog.Node(crouchSkillDef.skillNameToken, false, null)
             };
         }
 
