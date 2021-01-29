@@ -40,7 +40,7 @@ namespace ROR2_SaxtonHale.Modules
 
             BuffDef weighdownDef = new BuffDef
             {
-                name = "Weighdown!\nImmunity to knockback.",
+                name = "Knockback Immunity!\nImmunity to knockback.",
                 iconPath = "Textures/BuffIcons/texBuffGenericShield",
                 buffColor = Color.blue,
                 canStack = false,

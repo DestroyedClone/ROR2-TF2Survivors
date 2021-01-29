@@ -10,7 +10,7 @@ namespace ROR2_SaxtonHale.States
 	public class Rage : BaseSkillState //from EntityStates.BeetleGuardMonster.DefenseUp
 	{
 		public static float buffDuration = 8f;
-		private bool hasCastBuff;
+		private bool hasCastBuff = false;
 		private readonly BuffIndex[] debuffList =
 		{
 			Modules.Buffs.scaredDebuff,
@@ -23,7 +23,6 @@ namespace ROR2_SaxtonHale.States
 		public override void OnEnter()
 		{
 			base.OnEnter();
-			hasCastBuff = false;
 		}
 
 		// Token: 0x06004020 RID: 16416 RVA: 0x0010DA30 File Offset: 0x0010BC30

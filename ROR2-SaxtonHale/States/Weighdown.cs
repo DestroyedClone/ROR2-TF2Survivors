@@ -31,6 +31,7 @@ namespace ROR2_SaxtonHale.States
 				if (!this.hasSwung)
 				{
 					this.hasSwung = true;
+					this.characterBody.AddBuff(Modules.Buffs.weighdownBuff);
 				}
 				if (this.hasSwung)
 				{
@@ -43,6 +44,7 @@ namespace ROR2_SaxtonHale.States
 				if (base.isGrounded)
 				{
 					this.outer.SetNextStateToMain();
+					this.characterBody.RemoveBuff(Modules.Buffs.weighdownBuff);
 				}
 			}
 		}

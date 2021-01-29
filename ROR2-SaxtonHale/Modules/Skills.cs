@@ -245,9 +245,9 @@ namespace ROR2_SaxtonHale.Modules
             NoAttackSkillDef.mustKeyPress = false;
             NoAttackSkillDef.noSprint = true;
             NoAttackSkillDef.rechargeStock = 0;
-            NoAttackSkillDef.requiredStock = 0;
+            NoAttackSkillDef.requiredStock = 1;
             NoAttackSkillDef.shootDelay = 0.5f;
-            NoAttackSkillDef.stockToConsume = 0;
+            NoAttackSkillDef.stockToConsume = 1;
             NoAttackSkillDef.icon = Resources.Load<SkillDef>("skilldefs/captainbody/CaptainSkillUsedUp").icon;
             NoAttackSkillDef.skillDescriptionToken = "SAXTONHALE_SCARED_DESCRIPTION";
             NoAttackSkillDef.skillName = "SAXTONHALE_SCARED_NAME";

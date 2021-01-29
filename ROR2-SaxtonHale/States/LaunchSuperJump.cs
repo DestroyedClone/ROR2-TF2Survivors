@@ -49,6 +49,7 @@ namespace ROR2_SaxtonHale.States
 				base.characterMotor.velocity = this.punchVelocity;
 				base.characterDirection.forward = base.characterMotor.velocity.normalized;
 				this.punchSpeed = base.characterMotor.velocity.magnitude;
+				this.characterBody.AddTimedBuff(Modules.Buffs.weighdownBuff, 1f);
 			}
 		}
 
