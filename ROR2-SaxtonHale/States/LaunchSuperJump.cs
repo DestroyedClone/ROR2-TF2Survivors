@@ -52,12 +52,6 @@ namespace ROR2_SaxtonHale.States
 			return Mathf.Lerp(this.minDuration, this.maxDuration, this.charge);
 		}
 
-		public void PlayAnimation()
-		{
-			base.PlayAnimation();
-			base.PlayAnimation("FullBody, Override", "ChargePunch", "ChargePunch.playbackRate", this.duration);
-		}
-
 		public override void OnExit()
 		{
 			base.OnExit();

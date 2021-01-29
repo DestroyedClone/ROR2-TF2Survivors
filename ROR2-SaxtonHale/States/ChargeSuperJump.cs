@@ -27,8 +27,6 @@ namespace ROR2_SaxtonHale.States
 
 		public static GameObject crosshairOverridePrefab;
 
-		public static float walkSpeedCoefficient;
-
 		public static string startChargeLoopSFXString;
 
 		public static string endChargeLoopSFXString;
@@ -38,10 +36,6 @@ namespace ROR2_SaxtonHale.States
 		private GameObject defaultCrosshairPrefab;
 
 		private Transform chargeVfxInstanceTransform;
-
-		private int gauntlet;
-
-		private uint soundID;
 
 		private class ArcVisualizer : IDisposable
 		{
@@ -109,7 +103,6 @@ namespace ROR2_SaxtonHale.States
             base.OnEnter();
             this.chargeDuration = this.baseChargeDuration / this.attackSpeedStat;
             Util.PlaySound(ChargeSuperJump.enterSFXString, base.gameObject);
-            this.soundID = Util.PlaySound(ChargeSuperJump.startChargeLoopSFXString, base.gameObject);
         }
 
 		public override void FixedUpdate()
@@ -138,10 +131,6 @@ namespace ROR2_SaxtonHale.States
 				}
 				base.PlayCrossfade("Gesture, Additive", "ChargePunchIntro", "ChargePunchIntro.playbackRate", this.chargeDuration, 0.1f);
 				base.PlayCrossfade("Gesture, Override", "ChargePunchIntro", "ChargePunchIntro.playbackRate", this.chargeDuration, 0.1f);
-			}
-			if (this.chargeVfxInstanceTransform)
-			{
-				base.characterMotor.walkSpeedPenaltyCoefficient = ChargeSuperJump.walkSpeedCoefficient;
 			}
 			if (base.isAuthority)
 			{
