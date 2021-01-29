@@ -50,21 +50,21 @@ namespace ROR2_SaxtonHale
             instance = this;
 
             // load assets and read config
-            Modules.Assets.PopulateAssets();
-            Modules.Config.ReadConfig();
+            //Modules.Assets.PopulateAssets();
+            //Modules.Config.ReadConfig();
 
+            //Modules.Artifacts.RegisterArtifacts();
             Modules.Prefabs.CreatePrefabs(); // create body and display prefabs
             characterPrefab = Modules.Prefabs.halePrefab; // cache this for other mods to use it
-            Modules.ItemDisplays.RegisterDisplays(); // add item displays(pain)
+            //Modules.ItemDisplays.RegisterDisplays(); // add item displays(pain)
             Modules.States.RegisterStates(); // register states
             Modules.Skills.SetupSkills(Modules.Prefabs.halePrefab);
             Modules.Survivors.RegisterSurvivors(); // register them into the body catalog
             Modules.Skins.RegisterSkins(); // add skins
             Modules.Buffs.RegisterBuffs(); // add and register custom buffs
-            Modules.Effects.RegisterEffects(); // add and register custom effects
-            Modules.Unlockables.RegisterUnlockables(); // add unlockables
+            //Modules.Effects.RegisterEffects(); // add and register custom effects
+            //Modules.Unlockables.RegisterUnlockables(); // add unlockables
             Modules.Tokens.AddTokens(); // register name tokens
-            Modules.Artifacts.RegisterArtifacts();
 
             CreateDoppelganger(); // artifact of vengeance
 
@@ -132,7 +132,7 @@ namespace ROR2_SaxtonHale
 
         private bool HasBuff(HealthComponent healthComponent, BuffIndex buffIndex)
         {
-            return (healthComponent && healthComponent.body && healthComponent.body.HasBuff(buffIndex);
+            return (healthComponent && healthComponent.body && healthComponent.body.HasBuff(buffIndex));
         }
 
 
@@ -144,7 +144,7 @@ namespace ROR2_SaxtonHale
             {
                 if(self.HasBuff(Modules.Buffs.scaredDebuff))
                 {
-
+                    self.attackSpeed = 0f;
                 }
             }
         }

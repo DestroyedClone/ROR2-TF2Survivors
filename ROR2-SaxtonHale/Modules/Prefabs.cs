@@ -30,7 +30,7 @@ namespace ROR2_SaxtonHale.Modules
                 armorGrowth = StaticValues.armorPerLevel,
                 bodyName = "SaxtonHaleBody",
                 bodyNameToken = "SAXTONHALE_NAME",
-                characterPortrait = Assets.charPortrait,
+                //characterPortrait = Assets.charPortrait,
                 crosshair = Resources.Load<GameObject>("Prefabs/Crosshair/SimpleDotCrosshair"),
                 damage = StaticValues.baseDamage,
                 healthGrowth = 64,
@@ -40,25 +40,20 @@ namespace ROR2_SaxtonHale.Modules
                 subtitleNameToken = "SAXTONHALE_SUBTITLE"
             });
 
-            SetupCharacterModel(halePrefab, new CustomRendererInfo[]
+            /*SetupCharacterModel(halePrefab, new CustomRendererInfo[]
             {
-                new CustomRendererInfo
-                {
-                    childName = "SwordModel",
-                    material = Modules.Skins.CreateMaterial("matPaladin", StaticValues.maxSwordGlow, Color.white)
-                }
-            }, 1);
+            }, 1);*/
 
-            haleDisplayPrefab = CreateDisplayPrefab("PaladinDisplay", halePrefab);
+            //haleDisplayPrefab = CreateDisplayPrefab("PaladinDisplay", halePrefab);
 
             // create hitboxes
             GameObject model = halePrefab.GetComponent<ModelLocator>().modelTransform.gameObject;
             ChildLocator childLocator = model.GetComponent<ChildLocator>();
 
-            Modules.Helpers.CreateHitbox(model, childLocator.FindChild("SwordHitbox"), "Sword");
-            Modules.Helpers.CreateHitbox(model, childLocator.FindChild("LeapHitbox"), "LeapStrike");
-            Modules.Helpers.CreateHitbox(model, childLocator.FindChild("SpinSlashHitbox"), "SpinSlash");
-            Modules.Helpers.CreateHitbox(model, childLocator.FindChild("SpinSlashLargeHitbox"), "SpinSlashLarge");
+            //Modules.Helpers.CreateHitbox(model, childLocator.FindChild("SwordHitbox"), "Sword");
+            //Modules.Helpers.CreateHitbox(model, childLocator.FindChild("LeapHitbox"), "LeapStrike");
+            //Modules.Helpers.CreateHitbox(model, childLocator.FindChild("SpinSlashHitbox"), "SpinSlash");
+            //Modules.Helpers.CreateHitbox(model, childLocator.FindChild("SpinSlashLargeHitbox"), "SpinSlashLarge");
         }
 
         public static GameObject CreateDisplayPrefab(string modelName, GameObject prefab)
@@ -104,10 +99,14 @@ namespace ROR2_SaxtonHale.Modules
 
         public static GameObject CreatePrefab(string bodyName, string modelName, BodyInfo bodyInfo)
         {
-            GameObject newPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody"), bodyName);
+            Debug.Log(1);
+            GameObject newPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/LoaderBody"), bodyName);
+            Debug.Log(2);
 
-            GameObject model = CreateModel(newPrefab, modelName);
-            Transform modelBaseTransform = SetupModel(newPrefab, model.transform);
+            //GameObject model = CreateModel(newPrefab, modelName);
+            Debug.Log(3);
+            //Transform modelBaseTransform = SetupModel(newPrefab, model.transform);
+            Debug.Log(4);
 
             #region CharacterBody
             CharacterBody bodyComponent = newPrefab.GetComponent<CharacterBody>();
@@ -156,7 +155,7 @@ namespace ROR2_SaxtonHale.Modules
             bodyComponent.sprintingSpeedMultiplier = 1.45f;
 
             bodyComponent.hideCrosshair = false;
-            bodyComponent.aimOriginTransform = modelBaseTransform.Find("AimOrigin");
+            //bodyComponent.aimOriginTransform = modelBaseTransform.Find("AimOrigin");
             bodyComponent.hullClassification = HullClassification.Human;
 
             bodyComponent.preferredPodPrefab = bodyInfo.podPrefab;
@@ -164,15 +163,15 @@ namespace ROR2_SaxtonHale.Modules
             bodyComponent.isChampion = false;
             #endregion
 
-            SetupCharacterDirection(newPrefab, modelBaseTransform, model.transform);
+            //SetupCharacterDirection(newPrefab, modelBaseTransform, model.transform);
             SetupCameraTargetParams(newPrefab);
-            SetupModelLocator(newPrefab, modelBaseTransform, model.transform);
+            //SetupModelLocator(newPrefab, modelBaseTransform, model.transform);
             SetupRigidbody(newPrefab);
             SetupCapsuleCollider(newPrefab);
-            SetupMainHurtbox(newPrefab, model);
-            SetupFootstepController(model);
-            SetupRagdoll(model);
-            SetupAimAnimator(newPrefab, model);
+            //SetupMainHurtbox(newPrefab, model);
+            //SetupFootstepController(model);
+            //SetupRagdoll(model);
+            //SetupAimAnimator(newPrefab, model);
 
             return newPrefab;
         }
@@ -211,7 +210,8 @@ namespace ROR2_SaxtonHale.Modules
             SaxtonHalePlugin.Destroy(main.transform.Find("CameraPivot").gameObject);
             SaxtonHalePlugin.Destroy(main.transform.Find("AimOrigin").gameObject);
 
-            return Modules.Assets.mainAssetBundle.LoadAsset<GameObject>(modelName);
+            //return Modules.Assets.mainAssetBundle.LoadAsset<GameObject>(modelName);
+            return null;
         }
 
         private static void SetupCharacterDirection(GameObject prefab, Transform modelBaseTransform, Transform modelTransform)
@@ -220,7 +220,7 @@ namespace ROR2_SaxtonHale.Modules
             characterDirection.targetTransform = modelBaseTransform;
             characterDirection.overrideAnimatorForwardTransform = null;
             characterDirection.rootMotionAccumulator = null;
-            characterDirection.modelAnimator = modelTransform.GetComponent<Animator>();
+            //characterDirection.modelAnimator = modelTransform.GetComponent<Animator>();
             characterDirection.driveFromRootRotation = false;
             characterDirection.turnSpeed = 720f;
         }

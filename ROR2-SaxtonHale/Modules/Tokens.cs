@@ -1,17 +1,17 @@
 using R2API;
 using System;
 
-namespace ROR2_TF2Survivors
+namespace ROR2_SaxtonHale.Modules
 {
     public static class Tokens
     {
         public static void AddTokens()
         {
             string desc = "Saxton Hale is a heavy hitting tank that can uses his superior biology to kill enemies (hippies).<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > You can choose loadout depending on closely you want the game to feel like VSH: Standard and Classic." + Environment.NewLine + Environment.NewLine;
+            desc = desc + "< ! > (NOT IMPL) You can choose loadout depending on closely you want the game to feel like VSH: Standard and Classic." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Use superjump to quickly get to normally unreachable areas." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Perform a weighdown midair to quickly reach the ground after being airborne." + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Use your rage in a tough spot to stun all nearby enemies." + Environment.NewLine + Environment.NewLine;
+            desc = desc + "< ! > Use your rage in a tough spot to stun all enemies." + Environment.NewLine + Environment.NewLine;
 
             LanguageAPI.Add("SAXTONHALE_NAME", "Saxton Hale");
             LanguageAPI.Add("SAXTONHALE_DESCRIPTION", desc);

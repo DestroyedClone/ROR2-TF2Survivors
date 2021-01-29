@@ -8,7 +8,7 @@ namespace ROR2_SaxtonHale.Modules
     {
         public static void RegisterSurvivors()
         {
-            Prefabs.haleDisplayPrefab.AddComponent<NetworkIdentity>();
+            //Prefabs.haleDisplayPrefab.AddComponent<NetworkIdentity>();
 
             SurvivorDef survivorDef = new SurvivorDef
             {
@@ -16,7 +16,7 @@ namespace ROR2_SaxtonHale.Modules
                 descriptionToken = "SAXTONHALE_DESCRIPTION",
                 primaryColor = SaxtonHalePlugin.characterColor,
                 bodyPrefab = Prefabs.halePrefab,
-                displayPrefab = Prefabs.haleDisplayPrefab,
+                //displayPrefab = Prefabs.haleDisplayPrefab,
                 outroFlavorToken = "SAXTONHALE_OUTRO_FLAVOR"
             };
 

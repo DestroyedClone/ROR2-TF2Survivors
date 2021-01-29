@@ -54,6 +54,7 @@ namespace ROR2_SaxtonHale.States
 		public override void OnExit()
 		{
 			base.OnExit();
+			base.characterMotor.Motor.ForceUnground();
 			base.characterMotor.velocity *= LaunchSuperjump.speedCoefficientOnExit;
 		}
 

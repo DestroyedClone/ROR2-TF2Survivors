@@ -14,7 +14,7 @@ namespace ROR2_SaxtonHale.Modules
         private static readonly float minFallSpeed = 10f;
         private static readonly float bounceForce = 1000f;
         public static GameObject goombaGameObject;
-        private static DamageInfo goombaDamageInfo = new DamageInfo()
+        private static readonly DamageInfo goombaDamageInfo = new DamageInfo()
         {
             damage = 500f,
             inflictor = goombaGameObject

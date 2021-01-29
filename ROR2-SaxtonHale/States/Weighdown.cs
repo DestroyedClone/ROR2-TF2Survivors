@@ -10,20 +10,12 @@ namespace ROR2_SaxtonHale.States
 {
     public class Weighdown : BaseSkillState //uppercut
     {
-        //private float downwardForceScale = 15f;
-		public static float baseDuration;
-		public static AnimationCurve yVelocityCurve;
-		protected float duration;
+        private float downwardForceScale = 1f;
 		protected bool hasSwung = false;
 
 		public override void OnEnter()
 		{
 			base.OnEnter();
-			this.duration = Uppercut.baseDuration / this.attackSpeedStat;
-			if (base.characterDirection && base.inputBank)
-			{
-				base.characterDirection.forward = base.inputBank.aimDirection;
-			}
 		}
 
 		public override void OnExit()
@@ -39,22 +31,16 @@ namespace ROR2_SaxtonHale.States
 				if (!this.hasSwung)
 				{
 					this.hasSwung = true;
-					base.characterMotor.Motor.ForceUnground();
 				}
 				if (this.hasSwung)
 				{
 					if (base.characterMotor && base.characterDirection)
 					{
-						Vector3 velocity = base.characterDirection.forward * this.moveSpeedStat * Mathf.Lerp(Uppercut.moveSpeedBonusCoefficient, 0f, base.age / this.duration);
-						velocity.y = -Uppercut.yVelocityCurve.Evaluate(base.fixedAge / this.duration);
-						base.characterMotor.velocity = velocity;
+						base.characterMotor.velocity.y = 0;
+						base.characterMotor.velocity.y -= downwardForceScale;
 					}
 				}
-				else
-				{
-					base.fixedAge -= Time.fixedDeltaTime;
-				}
-				if (base.fixedAge >= this.duration)
+				if (base.isGrounded)
 				{
 					this.outer.SetNextStateToMain();
 				}
