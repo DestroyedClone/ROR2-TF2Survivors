@@ -11,7 +11,7 @@ namespace ROR2_SaxtonHale.Modules
     {
         public static ArtifactDef GoombaArtifactDef = ScriptableObject.CreateInstance<ArtifactDef>();
         private static readonly float maxDistance = 2f;
-        private static readonly float minFallSpeed = 10f;
+        private static readonly float minFallSpeed = 30f;
         private static readonly float bounceForce = 2000f;
         public static GameObject goombaGameObject = new GameObject();
         private static readonly DamageInfo goombaDamageInfo = new DamageInfo()
@@ -100,7 +100,7 @@ namespace ROR2_SaxtonHale.Modules
                             sortMode = BullseyeSearch.SortMode.Distance,
                             teamMaskFilter = TeamMask.GetEnemyTeams(self.body.teamComponent.teamIndex)
                         };
-                        Debug.Log(bodySearch.GetResults());
+                        Debug.Log(bodySearch.GetResults().ToArray());
 
                         var nearestBody = bodySearch.GetResults().ToArray();
 
