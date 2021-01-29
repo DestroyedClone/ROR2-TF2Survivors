@@ -199,7 +199,7 @@ namespace ROR2_SaxtonHale
 
             if (self)
             {
-                if(self.HasBuff(Modules.Buffs.scaredDebuff))
+                if (self.HasBuff(Modules.Buffs.scaredDebuff))
                 {
                     self.attackSpeed = 0f;
                 }

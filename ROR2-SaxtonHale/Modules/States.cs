@@ -18,6 +18,7 @@ namespace ROR2_SaxtonHale.Modules
             LoadoutAPI.AddSkill(typeof(Weighdown));
 
             LoadoutAPI.AddSkill(typeof(Rage));
+            LoadoutAPI.AddSkill(typeof(NoAttackState));
         }
     }
 }
