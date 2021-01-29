@@ -6,7 +6,7 @@ using EntityStates.Loader;
 
 namespace ROR2_SaxtonHale.States
 {
-    public class LaunchSuperJump : BasicMeleeAttack
+    public class LaunchSuperJump : BaseSkillState
 	{
 		public float punchSpeed { get; private set; }
 
@@ -17,12 +17,6 @@ namespace ROR2_SaxtonHale.States
 
 		[SerializeField]
 		public float maxLungeSpeed;
-
-		[SerializeField]
-		public float minPunchForce;
-
-		[SerializeField]
-		public float maxPunchForce;
 
 		[SerializeField]
 		public float minDuration;
@@ -53,26 +47,15 @@ namespace ROR2_SaxtonHale.States
 			}
 		}
 
-		public override float CalcDuration()
+		public float CalcDuration()
 		{
 			return Mathf.Lerp(this.minDuration, this.maxDuration, this.charge);
 		}
 
-		public override void PlayAnimation()
+		public void PlayAnimation()
 		{
 			base.PlayAnimation();
 			base.PlayAnimation("FullBody, Override", "ChargePunch", "ChargePunch.playbackRate", this.duration);
-		}
-
-		public override void AuthorityFixedUpdate()
-		{
-			base.AuthorityFixedUpdate();
-			if (!base.authorityInHitPause)
-			{
-				base.characterMotor.velocity = this.punchVelocity;
-				base.characterDirection.forward = this.punchVelocity;
-				base.characterBody.isSprinting = true;
-			}
 		}
 
 		public override void OnExit()

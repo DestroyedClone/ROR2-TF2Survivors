@@ -9,6 +9,14 @@ namespace ROR2_SaxtonHale.States
 {
     public class Crouch : BaseSkillState
     {
+        public override void OnEnter()
+        {
+            base.OnEnter();
+        }
 
+        public override void OnExit()
+        {
+            base.OnExit();
+        }
     }
 }

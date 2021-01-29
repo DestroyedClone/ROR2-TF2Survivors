@@ -99,8 +99,9 @@ namespace ROR2_SaxtonHale.Modules
                         {
                             viewer = self.body,
                             sortMode = BullseyeSearch.SortMode.Distance,
-                            teamMaskFilter = TeamMask.GetEnemyTeams(self.body.teamComponent.teamIndex)
+                            teamMaskFilter = TeamMask.GetEnemyTeams(self.body.teamComponent.teamIndex),
                         };
+                        bodySearch.RefreshCandidates();
                         Debug.Log("aa1");
                         Debug.Log(bodySearch.GetResults().ToArray());
                         Debug.Log("aa2");
