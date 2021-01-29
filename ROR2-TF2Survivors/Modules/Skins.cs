@@ -5,13 +5,13 @@ using RoR2;
 using R2API.Utils;
 using System.Collections.Generic;
 
-namespace ROR2_SaxtonHale.Modules
+namespace ROR2_Scout.Modules
 {
     public static class Skins
     {
         public static void RegisterSkins()
         {
-            GameObject bodyPrefab = Prefabs.halePrefab;
+            GameObject bodyPrefab = Prefabs.scoutPrefab;
 
             GameObject model = bodyPrefab.GetComponentInChildren<ModelLocator>().modelTransform.gameObject;
             CharacterModel characterModel = model.GetComponent<CharacterModel>();
@@ -24,7 +24,7 @@ namespace ROR2_SaxtonHale.Modules
             List<SkinDef> skinDefs = new List<SkinDef>();
 
             #region DefaultSkin
-            CharacterModel.RendererInfo[] defaultRenderers = characterModel.baseRendererInfos;
+            //CharacterModel.RendererInfo[] defaultRenderers = characterModel.baseRendererInfos;
             //SkinDef defaultSkin = CreateSkinDef("SAXTONHALEBODY_DEFAULT_SKIN_NAME", Assets.mainAssetBundle.LoadAsset<Sprite>("texMainSkin"), defaultRenderers, mainRenderer, model, "");
             //defaultSkin.meshReplacements = new SkinDef.MeshReplacement[]
             //{
@@ -45,7 +45,7 @@ namespace ROR2_SaxtonHale.Modules
         }
 
 
-            public static SkinDef CreateSkinDef(string skinName, Sprite skinIcon, CharacterModel.RendererInfo[] rendererInfos, SkinnedMeshRenderer mainRenderer, GameObject root, string unlockName)
+        public static SkinDef CreateSkinDef(string skinName, Sprite skinIcon, CharacterModel.RendererInfo[] rendererInfos, SkinnedMeshRenderer mainRenderer, GameObject root, string unlockName)
         {
             LoadoutAPI.SkinDefInfo skinDefInfo = new LoadoutAPI.SkinDefInfo
             {
@@ -113,14 +113,14 @@ namespace ROR2_SaxtonHale.Modules
 
         public static Material CreateMaterial(string materialName, float emission, Color emissionColor, float normalStrength)
         {
-            if (!SaxtonHalePlugin.commandoMat) SaxtonHalePlugin.commandoMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<CharacterModel>().baseRendererInfos[0].defaultMaterial;
+            if (!ScoutPlugin.commandoMat) ScoutPlugin.commandoMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<CharacterModel>().baseRendererInfos[0].defaultMaterial;
 
-            Material mat = UnityEngine.Object.Instantiate<Material>(SaxtonHalePlugin.commandoMat);
+            Material mat = UnityEngine.Object.Instantiate<Material>(ScoutPlugin.commandoMat);
             //Material tempMat = Assets.mainAssetBundle.LoadAsset<Material>(materialName);
             Material tempMat = null; //TODO REMOVE
             if (!tempMat)
             {
-                return SaxtonHalePlugin.commandoMat;
+                return ScoutPlugin.commandoMat;
             }
 
             mat.name = materialName;

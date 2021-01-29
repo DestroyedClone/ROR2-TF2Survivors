@@ -8,18 +8,18 @@ namespace ROR2_Scout.Modules
     {
         public static void RegisterStates()
         {
-            LoadoutAPI.AddSkill(typeof(States.FireScattergun));
-            LoadoutAPI.AddSkill(typeof(States.FireForceNature));
+            LoadoutAPI.AddSkill(typeof(ROR2_Scout.States.FireScattergun));
+            LoadoutAPI.AddSkill(typeof(ROR2_Scout.States.FireForceNature));
 
-            LoadoutAPI.AddSkill(typeof(States.FireScoutPistol));
-            LoadoutAPI.AddSkill(typeof(States.FireCleaver));
-            LoadoutAPI.AddSkill(typeof(States.FireMilk));
+            LoadoutAPI.AddSkill(typeof(ROR2_Scout.States.FireScoutPistol));
+            LoadoutAPI.AddSkill(typeof(ROR2_Scout.States.FireCleaver));
+            LoadoutAPI.AddSkill(typeof(ROR2_Scout.States.FireMilk));
 
-            LoadoutAPI.AddSkill(typeof(States.FireMarkFan));
-            LoadoutAPI.AddSkill(typeof(States.FireBleedBat));
-            LoadoutAPI.AddSkill(typeof(States.FireSandman));
+            LoadoutAPI.AddSkill(typeof(ROR2_Scout.States.FireMarkFan));
+            LoadoutAPI.AddSkill(typeof(ROR2_Scout.States.FireBleedBat));
+            LoadoutAPI.AddSkill(typeof(ROR2_Scout.States.FireSandman));
 
-            LoadoutAPI.AddSkill(typeof(States.ActivateRage));
+            LoadoutAPI.AddSkill(typeof(ROR2_Scout.States.ActivateRage));
         }
     }
 }

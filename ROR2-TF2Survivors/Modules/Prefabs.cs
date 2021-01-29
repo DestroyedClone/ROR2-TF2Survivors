@@ -38,6 +38,7 @@ namespace ROR2_Scout.Modules
                 healthRegen = 1.5f,
                 jumpCount = 2,
                 maxHealth = 160f,
+                maxInteractionDistance = 5f,
                 subtitleNameToken = "SCOUT_SUBTITLE"
             });
 
@@ -69,7 +70,7 @@ namespace ROR2_Scout.Modules
         }
 
 
-        public static GameObject CreateDisplayPrefab(string modelName, GameObject prefab)
+        /*public static GameObject CreateDisplayPrefab(string modelName, GameObject prefab)
         {
             GameObject newPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody"), modelName + "Prefab");
 
@@ -79,7 +80,7 @@ namespace ROR2_Scout.Modules
             model.AddComponent<CharacterModel>().baseRendererInfos = prefab.GetComponentInChildren<CharacterModel>().baseRendererInfos;
 
             return model.gameObject;
-        }
+        }*/
 
         public static void SetupCharacterModel(GameObject prefab, CustomRendererInfo[] rendererInfo, int mainRendererIndex)
         {
@@ -112,10 +113,10 @@ namespace ROR2_Scout.Modules
 
         public static GameObject CreatePrefab(string bodyName, string modelName, BodyInfo bodyInfo)
         {
-            GameObject newPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody"), bodyName);
+            GameObject newPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/MercBody"), bodyName);
 
-            GameObject model = CreateModel(newPrefab, modelName);
-            Transform modelBaseTransform = SetupModel(newPrefab, model.transform);
+            //GameObject model = CreateModel(newPrefab, modelName);
+            //Transform modelBaseTransform = SetupModel(newPrefab, model.transform);
 
             #region CharacterBody
             CharacterBody bodyComponent = newPrefab.GetComponent<CharacterBody>();
@@ -164,7 +165,7 @@ namespace ROR2_Scout.Modules
             bodyComponent.sprintingSpeedMultiplier = 1.45f;
 
             bodyComponent.hideCrosshair = false;
-            bodyComponent.aimOriginTransform = modelBaseTransform.Find("AimOrigin");
+            //bodyComponent.aimOriginTransform = modelBaseTransform.Find("AimOrigin");
             bodyComponent.hullClassification = HullClassification.Human;
 
             bodyComponent.preferredPodPrefab = bodyInfo.podPrefab;
@@ -172,15 +173,15 @@ namespace ROR2_Scout.Modules
             bodyComponent.isChampion = false;
             #endregion
 
-            SetupCharacterDirection(newPrefab, modelBaseTransform, model.transform);
+            //SetupCharacterDirection(newPrefab, modelBaseTransform, model.transform);
             SetupCameraTargetParams(newPrefab);
-            SetupModelLocator(newPrefab, modelBaseTransform, model.transform);
+            //SetupModelLocator(newPrefab, modelBaseTransform, model.transform);
             SetupRigidbody(newPrefab);
             SetupCapsuleCollider(newPrefab);
-            SetupMainHurtbox(newPrefab, model);
-            SetupFootstepController(model);
-            SetupRagdoll(model);
-            SetupAimAnimator(newPrefab, model);
+            //SetupMainHurtbox(newPrefab, model);
+            //SetupFootstepController(model);
+            //SetupRagdoll(model);
+            //SetupAimAnimator(newPrefab, model);
             SetupInteractor(newPrefab, bodyInfo);
 
             return newPrefab;
@@ -220,14 +221,14 @@ namespace ROR2_Scout.Modules
             return modelBase.transform;
         }
 
-        private static GameObject CreateModel(GameObject main, string modelName)
+        /*private static GameObject CreateModel(GameObject main, string modelName)
         {
             ScoutPlugin.DestroyImmediate(main.transform.Find("ModelBase").gameObject);
             ScoutPlugin.DestroyImmediate(main.transform.Find("CameraPivot").gameObject);
             ScoutPlugin.DestroyImmediate(main.transform.Find("AimOrigin").gameObject);
 
             return Modules.Assets.mainAssetBundle.LoadAsset<GameObject>(modelName);
-        }
+        }*/
 
         private static void SetupCharacterDirection(GameObject prefab, Transform modelBaseTransform, Transform modelTransform)
         {

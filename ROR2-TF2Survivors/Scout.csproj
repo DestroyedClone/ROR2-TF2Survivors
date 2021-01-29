@@ -7,18 +7,16 @@
 
   <ItemGroup>
     <Compile Remove="Achievements\**" />
-    <Compile Remove="Equipment\**" />
     <Compile Remove="SaxtonHale\**" />
     <EmbeddedResource Remove="Achievements\**" />
-    <EmbeddedResource Remove="Equipment\**" />
     <EmbeddedResource Remove="SaxtonHale\**" />
     <None Remove="Achievements\**" />
-    <None Remove="Equipment\**" />
     <None Remove="SaxtonHale\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="ExtinguishZonePrefab.cs" />
+    <Compile Remove="Modules\Unlockables.cs" />
   </ItemGroup>
 
   <ItemGroup>

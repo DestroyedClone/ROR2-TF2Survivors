@@ -21,8 +21,9 @@ namespace ROR2_Scout.Modules
             baseballProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/EngiGrenadeProjectile"), "Prefabs/Projectiles/BaseballProjectile");
             ornamentProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/EngiGrenadeProjectile"), "Prefabs/Projectiles/OrnamentProjectile");
 
-            milkSplashWard = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/SporeGrenadeProjectileDotZone"), "MilkSplashZone", true);
+            milkSplashWard = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/SporeGrenadeProjectileDotZone"), "MilkSplashZone");
 
+            Debug.Log("1");
             cleaverProjectile.GetComponent<ProjectileController>().procCoefficient = 1f;
             cleaverProjectile.GetComponent<ProjectileDamage>().damage = 1f;
             cleaverProjectile.GetComponent<ProjectileDamage>().damageType = DamageType.BleedOnHit;
@@ -31,11 +32,13 @@ namespace ROR2_Scout.Modules
             cleaverProjectile.GetComponent<ProjectileImpactExplosion>().timerAfterImpact = false;
             //cleaverProjectile.GetComponent<ProjectileSimple>().velocity = 10; //doesnt work?
 
+            Debug.Log("2");
             var projectileImpactExplosion = milkjarProjectile.GetComponent<ProjectileImpactExplosion>();
             projectileImpactExplosion.fireChildren = true;
             projectileImpactExplosion.childrenProjectilePrefab = milkSplashWard;
             projectileImpactExplosion.childrenCount = 1;
 
+            Debug.Log("3");
             BuffWard buffWard = milkSplashWard.GetComponent<BuffWard>();
             buffWard.animateRadius = false;
             buffWard.buffDuration = 0.5f;
@@ -44,12 +47,15 @@ namespace ROR2_Scout.Modules
             buffWard.invertTeamFilter = true;
             buffWard.radius = 5f;
 
+            Debug.Log("4");
             var newWard = milkSplashWard.AddComponent<ExtinguishZonePrefabAlt>();
             newWard.animateRadius = false;
             newWard.radius = 5f;
 
+            Debug.Log("5");
             baseballProjectile.AddComponent<BaseballController>();
 
+            Debug.Log("6");
             ProjectileCatalog.getAdditionalEntries += list =>
             {
                 list.Add(cleaverProjectile);
@@ -65,6 +71,11 @@ namespace ROR2_Scout.Modules
             RegProj(ornamentProjectile);
             RegProj(milkSplashWard);
         }
+
+
+
+
+
         private static void RegProj(GameObject g)
         { if (g) PrefabAPI.RegisterNetworkPrefab(g); }
 

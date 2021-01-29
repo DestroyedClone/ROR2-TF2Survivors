@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ROR2_Scout.States
 {
-    public class FireBleedBat : FireMarkFan
+    public class FireBleedBat : BaseFireBat
     {
         public FireBleedBat()
         {
