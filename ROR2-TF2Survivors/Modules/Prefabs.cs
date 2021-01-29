@@ -8,13 +8,13 @@ namespace ROR2_Scout.Modules
     public static class Prefabs
     {
         public static GameObject scoutPrefab;
-        public static GameObject scoutDisplayPrefab;
+        //public static GameObject paladinDisplayPrefab;
 
         private static PhysicMaterial ragdollMaterial;
 
         public static void CreatePrefabs()
         {
-            CreateScout();
+            CreatePaladin();
 
             BodyCatalog.getAdditionalEntries += delegate (List<GameObject> list)
             {
@@ -22,35 +22,52 @@ namespace ROR2_Scout.Modules
             };
         }
 
-        private static void CreateScout()
+        private static void CreatePaladin()
         {
             scoutPrefab = CreatePrefab("RobPaladinBody", "mdlPaladin", new BodyInfo
             {
                 armor = 0f,
-                armorGrowth = StaticValues.armorPerLevel,
-                bodyName = "DCScoutBody",
-                bodyNameToken = "DCSCOUT_NAME",
+                armorGrowth = 0f,
+                bodyName = "ScoutBody",
+                bodyNameToken = "SCOUT_NAME",
                 characterPortrait = Assets.charPortrait,
                 crosshair = Resources.Load<GameObject>("Prefabs/Crosshair/SimpleDotCrosshair"),
-                damage = StaticValues.baseDamage,
-                healthGrowth = 15,
-                healthRegen = 0.5f,
+                damage = 15f,
+                damageGrowth = 2.4f,
+                healthGrowth = 64,
+                healthRegen = 1.5f,
                 jumpCount = 2,
-                maxHealth = 90f,
-                subtitleNameToken = "DCSCOUT_SUBTITLE"
+                maxHealth = 160f,
+                subtitleNameToken = "SCOUT_SUBTITLE"
             });
 
-            SetupCharacterModel(scoutPrefab, new CustomRendererInfo[], 1);
+            /*SetupCharacterModel(paladinPrefab, new CustomRendererInfo[]
+            {
+                new CustomRendererInfo
+                {
+                    childName = "SwordModel",
+                    material = Modules.Skins.CreateMaterial("matPaladin", StaticValues.maxSwordGlow, Color.white)
+                },
+                new CustomRendererInfo
+                {
+                    childName = "Model",
+                    material = Modules.Skins.CreateMaterial("matPaladin", 10, Color.white)
+                }
+            }, 1);*/
 
-            scoutPrefab.AddComponent<Misc.PaladinSwordController>();
+            //paladinDisplayPrefab = CreateDisplayPrefab("PaladinDisplay", paladinPrefab);
 
-            scoutDisplayPrefab = CreateDisplayPrefab("PaladinDisplay", scoutPrefab);
-            scoutDisplayPrefab.AddComponent<Misc.MenuSound>();
+            // create hitboxes
+
+            //GameObject model = scoutPrefab.GetComponent<ModelLocator>().modelTransform.gameObject;
+            //ChildLocator childLocator = model.GetComponent<ChildLocator>();
+
+            //Modules.Helpers.CreateHitbox(model, childLocator.FindChild("SwordHitbox"), "Sword");
+            //Modules.Helpers.CreateHitbox(model, childLocator.FindChild("LeapHitbox"), "LeapStrike");
+            //Modules.Helpers.CreateHitbox(model, childLocator.FindChild("SpinSlashHitbox"), "SpinSlash");
+            //Modules.Helpers.CreateHitbox(model, childLocator.FindChild("SpinSlashLargeHitbox"), "SpinSlashLarge");
         }
 
-
-
-        // copied cocks below //
 
         public static GameObject CreateDisplayPrefab(string modelName, GameObject prefab)
         {
@@ -131,7 +148,7 @@ namespace ROR2_Scout.Modules
             bodyComponent.levelJumpPower = bodyInfo.jumpPowerGrowth;
 
             bodyComponent.baseDamage = bodyInfo.damage;
-            bodyComponent.levelDamage = bodyComponent.baseDamage * 0.2f;
+            bodyComponent.levelDamage = bodyInfo.damageGrowth;
 
             bodyComponent.baseAttackSpeed = bodyInfo.attackSpeed;
             bodyComponent.levelAttackSpeed = bodyInfo.attackSpeedGrowth;
@@ -164,8 +181,15 @@ namespace ROR2_Scout.Modules
             SetupFootstepController(model);
             SetupRagdoll(model);
             SetupAimAnimator(newPrefab, model);
+            SetupInteractor(newPrefab, bodyInfo);
 
             return newPrefab;
+        }
+
+        private static void SetupInteractor(GameObject prefab, BodyInfo bodyInfo)
+        {
+            var interactor = prefab.GetComponent<Interactor>();
+            interactor.maxInteractionDistance = bodyInfo.maxInteractionDistance;
         }
 
         private static Transform SetupModel(GameObject prefab, Transform modelTransform)
@@ -198,9 +222,9 @@ namespace ROR2_Scout.Modules
 
         private static GameObject CreateModel(GameObject main, string modelName)
         {
-            ScoutPlugin.Destroy(main.transform.Find("ModelBase").gameObject);
-            ScoutPlugin.Destroy(main.transform.Find("CameraPivot").gameObject);
-            ScoutPlugin.Destroy(main.transform.Find("AimOrigin").gameObject);
+            ScoutPlugin.DestroyImmediate(main.transform.Find("ModelBase").gameObject);
+            ScoutPlugin.DestroyImmediate(main.transform.Find("CameraPivot").gameObject);
+            ScoutPlugin.DestroyImmediate(main.transform.Find("AimOrigin").gameObject);
 
             return Modules.Assets.mainAssetBundle.LoadAsset<GameObject>(modelName);
         }

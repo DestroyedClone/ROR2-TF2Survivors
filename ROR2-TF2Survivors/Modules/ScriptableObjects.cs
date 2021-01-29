@@ -29,6 +29,7 @@ public class BodyInfo
     public float jumpPowerGrowth = 0f;// jump power per level exists for some reason
 
     public float damage = 12f;
+    public float damageGrowth = 2.4f;
 
     public float attackSpeed = 1f;
     public float attackSpeedGrowth = 0f;
@@ -40,6 +41,8 @@ public class BodyInfo
     public float critGrowth = 0f;
 
     public int jumpCount = 1;
+
+    public float maxInteractionDistance = 3f;
 }
 
 // for simplifying rendererinfo creation

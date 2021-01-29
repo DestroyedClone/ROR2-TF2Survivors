@@ -4,7 +4,8 @@ using System.Text;
 
 namespace ROR2_Scout.Modules
 {
-    class Config //todo
+    public class Config //todo
     {
+
     }
 }
