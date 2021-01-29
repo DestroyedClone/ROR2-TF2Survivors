@@ -9,6 +9,8 @@ using RoR2.Skills;
 using UnityEngine;
 using System.Runtime.CompilerServices;
 using UnityEngine.Networking;
+using RoR2.Projectile;
+using static UnityEngine.Animator;
 
 namespace ROR2_SaxtonHale
 {
@@ -100,6 +102,16 @@ namespace ROR2_SaxtonHale
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
             On.RoR2.HealthComponent.TakeDamageForce_DamageInfo_bool_bool += HealthComponent_TakeDamageForce_DamageInfo_bool_bool;
             On.RoR2.HealthComponent.TakeDamageForce_Vector3_bool_bool += HealthComponent_TakeDamageForce_Vector3_bool_bool;
+            On.RoR2.CharacterBody.RemoveBuff += CharacterBody_RemoveBuff;
+        }
+
+        private void CharacterBody_RemoveBuff(On.RoR2.CharacterBody.orig_RemoveBuff orig, CharacterBody self, BuffIndex buffType)
+        {
+            orig(self, buffType);
+            if (buffType == Modules.Buffs.scaredBuildingDebuff)
+            {
+                Modules.Helpers.GetModelAnimator(self).enabled = true;
+            }
         }
 
         private void HealthComponent_TakeDamageForce_Vector3_bool_bool(On.RoR2.HealthComponent.orig_TakeDamageForce_Vector3_bool_bool orig, HealthComponent self, Vector3 force, bool alwaysApply, bool disableAirControlUntilCollision)
@@ -145,6 +157,11 @@ namespace ROR2_SaxtonHale
                 if(self.HasBuff(Modules.Buffs.scaredDebuff))
                 {
                     self.attackSpeed = 0f;
+                }
+                if (self.HasBuff(Modules.Buffs.scaredBuildingDebuff))
+                {
+                    self.attackSpeed = 0f;
+                    self.moveSpeed = 0f;
                 }
             }
         }

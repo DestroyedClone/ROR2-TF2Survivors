@@ -35,5 +35,14 @@ namespace ROR2_SaxtonHale.Modules
             var dist = Vector3.Distance(characterBody.corePosition, characterBody.footPosition);
             return characterBody.corePosition + Vector3.up * dist;
         }
+
+        public static Animator GetModelAnimator(CharacterBody characterBody)
+        {
+            if (characterBody.modelLocator && characterBody.modelLocator.modelTransform)
+            {
+                return characterBody.modelLocator.modelTransform.GetComponent<Animator>();
+            }
+            return null;
+        }
     }
 }

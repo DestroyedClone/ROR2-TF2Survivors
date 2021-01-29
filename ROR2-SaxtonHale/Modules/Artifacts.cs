@@ -12,7 +12,7 @@ namespace ROR2_SaxtonHale.Modules
         public static ArtifactDef GoombaArtifactDef = ScriptableObject.CreateInstance<ArtifactDef>();
         private static readonly float maxDistance = 2f;
         private static readonly float minFallSpeed = 10f;
-        private static readonly float bounceForce = 1000f;
+        private static readonly float bounceForce = 2000f;
         public static GameObject goombaGameObject = new GameObject();
         private static readonly DamageInfo goombaDamageInfo = new DamageInfo()
         {
@@ -24,34 +24,23 @@ namespace ROR2_SaxtonHale.Modules
 
         public static void RegisterArtifacts()
         {
-            Debug.Log("1");
             GoombaArtifactDef.nameToken = "Artifact of Headstomping";
-            Debug.Log("2");
             GoombaArtifactDef.descriptionToken = "Deal substantial damage upon landing on an enemy's head.";
-            Debug.Log("3");
             GoombaArtifactDef.smallIconDeselectedSprite = LoadoutAPI.CreateSkinIcon(Color.white, Color.white, Color.white, Color.white);
-            Debug.Log("4");
             GoombaArtifactDef.smallIconSelectedSprite = LoadoutAPI.CreateSkinIcon(Color.gray, Color.white, Color.white, Color.white);
-            Debug.Log("5");
 
             goombaGameObject.name = "GoombaStomp";
-            Debug.Log("6");
 
             LanguageAPI.Add("PLAYER_DEATH_QUOTE_GOOMBADEATH", goombaDeathToken);
-            Debug.Log("7");
             LanguageAPI.Add("PLAYER_DEATH_QUOTE_GOOMBADEATH_2P", goombaDeathMultiplayerToken);
-            Debug.Log("8");
 
             ArtifactCatalog.getAdditionalEntries += (list) =>
             {
                 list.Add(GoombaArtifactDef);
             };
-            Debug.Log("9");
 
             On.RoR2.CharacterMotor.OnHitGround += CharacterMotor_OnHitGround;
-            Debug.Log("10");
             On.RoR2.GlobalEventManager.OnPlayerCharacterDeath += GlobalEventManager_OnPlayerCharacterDeath; //full override until i can get IL
-            Debug.Log("11");
         }
 
         private static void GlobalEventManager_OnPlayerCharacterDeath(On.RoR2.GlobalEventManager.orig_OnPlayerCharacterDeath orig, GlobalEventManager self, DamageReport damageReport, NetworkUser victimNetworkUser)
@@ -102,28 +91,24 @@ namespace ROR2_SaxtonHale.Modules
             {
                 if (self.body)
                 {
+                    Chat.AddMessage("Speed: " + Math.Abs(hitGroundInfo.velocity.y) + "/"+ minFallSpeed);
                     if (Math.Abs(hitGroundInfo.velocity.y) >= minFallSpeed)
                     {
-                        var hitPosition = hitGroundInfo.position;
                         var bodySearch = new BullseyeSearch() //let's just get the nearest player
                         {
                             viewer = self.body,
                             sortMode = BullseyeSearch.SortMode.Distance,
-                            teamMaskFilter = TeamMask.allButNeutral,
+                            teamMaskFilter = TeamMask.GetEnemyTeams(self.body.teamComponent.teamIndex)
                         };
-                        if (!RunArtifactManager.instance.IsArtifactEnabled(RoR2Content.Artifacts.friendlyFireArtifactDef)) //if no friendly fire, filter out their team
-                        {
-                            bodySearch.teamMaskFilter.RemoveTeam(self.body.teamComponent ? self.body.teamComponent.teamIndex : TeamIndex.None);
-                        }
-                        bodySearch.FilterOutGameObject(self.body.gameObject);
+                        Debug.Log(bodySearch.GetResults());
 
-                        var nearestBody = bodySearch.GetResults().ToList();
+                        var nearestBody = bodySearch.GetResults().ToArray();
 
                         // We very likely landed on an enemy.
-                        if (nearestBody.Count > 0)
+                        if (nearestBody.Length > 0)
                         {
                             var firstBody = nearestBody.FirstOrDefault();
-                            var distance = Vector3.Distance(hitPosition, Helpers.GetHeadPosition(firstBody.healthComponent.body));
+                            var distance = Vector3.Distance(hitGroundInfo.position, Helpers.GetHeadPosition(firstBody.healthComponent.body));
                             if (distance <= maxDistance)
                             {
                                 goombaDamageInfo.attacker = self.body.gameObject;

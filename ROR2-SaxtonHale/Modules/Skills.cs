@@ -56,7 +56,7 @@ namespace ROR2_SaxtonHale.Modules
             mySkillDef.requiredStock = 1;
             mySkillDef.shootDelay = 0.5f;
             mySkillDef.stockToConsume = 1;
-            //mySkillDef.icon = Assets.icon1;
+            mySkillDef.icon = Resources.Load<Sprite>("textures/bodyicons/GolemBody");
             mySkillDef.skillDescriptionToken = "SAXTONHALE_PRIMARY_FISTS_DESCRIPTION";
             mySkillDef.skillName = "SAXTONHALE_PRIMARY_FISTS_NAME";
             mySkillDef.skillNameToken = "SAXTONHALE_PRIMARY_FISTS_NAME";
@@ -81,7 +81,7 @@ namespace ROR2_SaxtonHale.Modules
         private static void SecondarySetup(GameObject bodyPrefab)
         {
             SkillDef mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
-            mySkillDef.activationState = new SerializableEntityStateType(typeof(ROR2_SaxtonHale.States.ChargeSuperjump));
+            mySkillDef.activationState = new SerializableEntityStateType(typeof(EntityStates.Loader.ChargeFist));
             mySkillDef.activationStateMachineName = "Weapon";
             mySkillDef.baseMaxStock = 1;
             mySkillDef.baseRechargeInterval = 10f;
@@ -97,7 +97,7 @@ namespace ROR2_SaxtonHale.Modules
             mySkillDef.requiredStock = 1;
             mySkillDef.shootDelay = 0.5f;
             mySkillDef.stockToConsume = 1;
-            //mySkillDef.icon = Assets.icon1;
+            mySkillDef.icon = Resources.Load<Sprite>("textures/bodyicons/texMercIcon");
             mySkillDef.skillDescriptionToken = "SAXTONHALE_SECONDARY_SUPERJUMP_DESCRIPTION";
             mySkillDef.skillName = "SAXTONHALE_SECONDARY_SUPERJUMP_NAME";
             mySkillDef.skillNameToken = "SAXTONHALE_SECONDARY_SUPERJUMP_NAME";
@@ -138,7 +138,7 @@ namespace ROR2_SaxtonHale.Modules
             mySkillDef.requiredStock = 1;
             mySkillDef.shootDelay = 0.5f;
             mySkillDef.stockToConsume = 1;
-            //mySkillDef.icon = Assets.icon1;
+            mySkillDef.icon = Resources.Load<Sprite>("textures/bufficons/texBuffSlow50Icon");
             mySkillDef.skillDescriptionToken = "SAXTONHALE_UTILITY_WEIGHDOWN_DESCRIPTION";
             mySkillDef.skillName = "SAXTONHALE_UTILITY_WEIGHDOWN_NAME";
             mySkillDef.skillNameToken = "SAXTONHALE_UTILITY_WEIGHDOWN_NAME";
@@ -165,8 +165,8 @@ namespace ROR2_SaxtonHale.Modules
             SkillDef mySkillDef = ScriptableObject.CreateInstance<SkillDef>();
             mySkillDef.activationState = new SerializableEntityStateType(typeof(ROR2_SaxtonHale.States.Rage));
             mySkillDef.activationStateMachineName = "Weapon";
-            mySkillDef.baseMaxStock = 0;
-            mySkillDef.baseRechargeInterval = 300f;
+            mySkillDef.baseMaxStock = 1;
+            mySkillDef.baseRechargeInterval = 45f;
             mySkillDef.beginSkillCooldownOnSkillEnd = true;
             mySkillDef.canceledFromSprinting = false;
             mySkillDef.fullRestockOnAssign = true;
@@ -179,7 +179,7 @@ namespace ROR2_SaxtonHale.Modules
             mySkillDef.requiredStock = 1;
             mySkillDef.shootDelay = 0.5f;
             mySkillDef.stockToConsume = 1;
-            //mySkillDef.icon = Assets.icon1;
+            mySkillDef.icon = Resources.Load<Sprite>("textures/itemicons/texMaskIcon");
             mySkillDef.skillDescriptionToken = "SAXTONHALE_SPECIAL_CLASSIC_DESCRIPTION";
             mySkillDef.skillName = "SAXTONHALE_SPECIAL_CLASSIC_NAME";
             mySkillDef.skillNameToken = "SAXTONHALE_SPECIAL_CLASSIC_NAME";

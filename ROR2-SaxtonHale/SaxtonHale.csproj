@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SharedLibrary\SharedLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>..\SharedLibrary\lib\0Harmony.dll</HintPath>
     </Reference>
@@ -91,6 +95,9 @@
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\SharedLibrary\lib\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>..\SharedLibrary\lib\UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
       <HintPath>..\SharedLibrary\lib\UnityEngine.AssetBundleModule.dll</HintPath>

@@ -10,7 +10,7 @@ namespace ROR2_SaxtonHale.States
 {
     public class Weighdown : BaseSkillState //uppercut
     {
-        private readonly float downwardForceScale = 1f;
+        private readonly float downwardForceScale = 65f;
 		private bool hasSwung = false;
 
 		public override void OnEnter()
@@ -37,7 +37,7 @@ namespace ROR2_SaxtonHale.States
 					if (base.characterMotor && base.characterDirection)
 					{
 						base.characterMotor.velocity.y = 0;
-						base.characterMotor.velocity.y -= downwardForceScale;
+						base.characterMotor.velocity.y = -downwardForceScale;
 					}
 				}
 				if (base.isGrounded)

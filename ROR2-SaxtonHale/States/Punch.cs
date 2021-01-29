@@ -19,11 +19,6 @@ namespace ROR2_SaxtonHale.States
 			base.damageCoefficient = 2f;
         }
 
-        public override void AuthorityModifyOverlapAttack(OverlapAttack overlapAttack)
-		{
-			base.AuthorityModifyOverlapAttack(overlapAttack);
-		}
-
 		void SteppedSkillDef.IStepSetter.SetStep(int i)
 		{
 			this.gauntlet = i;

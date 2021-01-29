@@ -16,6 +16,7 @@ namespace ROR2_SaxtonHale.States
 			Modules.Buffs.scaredDebuff,
 			BuffIndex.Slow80
 		};
+		private readonly BuffIndex buildingDebuff = Modules.Buffs.scaredBuildingDebuff;
 
 
 		// Token: 0x0600401F RID: 16415 RVA: 0x0010D9D0 File Offset: 0x0010BBD0
@@ -55,9 +56,18 @@ namespace ROR2_SaxtonHale.States
 				CharacterBody body = teamComponent.body;
 				if (body)
 				{
-					foreach (BuffIndex buffIndex in buffIndices)
+					if (body.bodyFlags.HasFlag(CharacterBody.BodyFlags.Mechanical))
+                    {
+						body.AddTimedBuff(buildingDebuff, buffDuration);
+						var modelAnimator = Modules.Helpers.GetModelAnimator(body);
+						modelAnimator.bodyRotation = Util.QuaternionSafeLookRotation(Vector3.zero, Vector3.down);
+						modelAnimator.enabled = false;
+                    } else
 					{
-						body.AddTimedBuff(buffIndex, buffDuration);
+						foreach (BuffIndex buffIndex in buffIndices)
+						{
+							body.AddTimedBuff(buffIndex, buffDuration);
+						}
 					}
 				}
 			}
