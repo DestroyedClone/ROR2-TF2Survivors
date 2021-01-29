@@ -126,7 +126,7 @@ namespace ROR2_SaxtonHale.Modules
         private static void UtilitySetup(GameObject bodyPrefab)
         {
             crouchSkillDef = ScriptableObject.CreateInstance<SkillDef>();
-            crouchSkillDef.activationState = new SerializableEntityStateType(typeof(ROR2_SaxtonHale.States.Weighdown));
+            crouchSkillDef.activationState = new SerializableEntityStateType(typeof(ROR2_SaxtonHale.States.Crouch));
             crouchSkillDef.activationStateMachineName = "Weapon";
             crouchSkillDef.baseMaxStock = 1;
             crouchSkillDef.baseRechargeInterval = 0f;
@@ -145,7 +145,7 @@ namespace ROR2_SaxtonHale.Modules
             crouchSkillDef.icon = Resources.Load<Sprite>("textures/bufficons/texBuffSlow80Icon");
             crouchSkillDef.skillDescriptionToken = "SAXTONHALE_UTILITY_CROUCH_DESCRIPTION";
             crouchSkillDef.skillName = "SAXTONHALE_UTILITY_CROUCH_NAME";
-            crouchSkillDef.skillNameToken = "SAXTONHALE_UTILITY_CROUCH_DESCRIPTION";
+            crouchSkillDef.skillNameToken = "SAXTONHALE_UTILITY_CROUCH_NAME";
 
             weighdownSkillDef = ScriptableObject.CreateInstance<SkillDef>();
             weighdownSkillDef.activationState = new SerializableEntityStateType(typeof(ROR2_SaxtonHale.States.Weighdown));

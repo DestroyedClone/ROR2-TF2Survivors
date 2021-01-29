@@ -6,12 +6,16 @@ namespace ROR2_SaxtonHale.Misc
 {
     public class HaleController : MonoBehaviour
     {
-        SkillLocator skillLocator;
-        float airborneStopwatch = 0f;
+        public SkillLocator skillLocator;
+        public float airborneStopwatch = 0f;
         readonly float minTimeForWeighdown = 6f;
 
         public void Start()
         {
+            if (!skillLocator)
+            {
+                skillLocator = gameObject.GetComponent<CharacterBody>()?.skillLocator;
+            }
             if (!skillLocator) Destroy(this);
         }
 

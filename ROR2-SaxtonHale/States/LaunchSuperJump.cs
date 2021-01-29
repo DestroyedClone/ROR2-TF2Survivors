@@ -75,39 +75,11 @@ namespace ROR2_SaxtonHale.States
 			}
 		}
 
-
-		public override void AuthorityModifyOverlapAttack(OverlapAttack overlapAttack)
-		{
-			base.AuthorityModifyOverlapAttack(overlapAttack);
-			overlapAttack.forceVector = base.characterMotor.velocity + base.GetAimRay().direction * Mathf.Lerp(this.minPunchForce, this.maxPunchForce, this.charge);
-			if (base.fixedAge + Time.fixedDeltaTime >= this.duration)
-			{
-				HitBoxGroup hitBoxGroup = base.FindHitBoxGroup("PunchLollypop");
-				if (hitBoxGroup)
-				{
-					this.hitBoxGroup = hitBoxGroup;
-					overlapAttack.hitBoxGroup = hitBoxGroup;
-				}
-			}
-		}
-
-		public override void OnMeleeHitAuthority()
-		{
-			base.OnMeleeHitAuthority();
-			Action<LaunchSuperJump> action = LaunchSuperJump.onHitAuthorityGlobal;
-			if (action == null)
-			{
-				return;
-			}
-			action(this);
-		}
-
-		public static event Action<LaunchSuperJump> onHitAuthorityGlobal;
-
 		public override void OnExit()
 		{
 			base.OnExit();
 			base.characterMotor.velocity *= LaunchSuperJump.speedCoefficientOnExit;
+			this.outer.SetNextStateToMain();
 		}
 
 		public static Vector3 CalculateLungeVelocity(Vector3 currentVelocity, Vector3 aimDirection, float charge, float minLungeSpeed, float maxLungeSpeed)

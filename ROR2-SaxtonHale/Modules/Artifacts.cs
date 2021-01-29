@@ -3,6 +3,7 @@ using RoR2;
 using R2API;
 using UnityEngine;
 using System.Linq;
+using System.Collections;
 
 
 namespace ROR2_SaxtonHale.Modules
@@ -54,7 +55,6 @@ namespace ROR2_SaxtonHale.Modules
 
             if (damageReport.damageInfo.inflictor == goombaGameObject && damageReport.damageInfo.inflictor.name == goombaGameObject.name && RunArtifactManager.instance.IsArtifactEnabled(GoombaArtifactDef.artifactIndex))
             {
-                Debug.Log("Inflictor: "+ damageReport.damageInfo.inflictor+ " "+ damageReport.damageInfo.inflictor.name);
                 text = "PLAYER_DEATH_QUOTE_GOOMBADEATH";
             }
             else if ((damageReport.damageInfo.damageType & DamageType.VoidDeath) != DamageType.Generic)
@@ -92,21 +92,21 @@ namespace ROR2_SaxtonHale.Modules
             {
                 if (self.body)
                 {
-                    Chat.AddMessage("Speed: " + Math.Abs(hitGroundInfo.velocity.y) + "/"+ minFallSpeed);
                     if (Math.Abs(hitGroundInfo.velocity.y) >= minFallSpeed)
                     {
+                        Chat.AddMessage("Speed: " + Math.Abs(hitGroundInfo.velocity.y) + "/" + minFallSpeed);
                         var bodySearch = new BullseyeSearch() //let's just get the nearest player
                         {
                             viewer = self.body,
                             sortMode = BullseyeSearch.SortMode.Distance,
                             teamMaskFilter = TeamMask.GetEnemyTeams(self.body.teamComponent.teamIndex)
                         };
-                        Debug.Log("1");
+                        Debug.Log("aa1");
                         Debug.Log(bodySearch.GetResults().ToArray());
-                        Debug.Log("2");
+                        Debug.Log("aa2");
 
                         var nearestBody = bodySearch.GetResults().ToArray();
-                        Debug.Log("3");
+                        Debug.Log("aa3");
 
                         // We very likely landed on an enemy.
                         if (nearestBody.Length > 0)
