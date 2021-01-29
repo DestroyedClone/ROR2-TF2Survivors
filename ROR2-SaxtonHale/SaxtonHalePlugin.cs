@@ -40,6 +40,7 @@ namespace ROR2_SaxtonHale
         public static event Action start;
 
         public static readonly Color characterColor = new Color(0.443f, 0.219f, 0.098f);
+        public static int ToolbotBodyIndex;
 
         public SaxtonHalePlugin()
         {
@@ -103,6 +104,32 @@ namespace ROR2_SaxtonHale
             On.RoR2.HealthComponent.TakeDamageForce_DamageInfo_bool_bool += HealthComponent_TakeDamageForce_DamageInfo_bool_bool;
             On.RoR2.HealthComponent.TakeDamageForce_Vector3_bool_bool += HealthComponent_TakeDamageForce_Vector3_bool_bool;
             On.RoR2.CharacterBody.RemoveBuff += CharacterBody_RemoveBuff;
+            On.RoR2.CharacterBody.AddBuff += CharacterBody_AddBuff;
+        }
+
+        private void CharacterBody_AddBuff(On.RoR2.CharacterBody.orig_AddBuff orig, CharacterBody self, BuffIndex buffType)
+        {
+            orig(self, buffType);
+            if (buffType == Modules.Buffs.scaredDebuff)
+            {
+                if (self.skillLocator)
+                {
+                    if (self.skillLocator.primary) self.skillLocator.primary.SetSkillOverride(self, Modules.Skills.NoAttackSkillDef, GenericSkill.SkillOverridePriority.Replacement);
+                    if (self.skillLocator.secondary) self.skillLocator.secondary.SetSkillOverride(self, Modules.Skills.NoAttackSkillDef, GenericSkill.SkillOverridePriority.Replacement);
+                    if (self.skillLocator.utility) self.skillLocator.utility.SetSkillOverride(self, Modules.Skills.NoAttackSkillDef, GenericSkill.SkillOverridePriority.Replacement);
+                    if (self.skillLocator.special) self.skillLocator.special.SetSkillOverride(self, Modules.Skills.NoAttackSkillDef, GenericSkill.SkillOverridePriority.Replacement);
+                }
+                if (self.inventory && self.inventory.activeEquipmentSlot <= 190)
+                {
+                    byte newSlot = (byte)(self.inventory.activeEquipmentSlot + 200);
+                    self.inventory.SetActiveEquipmentSlot(newSlot);
+                }
+                var interactor = self.gameObject.GetComponent<Interactor>();
+                if (interactor)
+                {
+                    interactor.maxInteractionDistance = -Math.Abs(interactor.maxInteractionDistance);
+                }
+            }
         }
 
         private void CharacterBody_RemoveBuff(On.RoR2.CharacterBody.orig_RemoveBuff orig, CharacterBody self, BuffIndex buffType)
@@ -111,6 +138,24 @@ namespace ROR2_SaxtonHale
             if (buffType == Modules.Buffs.scaredBuildingDebuff)
             {
                 Modules.Helpers.GetModelAnimator(self).enabled = true;
+            }
+            else if (buffType == Modules.Buffs.scaredDebuff)
+            {
+                if (self.skillLocator.primary) self.skillLocator.primary.UnsetSkillOverride(self, Modules.Skills.NoAttackSkillDef, GenericSkill.SkillOverridePriority.Replacement);
+                if (self.skillLocator.secondary) self.skillLocator.secondary.UnsetSkillOverride(self, Modules.Skills.NoAttackSkillDef, GenericSkill.SkillOverridePriority.Replacement);
+                if (self.skillLocator.utility) self.skillLocator.utility.UnsetSkillOverride(self, Modules.Skills.NoAttackSkillDef, GenericSkill.SkillOverridePriority.Replacement);
+                if (self.skillLocator.special) self.skillLocator.special.UnsetSkillOverride(self, Modules.Skills.NoAttackSkillDef, GenericSkill.SkillOverridePriority.Replacement);
+
+                if (self.inventory && self.inventory.activeEquipmentSlot > 190)
+                {
+                    byte newSlot = (byte)(self.inventory.activeEquipmentSlot - 200);
+                    self.inventory.SetActiveEquipmentSlot(newSlot);
+                }
+                var interactor = self.gameObject.GetComponent<Interactor>();
+                if (interactor)
+                {
+                    interactor.maxInteractionDistance = Math.Abs(interactor.maxInteractionDistance);
+                }
             }
         }
 

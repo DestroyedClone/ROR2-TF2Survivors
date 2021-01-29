@@ -12,6 +12,7 @@ namespace ROR2_SaxtonHale.Modules
     public static class Skills
     {
         private static SkillLocator skillLocator;
+        public static SkillDef NoAttackSkillDef;
 
         public static void SetupSkills(GameObject bodyPrefab)
         {
@@ -27,6 +28,7 @@ namespace ROR2_SaxtonHale.Modules
             SecondarySetup(bodyPrefab);
             UtilitySetup(bodyPrefab);
             SpecialSetup(bodyPrefab);
+            AdditionalSetup();
         }
 
         private static void PassiveSetup()
@@ -199,6 +201,31 @@ namespace ROR2_SaxtonHale.Modules
                 unlockableName = "",
                 viewableNode = new ViewablesCatalog.Node(mySkillDef.skillNameToken, false, null)
             };
+        }
+
+        private static void AdditionalSetup()
+        {
+            NoAttackSkillDef = ScriptableObject.CreateInstance<SkillDef>();
+            NoAttackSkillDef.activationState = new SerializableEntityStateType(typeof(ROR2_SaxtonHale.States.NoAttackState));
+            NoAttackSkillDef.activationStateMachineName = "Weapon";
+            NoAttackSkillDef.baseMaxStock = 0;
+            NoAttackSkillDef.baseRechargeInterval = 0f;
+            NoAttackSkillDef.beginSkillCooldownOnSkillEnd = true;
+            NoAttackSkillDef.canceledFromSprinting = false;
+            NoAttackSkillDef.fullRestockOnAssign = false;
+            NoAttackSkillDef.interruptPriority = InterruptPriority.Frozen;
+            NoAttackSkillDef.isBullets = false;
+            NoAttackSkillDef.isCombatSkill = false;
+            NoAttackSkillDef.mustKeyPress = false;
+            NoAttackSkillDef.noSprint = true;
+            NoAttackSkillDef.rechargeStock = 0;
+            NoAttackSkillDef.requiredStock = 0;
+            NoAttackSkillDef.shootDelay = 0.5f;
+            NoAttackSkillDef.stockToConsume = 0;
+            NoAttackSkillDef.icon = Resources.Load<SkillDef>("skilldefs/captainbody/CaptainSkillUsedUp").icon;
+            NoAttackSkillDef.skillDescriptionToken = "SAXTONHALE_SCARED_DESCRIPTION";
+            NoAttackSkillDef.skillName = "SAXTONHALE_SCARED_NAME";
+            NoAttackSkillDef.skillNameToken = "SAXTONHALE_SCARED_NAME";
         }
     }
 }

@@ -59,6 +59,9 @@ namespace ROR2_SaxtonHale.Modules
             LanguageAPI.Add("SAXTONHALE_SPECIAL_BRAWL_DESCRIPTION", desc);
 
             LanguageAPI.Add("KEYWORD_SCARED", "Prevents movement and attacking for a duration.");
+
+            LanguageAPI.Add("SAXTONHALE_SCARED_NAME", "SCARED!");
+            LanguageAPI.Add("SAXTONHALE_SCARED_DESCRIPTION", "You're too scared to attack!");
         }
     }
 }

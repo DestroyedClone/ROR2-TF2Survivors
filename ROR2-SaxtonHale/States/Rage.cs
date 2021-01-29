@@ -14,7 +14,7 @@ namespace ROR2_SaxtonHale.States
 		private readonly BuffIndex[] debuffList =
 		{
 			Modules.Buffs.scaredDebuff,
-			BuffIndex.Slow80
+			BuffIndex.Slow60
 		};
 		private readonly BuffIndex buildingDebuff = Modules.Buffs.scaredBuildingDebuff;
 
