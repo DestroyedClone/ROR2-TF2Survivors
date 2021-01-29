@@ -45,6 +45,7 @@ namespace ROR2_SaxtonHale.Modules
             }, 1);*/
 
             //haleDisplayPrefab = CreateDisplayPrefab("PaladinDisplay", halePrefab);
+            halePrefab.AddComponent<Misc.HaleController>();
 
             // create hitboxes
             GameObject model = halePrefab.GetComponent<ModelLocator>().modelTransform.gameObject;

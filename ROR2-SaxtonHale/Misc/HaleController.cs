@@ -15,7 +15,7 @@ namespace ROR2_SaxtonHale.Misc
             if (!skillLocator) Destroy(this);
         }
 
-        void FixedUpdate()
+        public void FixedUpdate()
         {
             var body = gameObject.GetComponent<CharacterBody>();
             if (body && body.characterMotor)
