@@ -2,6 +2,7 @@
 using RoR2;
 using UnityEngine;
 using EntityStates;
+using EntityStates.Loader;
 
 namespace ROR2_SaxtonHale.States
 {
@@ -40,7 +41,7 @@ namespace ROR2_SaxtonHale.States
 			var randint = UnityEngine.Random.Range(0, 4);
 			if (randint < 4)
 				Chat.AddMessage("Saxton Hale: "+jumpMessages[randint]);
-			//Util.PlaySound(BaseChargeFist.endChargeLoopSFXString, gameObject);
+			Util.PlaySound(BaseChargeFist.endChargeLoopSFXString, gameObject);
 		}
 
 		public override InterruptPriority GetMinimumInterruptPriority()

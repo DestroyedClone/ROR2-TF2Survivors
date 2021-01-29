@@ -9,11 +9,11 @@ namespace ROR2_SaxtonHale.Modules
 {
     public static class Artifacts
     {
-        public static readonly ArtifactDef GoombaArtifactDef = ScriptableObject.CreateInstance<ArtifactDef>();
+        public static ArtifactDef GoombaArtifactDef = ScriptableObject.CreateInstance<ArtifactDef>();
         private static readonly float maxDistance = 2f;
         private static readonly float minFallSpeed = 10f;
         private static readonly float bounceForce = 1000f;
-        public static GameObject goombaGameObject;
+        public static GameObject goombaGameObject = new GameObject();
         private static readonly DamageInfo goombaDamageInfo = new DamageInfo()
         {
             damage = 500f,
@@ -24,23 +24,34 @@ namespace ROR2_SaxtonHale.Modules
 
         public static void RegisterArtifacts()
         {
+            Debug.Log("1");
             GoombaArtifactDef.nameToken = "Artifact of Headstomping";
+            Debug.Log("2");
             GoombaArtifactDef.descriptionToken = "Deal substantial damage upon landing on an enemy's head.";
+            Debug.Log("3");
             GoombaArtifactDef.smallIconDeselectedSprite = LoadoutAPI.CreateSkinIcon(Color.white, Color.white, Color.white, Color.white);
+            Debug.Log("4");
             GoombaArtifactDef.smallIconSelectedSprite = LoadoutAPI.CreateSkinIcon(Color.gray, Color.white, Color.white, Color.white);
+            Debug.Log("5");
 
             goombaGameObject.name = "GoombaStomp";
+            Debug.Log("6");
 
             LanguageAPI.Add("PLAYER_DEATH_QUOTE_GOOMBADEATH", goombaDeathToken);
+            Debug.Log("7");
             LanguageAPI.Add("PLAYER_DEATH_QUOTE_GOOMBADEATH_2P", goombaDeathMultiplayerToken);
+            Debug.Log("8");
 
             ArtifactCatalog.getAdditionalEntries += (list) =>
             {
                 list.Add(GoombaArtifactDef);
             };
+            Debug.Log("9");
 
             On.RoR2.CharacterMotor.OnHitGround += CharacterMotor_OnHitGround;
+            Debug.Log("10");
             On.RoR2.GlobalEventManager.OnPlayerCharacterDeath += GlobalEventManager_OnPlayerCharacterDeath; //full override until i can get IL
+            Debug.Log("11");
         }
 
         private static void GlobalEventManager_OnPlayerCharacterDeath(On.RoR2.GlobalEventManager.orig_OnPlayerCharacterDeath orig, GlobalEventManager self, DamageReport damageReport, NetworkUser victimNetworkUser)
@@ -106,21 +117,25 @@ namespace ROR2_SaxtonHale.Modules
                         }
                         bodySearch.FilterOutGameObject(self.body.gameObject);
 
-                        var nearestBody = bodySearch.GetResults().ToList()[0];
-                        var distance = Vector3.Distance(hitPosition, Helpers.GetHeadPosition(nearestBody.healthComponent.body));
+                        var nearestBody = bodySearch.GetResults().ToList();
 
                         // We very likely landed on an enemy.
-                        if (distance <= maxDistance)
+                        if (nearestBody.Count > 0)
                         {
-                            goombaDamageInfo.attacker = self.body.gameObject;
-                            nearestBody.healthComponent.TakeDamage(goombaDamageInfo);
-                            if ((self.body.bodyFlags & CharacterBody.BodyFlags.IgnoreFallDamage) == CharacterBody.BodyFlags.None)
+                            var firstBody = nearestBody.FirstOrDefault();
+                            var distance = Vector3.Distance(hitPosition, Helpers.GetHeadPosition(firstBody.healthComponent.body));
+                            if (distance <= maxDistance)
                             {
-                                self.body.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
-                                restoreFallDamage = true;
+                                goombaDamageInfo.attacker = self.body.gameObject;
+                                firstBody.healthComponent.TakeDamage(goombaDamageInfo);
+                                if ((self.body.bodyFlags & CharacterBody.BodyFlags.IgnoreFallDamage) == CharacterBody.BodyFlags.None)
+                                {
+                                    self.body.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
+                                    restoreFallDamage = true;
+                                }
+                                Chat.AddMessage("Goomba!");
+                                hasGoombad = true;
                             }
-                            Chat.AddMessage("Goomba!");
-                            hasGoombad = true;
                         }
                     }
                 }

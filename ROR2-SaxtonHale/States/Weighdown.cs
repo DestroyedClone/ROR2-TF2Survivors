@@ -10,8 +10,8 @@ namespace ROR2_SaxtonHale.States
 {
     public class Weighdown : BaseSkillState //uppercut
     {
-        private float downwardForceScale = 1f;
-		protected bool hasSwung = false;
+        private readonly float downwardForceScale = 1f;
+		private bool hasSwung = false;
 
 		public override void OnEnter()
 		{

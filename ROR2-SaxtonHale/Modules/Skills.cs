@@ -88,7 +88,7 @@ namespace ROR2_SaxtonHale.Modules
             mySkillDef.beginSkillCooldownOnSkillEnd = true;
             mySkillDef.canceledFromSprinting = false;
             mySkillDef.fullRestockOnAssign = true;
-            mySkillDef.interruptPriority = InterruptPriority.PrioritySkill;
+            mySkillDef.interruptPriority = InterruptPriority.Death;
             mySkillDef.isBullets = false;
             mySkillDef.isCombatSkill = false;
             mySkillDef.mustKeyPress = true;
@@ -129,7 +129,7 @@ namespace ROR2_SaxtonHale.Modules
             mySkillDef.beginSkillCooldownOnSkillEnd = true;
             mySkillDef.canceledFromSprinting = false;
             mySkillDef.fullRestockOnAssign = true;
-            mySkillDef.interruptPriority = InterruptPriority.PrioritySkill;
+            mySkillDef.interruptPriority = InterruptPriority.Death;
             mySkillDef.isBullets = false;
             mySkillDef.isCombatSkill = false;
             mySkillDef.mustKeyPress = true;

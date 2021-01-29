@@ -53,7 +53,7 @@ namespace ROR2_SaxtonHale
             //Modules.Assets.PopulateAssets();
             //Modules.Config.ReadConfig();
 
-            //Modules.Artifacts.RegisterArtifacts();
+            Modules.Artifacts.RegisterArtifacts();
             Modules.Prefabs.CreatePrefabs(); // create body and display prefabs
             characterPrefab = Modules.Prefabs.halePrefab; // cache this for other mods to use it
             //Modules.ItemDisplays.RegisterDisplays(); // add item displays(pain)

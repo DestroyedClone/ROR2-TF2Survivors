@@ -7,11 +7,9 @@ using System.Collections.ObjectModel;
 
 namespace ROR2_SaxtonHale.States
 {
-	public class Rage : BaseState //from EntityStates.BeetleGuardMonster.DefenseUp
+	public class Rage : BaseSkillState //from EntityStates.BeetleGuardMonster.DefenseUp
 	{
-		public static float baseDuration = 0.5f;
 		public static float buffDuration = 8f;
-		private float duration = 8f;
 		private bool hasCastBuff;
 		private readonly BuffIndex[] debuffList =
 		{
@@ -24,7 +22,7 @@ namespace ROR2_SaxtonHale.States
 		public override void OnEnter()
 		{
 			base.OnEnter();
-			this.duration = Rage.baseDuration / this.attackSpeedStat;
+			hasCastBuff = false;
 		}
 
 		// Token: 0x06004020 RID: 16416 RVA: 0x0010DA30 File Offset: 0x0010BC30
@@ -42,7 +40,7 @@ namespace ROR2_SaxtonHale.States
 					}
 				}
 			}
-			if (base.fixedAge >= this.duration && base.isAuthority)
+			if (base.isAuthority)
 			{
 				this.outer.SetNextStateToMain();
 				return;
