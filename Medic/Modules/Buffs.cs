@@ -7,11 +7,17 @@ namespace Medic.Modules
     public static class Buffs
     {
 
-        // UBERCHARGE
+        // UBERCHARGE - ALLY
         public static BuffIndex godUberBuff;
         public static BuffIndex critUberBuff;
         public static BuffIndex resUberBuff;
         public static BuffIndex healUberBuff;
+
+        // UBERCHARGE - ENEMY
+        public static BuffIndex godUberEnemyBuff;
+        public static BuffIndex critUberEnemyBuff;
+        public static BuffIndex resUberEnemyBuff;
+        public static BuffIndex healUberEnemyBuff;
 
         public static void RegisterBuffs()
         {
@@ -62,6 +68,54 @@ namespace Medic.Modules
             };
             CustomBuff healUber = new CustomBuff(healUberDef);
             healUberBuff = BuffAPI.Add(healUber);
+
+            BuffDef godUberEnemyDef = new BuffDef
+            {
+                name = "ÜberCharge!\nVulnerable!!",
+                iconPath = "textures/itemicons/texMaskIcon",
+                buffColor = Color.white,
+                canStack = false,
+                isDebuff = true,
+                eliteIndex = EliteIndex.None
+            };
+            CustomBuff godUberEnemy = new CustomBuff(godUberEnemyDef);
+            godUberEnemyBuff = BuffAPI.Add(godUberEnemy);
+
+            BuffDef critUberEnemyDef = new BuffDef
+            {
+                name = "ÜberCharge!\nDamage Weakened!",
+                iconPath = "textures/itemicons/texMaskIcon",
+                buffColor = Color.white,
+                canStack = false,
+                isDebuff = true,
+                eliteIndex = EliteIndex.None
+            };
+            CustomBuff critUberEnemy = new CustomBuff(critUberEnemyDef);
+            critUberEnemyBuff = BuffAPI.Add(critUberEnemy);
+
+            BuffDef resUberEnemyDef = new BuffDef
+            {
+                name = "ÜberCharge!\nProlonged Debuffs!",
+                iconPath = "textures/itemicons/texMaskIcon",
+                buffColor = Color.white,
+                canStack = false,
+                isDebuff = true,
+                eliteIndex = EliteIndex.None
+            };
+            CustomBuff resUberEnemy = new CustomBuff(resUberEnemyDef);
+            resUberEnemyBuff = BuffAPI.Add(resUberEnemy);
+
+            BuffDef healUberEnemyDef = new BuffDef
+            {
+                name = "ÜberCharge!\nHealing Hurts!!",
+                iconPath = "textures/itemicons/texMaskIcon",
+                buffColor = Color.white,
+                canStack = false,
+                isDebuff = true,
+                eliteIndex = EliteIndex.None
+            };
+            CustomBuff healUberEnemy = new CustomBuff(healUberEnemyDef);
+            healUberEnemyBuff = BuffAPI.Add(healUberEnemy);
         }
     }
 }
