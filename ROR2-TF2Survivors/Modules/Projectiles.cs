@@ -16,29 +16,30 @@ namespace ROR2_Scout.Modules
 
         public static void RegisterProjectiles()
         {
-            cleaverProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/EngiGrenadeProjectile"), "Prefabs/Projectiles/CleaverProjectile");
-            milkjarProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/EngiGrenadeProjectile"), "Prefabs/Projectiles/MilkjarProjectile");
-            baseballProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/EngiGrenadeProjectile"), "Prefabs/Projectiles/BaseballProjectile");
-            ornamentProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/EngiGrenadeProjectile"), "Prefabs/Projectiles/OrnamentProjectile");
+            cleaverProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/EngiGrenadeProjectile"), "CleaverProjectile");
+            milkjarProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/projectiles/SporeGrenadeProjectile"), "MilkjarProjectile");
+            baseballProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/EngiGrenadeProjectile"), "BaseballProjectile");
+            ornamentProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/EngiGrenadeProjectile"), "OrnamentProjectile");
 
             milkSplashWard = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/SporeGrenadeProjectileDotZone"), "MilkSplashZone");
 
-            Debug.Log("1");
             cleaverProjectile.GetComponent<ProjectileController>().procCoefficient = 1f;
             cleaverProjectile.GetComponent<ProjectileDamage>().damage = 1f;
             cleaverProjectile.GetComponent<ProjectileDamage>().damageType = DamageType.BleedOnHit;
-            cleaverProjectile.GetComponent<ProjectileImpactExplosion>().destroyOnWorld = true;
-            cleaverProjectile.GetComponent<ProjectileImpactExplosion>().blastRadius = 0.1f;
-            cleaverProjectile.GetComponent<ProjectileImpactExplosion>().timerAfterImpact = false;
+            var projectileImpactExplosion = cleaverProjectile.GetComponent<ProjectileImpactExplosion>();
+            projectileImpactExplosion.destroyOnWorld = true;
+            projectileImpactExplosion.blastRadius = 0f;
+            projectileImpactExplosion.timerAfterImpact = false;
+            projectileImpactExplosion.lifetimeAfterImpact = 0f;
+
+            Object.Destroy(cleaverProjectile.GetComponent<ApplyTorqueOnStart>());
             //cleaverProjectile.GetComponent<ProjectileSimple>().velocity = 10; //doesnt work?
 
-            Debug.Log("2");
-            var projectileImpactExplosion = milkjarProjectile.GetComponent<ProjectileImpactExplosion>();
+            projectileImpactExplosion = milkjarProjectile.GetComponent<ProjectileImpactExplosion>();
             projectileImpactExplosion.fireChildren = true;
             projectileImpactExplosion.childrenProjectilePrefab = milkSplashWard;
             projectileImpactExplosion.childrenCount = 1;
 
-            Debug.Log("3");
             BuffWard buffWard = milkSplashWard.GetComponent<BuffWard>();
             buffWard.animateRadius = false;
             buffWard.buffDuration = 0.5f;
@@ -46,16 +47,17 @@ namespace ROR2_Scout.Modules
             buffWard.expireDuration = 0.6f;
             buffWard.invertTeamFilter = true;
             buffWard.radius = 5f;
-
-            Debug.Log("4");
             var newWard = milkSplashWard.AddComponent<ExtinguishZonePrefabAlt>();
             newWard.animateRadius = false;
             newWard.radius = 5f;
 
-            Debug.Log("5");
             baseballProjectile.AddComponent<BaseballController>();
+            var projectileSimple = baseballProjectile.GetComponent<ProjectileSimple>();
+            projectileSimple.velocity = 90; //50
+            Object.Destroy(baseballProjectile.GetComponent<ProjectileImpactExplosion>());
+            var projectileDamage = baseballProjectile.GetComponent<ProjectileDamage>();
+            projectileDamage.damage = 1f;
 
-            Debug.Log("6");
             ProjectileCatalog.getAdditionalEntries += list =>
             {
                 list.Add(cleaverProjectile);
