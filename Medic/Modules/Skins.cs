@@ -5,13 +5,13 @@ using RoR2;
 using R2API.Utils;
 using System.Collections.Generic;
 
-namespace ROR2_SaxtonHale.Modules
+namespace Medic.Modules
 {
     public static class Skins
     {
         public static void RegisterSkins()
         {
-            GameObject bodyPrefab = Prefabs.halePrefab;
+            GameObject bodyPrefab = Prefabs.medicPrefab;
 
             GameObject model = bodyPrefab.GetComponentInChildren<ModelLocator>().modelTransform.gameObject;
             CharacterModel characterModel = model.GetComponent<CharacterModel>();
@@ -113,14 +113,14 @@ namespace ROR2_SaxtonHale.Modules
 
         public static Material CreateMaterial(string materialName, float emission, Color emissionColor, float normalStrength)
         {
-            if (!SaxtonHalePlugin.commandoMat) SaxtonHalePlugin.commandoMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<CharacterModel>().baseRendererInfos[0].defaultMaterial;
+            if (!MedicPlugin.commandoMat) MedicPlugin.commandoMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<CharacterModel>().baseRendererInfos[0].defaultMaterial;
 
-            Material mat = UnityEngine.Object.Instantiate<Material>(SaxtonHalePlugin.commandoMat);
+            Material mat = UnityEngine.Object.Instantiate<Material>(MedicPlugin.commandoMat);
             //Material tempMat = Assets.mainAssetBundle.LoadAsset<Material>(materialName);
             Material tempMat = null; //TODO REMOVE
             if (!tempMat)
             {
-                return SaxtonHalePlugin.commandoMat;
+                return MedicPlugin.commandoMat;
             }
 
             mat.name = materialName;

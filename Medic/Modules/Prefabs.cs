@@ -3,12 +3,12 @@ using RoR2;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ROR2_SaxtonHale.Modules
+namespace Medic.Modules
 {
     public static class Prefabs
     {
-        public static GameObject halePrefab;
-        public static GameObject haleDisplayPrefab;
+        public static GameObject medicPrefab;
+        public static GameObject medicDisplayPrefab;
 
         private static PhysicMaterial ragdollMaterial;
 
@@ -18,23 +18,23 @@ namespace ROR2_SaxtonHale.Modules
 
             BodyCatalog.getAdditionalEntries += delegate (List<GameObject> list)
             {
-                list.Add(halePrefab);
+                list.Add(medicPrefab);
             };
         }
 
         private static void CreateHale()
         {
-            halePrefab = CreatePrefab("SaxtonHaleBody", "mdlSaxtonHale", new BodyInfo
+            medicPrefab = CreatePrefab("MediceBody", "mdlMedic", new BodyInfo
             {
-                armor = 15f,
-                armorGrowth = StaticValues.armorPerLevel,
-                bodyName = "SaxtonHaleBody",
-                bodyNameToken = "SAXTONHALE_NAME",
-                //characterPortrait = Assets.charPortrait,
+                armor = 0f,
+                armorGrowth = 0f,
+                bodyName = "MedicBody",
+                bodyNameToken = "MEDIC_NAME",
+                characterPortrait = Resources.Load<Texture>("textures/itemicons/texMedkitIcon"),
                 crosshair = Resources.Load<GameObject>("Prefabs/Crosshair/SimpleDotCrosshair"),
-                damage = StaticValues.baseDamage,
+                damage = 12,
                 healthGrowth = 64,
-                healthRegen = 1f,
+                healthRegen = 2f,
                 jumpCount = 1,
                 maxHealth = 200f,
                 subtitleNameToken = "SAXTONHALE_SUBTITLE"
@@ -45,11 +45,9 @@ namespace ROR2_SaxtonHale.Modules
             }, 1);*/
 
             //haleDisplayPrefab = CreateDisplayPrefab("PaladinDisplay", halePrefab);
-            var haleController = halePrefab.AddComponent<Misc.HaleController>();
-            haleController.skillLocator = halePrefab.GetComponent<SkillLocator>();
 
             // create hitboxes
-            GameObject model = halePrefab.GetComponent<ModelLocator>().modelTransform.gameObject;
+            GameObject model = medicPrefab.GetComponent<ModelLocator>().modelTransform.gameObject;
             ChildLocator childLocator = model.GetComponent<ChildLocator>();
 
             //Modules.Helpers.CreateHitbox(model, childLocator.FindChild("SwordHitbox"), "Sword");
@@ -60,7 +58,7 @@ namespace ROR2_SaxtonHale.Modules
 
         public static GameObject CreateDisplayPrefab(string modelName, GameObject prefab)
         {
-            GameObject newPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody"), modelName + "Prefab");
+            GameObject newPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/CaptainBody"), modelName + "Prefab");
 
             GameObject model = CreateModel(newPrefab, modelName);
             //Transform modelBaseTransform = SetupModel(newPrefab, model.transform);
@@ -206,9 +204,9 @@ namespace ROR2_SaxtonHale.Modules
 
         private static GameObject CreateModel(GameObject main, string modelName)
         {
-            SaxtonHalePlugin.Destroy(main.transform.Find("ModelBase").gameObject);
-            SaxtonHalePlugin.Destroy(main.transform.Find("CameraPivot").gameObject);
-            SaxtonHalePlugin.Destroy(main.transform.Find("AimOrigin").gameObject);
+            MedicPlugin.Destroy(main.transform.Find("ModelBase").gameObject);
+            MedicPlugin.Destroy(main.transform.Find("CameraPivot").gameObject);
+            MedicPlugin.Destroy(main.transform.Find("AimOrigin").gameObject);
 
             //return Modules.Assets.mainAssetBundle.LoadAsset<GameObject>(modelName);
             return null;

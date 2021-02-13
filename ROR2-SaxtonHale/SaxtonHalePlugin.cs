@@ -168,7 +168,9 @@ namespace ROR2_SaxtonHale
             }
             if (HasBuff(self, Modules.Buffs.weighdownBuff))
             {
-                return;
+                force = Vector3.zero;
+                alwaysApply = false;
+                disableAirControlUntilCollision = false;
             }
             orig(self, force, alwaysApply, disableAirControlUntilCollision);
         }
@@ -182,7 +184,9 @@ namespace ROR2_SaxtonHale
             }
             if (HasBuff(self, Modules.Buffs.weighdownBuff))
             {
-                return;
+                damageInfo.force = Vector3.zero;
+                alwaysApply = false;
+                disableAirControlUntilCollision = false;
             }
             orig(self, damageInfo, alwaysApply, disableAirControlUntilCollision);
         }

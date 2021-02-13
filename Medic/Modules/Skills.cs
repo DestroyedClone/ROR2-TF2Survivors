@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace ROR2_SaxtonHale.Modules
+namespace Medic.Modules
 {
     public static class Skills
     {
