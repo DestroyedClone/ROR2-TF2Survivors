@@ -14,7 +14,7 @@
   <ItemGroup>
     <Compile Remove="Class1.cs" />
     <Compile Remove="SaxtonHale.cs" />
-    <Compile Remove="States\ChargeSuperJump.cs" />
+    <Compile Remove="States\Superjump.cs" />
   </ItemGroup>
 
   <ItemGroup>
