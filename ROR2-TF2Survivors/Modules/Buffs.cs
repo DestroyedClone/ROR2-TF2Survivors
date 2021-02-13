@@ -16,7 +16,8 @@ namespace ROR2_Scout.Modules
         {
             BuffDef milkedDef = new BuffDef
             {
-                name = "Mad Milked",
+                name = "Mad Milked\n" +
+                "Enemies recover 5% of their damage dealt to you!",
                 iconPath = "textures/bufficons/texBuffBleedingIcon",
                 buffColor = Color.white,
                 canStack = false,
@@ -28,7 +29,8 @@ namespace ROR2_Scout.Modules
 
             BuffDef markedDef = new BuffDef
             {
-                name = "Marked For Death",
+                name = "Marked For Death\n" +
+                "Recieve 50% more damage from enemies!",
                 iconPath = "textures/bufficons/texBuffDeathMarkIcon",
                 buffColor = Color.white,
                 canStack = false,
@@ -40,7 +42,8 @@ namespace ROR2_Scout.Modules
 
             BuffDef bonkDef = new BuffDef
             {
-                name = "Bonk! Atomic Punch",
+                name = "Bonk! Atomic Punch" +
+                "\nTake no damage, but become unable to attack!",
                 iconPath = "Textures/BuffIcons/texBuffGenericShield",
                 buffColor = Color.white,
                 canStack = false,

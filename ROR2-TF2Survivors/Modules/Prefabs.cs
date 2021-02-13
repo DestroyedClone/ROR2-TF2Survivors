@@ -24,7 +24,7 @@ namespace ROR2_Scout.Modules
 
         private static void CreatePaladin()
         {
-            scoutPrefab = CreatePrefab("RobPaladinBody", "mdlPaladin", new BodyInfo
+            scoutPrefab = CreatePrefab("ScoutBody", "mdlMercBody", new BodyInfo
             {
                 armor = 0f,
                 armorGrowth = 0f,

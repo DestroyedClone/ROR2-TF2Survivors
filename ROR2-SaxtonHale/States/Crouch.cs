@@ -28,9 +28,11 @@ namespace ROR2_SaxtonHale.States
                 if (ShouldKeepChargingAuthority())
                 {
                     ReduceCapsuleHeight(crouchMuliplier);
+                    Debug.Log(characterMotor.Motor.CapsuleHeight);
                 } else
                 {
                     ReduceCapsuleHeight(1f);
+                    Debug.Log(characterMotor.Motor.CapsuleHeight);
                     this.outer.SetNextStateToMain();
                 }
             }

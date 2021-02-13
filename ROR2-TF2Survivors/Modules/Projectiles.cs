@@ -71,11 +71,6 @@ namespace ROR2_Scout.Modules
             RegProj(ornamentProjectile);
             RegProj(milkSplashWard);
         }
-
-
-
-
-
         private static void RegProj(GameObject g)
         { if (g) PrefabAPI.RegisterNetworkPrefab(g); }
 
