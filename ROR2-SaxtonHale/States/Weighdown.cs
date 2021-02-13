@@ -32,14 +32,15 @@ namespace ROR2_SaxtonHale.States
 				{
 					this.hasSwung = true;
 					this.characterBody.AddBuff(Modules.Buffs.weighdownBuff);
-				}
-				if (this.hasSwung)
-				{
 					if (base.characterMotor && base.characterDirection)
 					{
 						base.characterMotor.velocity.y = 0;
 						base.characterMotor.velocity.y = -downwardForceScale;
 					}
+				}
+				if (this.hasSwung)
+				{
+
 				}
 				if (base.isGrounded)
 				{
