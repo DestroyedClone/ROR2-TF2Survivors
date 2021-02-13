@@ -32,6 +32,9 @@ namespace ROR2_SaxtonHale.States
 
 		protected Vector3 punchVelocity;
 
+		public float stopwatch = 0f;
+		public float NoControlDuration = 1.1f;
+
 		public override void OnEnter()
 		{
 			base.OnEnter();
@@ -43,11 +46,22 @@ namespace ROR2_SaxtonHale.States
 				base.characterMotor.velocity = this.punchVelocity;
 				base.characterDirection.forward = base.characterMotor.velocity.normalized;
 				this.punchSpeed = base.characterMotor.velocity.magnitude;
-				this.characterBody.AddTimedBuff(Modules.Buffs.weighdownBuff, 1f);
+				this.characterBody.AddTimedBuff(Modules.Buffs.weighdownBuff, NoControlDuration);
 			}
 		}
 
-		public float CalcDuration()
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+			stopwatch += Time.fixedDeltaTime;
+			if (stopwatch > NoControlDuration)
+            {
+				OnExit();
+            }
+        }
+
+        public float CalcDuration()
 		{
 			return Mathf.Lerp(this.minDuration, this.maxDuration, this.charge);
 		}
@@ -61,7 +75,7 @@ namespace ROR2_SaxtonHale.States
 
 		public static Vector3 CalculateLungeVelocity(Vector3 currentVelocity, Vector3 aimDirection, float charge, float minLungeSpeed, float maxLungeSpeed)
 		{
-			currentVelocity = ((Vector3.Dot(currentVelocity, aimDirection) < 0f) ? Vector3.zero : Vector3.Project(currentVelocity, aimDirection));
+			currentVelocity = (Vector3.Dot(currentVelocity, aimDirection) < 0f) ? Vector3.zero : Vector3.Project(currentVelocity, aimDirection);
 			return currentVelocity + aimDirection * Mathf.Lerp(minLungeSpeed, maxLungeSpeed, charge);
 		}
 
