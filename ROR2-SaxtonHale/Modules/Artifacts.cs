@@ -53,7 +53,7 @@ namespace ROR2_SaxtonHale.Modules
             CharacterBody victimBody = damageReport.victimBody;
             string text;
 
-            if (damageReport.damageInfo.inflictor && damageReport.damageInfo.inflictor == goombaGameObject && damageReport.damageInfo.inflictor.name == goombaGameObject.name && RunArtifactManager.instance.IsArtifactEnabled(GoombaArtifactDef.artifactIndex))
+            if (damageReport.damageInfo.inflictor && damageReport.damageInfo.inflictor.name == goombaGameObject.name && RunArtifactManager.instance.IsArtifactEnabled(GoombaArtifactDef.artifactIndex))
             {
                 text = "PLAYER_DEATH_QUOTE_GOOMBADEATH";
             }
@@ -102,7 +102,7 @@ namespace ROR2_SaxtonHale.Modules
                             teamMaskFilter = TeamMask.GetEnemyTeams(self.body.teamComponent.teamIndex),
                         };
                         bodySearch.RefreshCandidates();
-                        Debug.Log(bodySearch.GetResults().ToList() );
+                        Debug.Log("Nearest Enemies: "+bodySearch.GetResults().ToList() );
 
                         var nearestBody = bodySearch.GetResults().ToList();
 
