@@ -30,7 +30,7 @@ namespace ROR2_SaxtonHale.Modules
 
             desc = "Hale swings his dangerous fists for <style=cIsDamage>200% damage</style>.";
 
-            LanguageAPI.Add("SAXTONHALE_PRIMARY_FISTS_NAME", "Hale's Own Fists");
+            LanguageAPI.Add("SAXTONHALE_PRIMARY_FISTS_NAME", "<color=#CF6A32>Hale's Own Fists</color>");
             LanguageAPI.Add("SAXTONHALE_PRIMARY_FISTS_DESCRIPTION", desc);
 
             desc = "Hold down to charge your jump, and let go to <style=cIsUtility>launch yourself</style>. You are temporarily immune to knockback at the start.";
@@ -53,7 +53,7 @@ namespace ROR2_SaxtonHale.Modules
             LanguageAPI.Add("SAXTONHALE_UTILITY_LUNGE_NAME", "Brave Lunge");
             LanguageAPI.Add("SAXTONHALE_UTILITY_LUNGE_DESCRIPTION", desc);
 
-            desc = "<style=cIsUtility>Stun</style> all enemies for 8 seconds.";
+            desc = "<style=cIsUtility>Scares</style> all enemies for 8 seconds.";
 
             LanguageAPI.Add("SAXTONHALE_SPECIAL_CLASSIC_NAME", "Classic Rage");
             LanguageAPI.Add("SAXTONHALE_SPECIAL_CLASSIC_DESCRIPTION", desc);
